@@ -1,115 +1,155 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
+import 'dart:developer';
+
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'application/auth/loggedin_provider.dart';
+import 'application/local_storage/storage_handler.dart';
+import 'application/auth/auth_provider.dart';
+import 'application/global.dart';
+import 'route/go_router.dart';
+import 'utils/api_routes.dart';
+import 'theme/theme.dart';
+
+import '../../utils/utils.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final container = ProviderContainer(
+    observers: [ProviderLog()],
+  );
+
+  Logger.init(
+    true, // isEnable ，if production ，please false
+    isShowFile: false, // In the IDE, whether the file name is displayed
+    isShowTime: false, // In the IDE, whether the time is displayed
+    levelVerbose: 247,
+    levelDebug: 15,
+    levelInfo: 10,
+    levelWarn: 5,
+    levelError: 9,
+    phoneVerbose: Colors.white,
+    phoneDebug: ColorPalate.success,
+    phoneInfo: ColorPalate.info,
+    phoneWarn: ColorPalate.warning,
+    phoneError: ColorPalate.error,
+  );
+  final box = container.read(hiveProvider);
+  await box.init();
+
+  container.read(themeProvider);
+
+  final String token = box.get(KStrings.token, defaultValue: '');
+
+  NetworkHandler.instance
+    ..setup(baseUrl: APIRoute.BASE_URL, showLogs: false)
+    ..setToken(token);
+
+  Logger.d('token: $token');
+  runApp(
+    ProviderScope(
+      parent: container,
+      observers: [ProviderLog()],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class MyApp extends HookConsumerWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mode = ref.watch(themeProvider).theme;
+    final router = ref.watch(routerProvider);
+    final loggedState = ref.watch(loggedInProvider);
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+    final user = ref.watch(loggedInProvider.notifier).user();
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    useEffect(() {
+      Future.wait([
+        Future.microtask(
+          () => ref.read(authProvider.notifier).setUser(user),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        Future.microtask(
+            () => ref.read(loggedInProvider.notifier).onAppStart()),
+        Future.microtask(
+            () => ref.read(loggedInProvider.notifier).isLoggedIn()),
+      ]);
+
+      return null;
+    }, []);
+
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, child) {
+        return DismissKeyboard(
+          child: MaterialApp.router(
+            title: KStrings.appName,
+            debugShowCheckedModeBanner: false,
+
+            // themeMode: mode.isEmpty
+            //     ? ThemeMode.system
+            //     : mode == "dark"
+            //         ? ThemeMode.dark
+            //         : ThemeMode.light,
+
+            scaffoldMessengerKey: ref.watch(scaffoldKeyProvider),
+            routerConfig: router,
+            scrollBehavior: const ScrollBehavior()
+                .copyWith(physics: const BouncingScrollPhysics()),
+            builder: BotToastInit(),
+            // localizationsDelegates: AppLocalizations.localizationsDelegates,
+            // supportedLocales: AppLocalizations.supportedLocales,
+            locale: ref.watch(appLocalProvider),
+            theme: FlexThemeData.light(
+              colors: const FlexSchemeColor(
+                primary: ColorPalate.primary,
+                secondary: ColorPalate.secondary,
+                tertiary: ColorPalate.tertiary,
+                error: ColorPalate.error,
+              ),
+              surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
+              scaffoldBackground: ColorPalate.white1,
+              appBarBackground: ColorPalate.white1,
+              surface: ColorPalate.white1,
+              blendLevel: 9,
+              subThemesData: const FlexSubThemesData(useTextTheme: true),
+              useMaterial3: true,
+              useMaterial3ErrorColors: true,
+              // visualDensity: FlexColorScheme.comfortablePlatformDensity,
+              // To use the playground font, add GoogleFonts package and uncomment
+              // fontFamily: GoogleFonts.openSans().fontFamily,
+            ),
+          ),
+        );
+      },
     );
+  }
+}
+
+class ProviderLog extends ProviderObserver {
+  @override
+  void didUpdateProvider(
+    ProviderBase provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
+    Logger.i('''
+{
+  "PROVIDER": "${provider.name}; ${provider.runtimeType.toString()}"
+
+}''');
+    log("$newValue");
   }
 }
