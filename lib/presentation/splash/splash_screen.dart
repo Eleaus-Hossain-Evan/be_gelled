@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:app_version_update/app_version_update.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,29 +36,49 @@ class SplashScreen extends HookConsumerWidget {
     final state = ref.watch(loggedInProvider);
     final isOnboard = useState(false);
     final isLoggedIn = useState(false);
+    final hasUpdate = useState(false);
+
+    Future<void> appVersionCheck() async {
+      await AppVersionUpdate.checkForUpdates().then((data) async {
+        log(data.storeUrl.toString());
+        log(data.storeVersion.toString());
+        if (data.canUpdate!) {
+          hasUpdate.value = data.canUpdate!;
+          //showDialog(... your custom widgets view)
+          //or use our widgets
+          // AppVersionUpdate.showAlertUpdate
+          // AppVersionUpdate.showBottomSheetUpdate
+          // AppVersionUpdate.showPageUpdate
+          AppVersionUpdate.showAlertUpdate(
+            context: context,
+            appVersionResult: data,
+          );
+        }
+      });
+    }
 
     useEffect(() {
-      // Future.microtask(() => dependOnInheritedWidgetOfExactType());
+      Future.microtask(() => appVersionCheck());
       Future.microtask(() {
         final box = Hive.box(KStrings.cacheBox);
         isOnboard.value = box.get(KStrings.onBoard, defaultValue: false);
         final token = box.get(KStrings.token, defaultValue: '') as String;
         Logger.i('SplashScreen:  ${token.isNotEmpty}, $isOnboard');
-        return Future.delayed(const Duration(seconds: 3), () {
-          Router.neglect(context, () {
-            if (isOnboard.value && token.isNotEmpty) {
-              context.go(MainNav.route);
-            } else if (isOnboard.value && token.isNotEmpty == false) {
-              context.go(LoginScreen.route);
-            }
-          });
-        });
+        return hasUpdate.value
+            ? null
+            : Future.delayed(const Duration(seconds: 3), () {
+                Router.neglect(context, () {
+                  if (isOnboard.value && token.isNotEmpty) {
+                    context.go(MainNav.route);
+                  } else if (isOnboard.value && token.isNotEmpty == false) {
+                    context.go(LoginScreen.route);
+                  }
+                });
+              });
       });
       return null;
     }, []);
 
-    var size = MediaQuery.of(context).size;
-    // Logger.v('size: $size');
     return Scaffold(
       body: Center(
         child: Image.asset(

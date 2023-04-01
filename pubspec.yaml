@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  app_version_update: ^3.1.0
   bot_toast: ^4.0.3
   cached_network_image: ^3.2.2
   cupertino_icons: ^1.0.2
@@ -55,11 +56,15 @@ dependencies:
   intl: ^0.17.0
   pinput: ^2.2.21
   timeago: ^3.3.0
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  build_runner:
+  flutter_gen_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -69,6 +74,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:

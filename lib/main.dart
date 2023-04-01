@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'application/auth/loggedin_provider.dart';
 import 'application/local_storage/storage_handler.dart';
@@ -69,10 +69,8 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(themeProvider).theme;
     final router = ref.watch(routerProvider);
-    final loggedState = ref.watch(loggedInProvider);
-
+    final appTheme = ref.watch(themeProvider);
     final user = ref.watch(loggedInProvider.notifier).user();
 
     useEffect(() {
@@ -88,6 +86,8 @@ class MyApp extends HookConsumerWidget {
 
       return null;
     }, []);
+    final size = MediaQuery.of(context).size;
+    Logger.d('size: $size');
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -96,40 +96,28 @@ class MyApp extends HookConsumerWidget {
           child: MaterialApp.router(
             title: KStrings.appName,
             debugShowCheckedModeBanner: false,
-
-            // themeMode: mode.isEmpty
-            //     ? ThemeMode.system
-            //     : mode == "dark"
-            //         ? ThemeMode.dark
-            //         : ThemeMode.light,
-
             scaffoldMessengerKey: ref.watch(scaffoldKeyProvider),
-            routerConfig: router,
             scrollBehavior: const ScrollBehavior()
                 .copyWith(physics: const BouncingScrollPhysics()),
+            //: Router
+            routerConfig: router,
+            //:BotToast
             builder: BotToastInit(),
-            // localizationsDelegates: AppLocalizations.localizationsDelegates,
-            // supportedLocales: AppLocalizations.supportedLocales,
+
+            //:localization
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             locale: ref.watch(appLocalProvider),
-            theme: FlexThemeData.light(
-              colors: const FlexSchemeColor(
-                primary: ColorPalate.primary,
-                secondary: ColorPalate.secondary,
-                tertiary: ColorPalate.tertiary,
-                error: ColorPalate.error,
-              ),
-              surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
-              scaffoldBackground: ColorPalate.white1,
-              appBarBackground: ColorPalate.white1,
-              surface: ColorPalate.white1,
-              blendLevel: 9,
-              subThemesData: const FlexSubThemesData(useTextTheme: true),
-              useMaterial3: true,
-              useMaterial3ErrorColors: true,
-              // visualDensity: FlexColorScheme.comfortablePlatformDensity,
-              // To use the playground font, add GoogleFonts package and uncomment
-              // fontFamily: GoogleFonts.openSans().fontFamily,
-            ),
+
+            //:theme
+            themeMode: appTheme.theme.isEmpty
+                ? ThemeMode.system
+                : appTheme.theme == "dark"
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+
+            theme: MyTheme.lightTheme,
+            darkTheme: MyTheme.darkTheme,
           ),
         );
       },
