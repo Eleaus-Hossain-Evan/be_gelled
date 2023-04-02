@@ -37,7 +37,7 @@ Future<void> main() async {
     levelInfo: 10,
     levelWarn: 5,
     levelError: 9,
-    phoneVerbose: Colors.white,
+    phoneVerbose: Colors.white60,
     phoneDebug: ColorPalate.success,
     phoneInfo: ColorPalate.info,
     phoneWarn: ColorPalate.warning,

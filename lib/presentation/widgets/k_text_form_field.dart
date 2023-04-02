@@ -21,7 +21,7 @@ class KTextFormField extends HookConsumerWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.borderColor = Colors.transparent,
-    this.fillColor = ColorPalate.white2,
+    this.fillColor = ColorPalate.white,
     this.keyboardType = TextInputType.text,
     this.validator,
     this.focusNode,
@@ -73,7 +73,7 @@ class KTextFormField extends HookConsumerWidget {
       style: GoogleFonts.openSans(
         fontWeight: FontWeight.normal,
         fontSize: 14.sp,
-        color: ColorPalate.black2,
+        color: ColorPalate.black,
         letterSpacing: 1.2,
       ),
       obscureText: isObscure ? hideText.value : false,
@@ -103,7 +103,7 @@ class KTextFormField extends HookConsumerWidget {
             GoogleFonts.openSans(
               fontWeight: FontWeight.w400,
               fontSize: 14.sp,
-              color: ColorPalate.borderColor,
+              // color: ColorPalate.borderColor,
             ),
         prefixIcon: prefixIcon,
         // suffix: suffixIcon,
@@ -167,7 +167,7 @@ class KTextFormField2 extends HookConsumerWidget {
     this.contentPadding = const EdgeInsetsDirectional.only(
         start: 16, end: 16, top: 10, bottom: 10),
     this.fillColor = Colors.transparent,
-    this.borderColor = ColorPalate.borderColor,
+    this.borderColor = ColorPalate.harrisonGrey1000,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -193,7 +193,7 @@ class KTextFormField2 extends HookConsumerWidget {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
       borderSide: const BorderSide(
-        color: ColorPalate.borderColor,
+        color: ColorPalate.harrisonGrey1000,
         width: 1,
       ),
     );
@@ -203,15 +203,15 @@ class KTextFormField2 extends HookConsumerWidget {
       focusNode: focusNode,
       readOnly: readOnly,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: CustomTextStyle.textStyle16w400,
+      // style: CustomTextStyle.textStyle16w400,
       textAlign: textAlign,
       keyboardType: keyboardType,
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: isLabel ? null : hintText,
-        hintStyle: CustomTextStyle.textStyle16w400black2,
+        // hintStyle: CustomTextStyle.textStyle16w400black2,
         labelText: isLabel ? hintText : null,
-        labelStyle: CustomTextStyle.textStyle16w400black2,
+        // labelStyle: CustomTextStyle.textStyle16w400black2,
         contentPadding: contentPadding,
         fillColor: fillColor,
         border: border,

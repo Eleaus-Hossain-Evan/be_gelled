@@ -8,7 +8,7 @@ class BottomRoundedContainer extends StatelessWidget {
     Key? key,
     required this.child,
     this.height,
-    this.backgroundColor = ColorPalate.white1,
+    this.backgroundColor = ColorPalate.white,
     this.padding,
   }) : super(key: key);
 

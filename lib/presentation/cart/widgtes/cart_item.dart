@@ -21,7 +21,7 @@ class CartItem extends HookConsumerWidget {
     return Container(
       padding: isCheckout ? padding12 : null,
       decoration: BoxDecoration(
-        color: isCheckout ? ColorPalate.white1 : null,
+        color: isCheckout ? ColorPalate.white : null,
         borderRadius: radius6,
       ),
       child: Row(
@@ -41,7 +41,7 @@ class CartItem extends HookConsumerWidget {
             width: 64.w,
             height: 64.w,
             borderRadius: radius6,
-            borderColor: ColorPalate.grey4,
+            // borderColor: ColorPalate.grey4,
           ),
           gap10,
           Expanded(
@@ -52,14 +52,14 @@ class CartItem extends HookConsumerWidget {
                 Text(
                   model.product.parts.name,
                   textAlign: TextAlign.start,
-                  style: CustomTextStyle.textStyle14w600,
+                  // style: CustomTextStyle.textStyle14w600,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       model.product.vendor.companyName,
-                      style: CustomTextStyle.textStyle12w400Subtitle,
+                      // style: CustomTextStyle.textStyle12w400Subtitle,
                     ),
                     Container(
                       margin: paddingRight6,
@@ -90,12 +90,12 @@ class CartItem extends HookConsumerWidget {
                   children: [
                     Text(
                       "\$${ref.watch(digitLocalizationProvider(model.product.amount))}/SAR",
-                      style: CustomTextStyle.textStyle14w600Secondary,
+                      // style: CustomTextStyle.textStyle14w600Secondary,
                     ),
                     isCheckout
                         ? Text(
                             "Qty: ${ref.watch(digitLocalizationProvider(model.quantity))}",
-                            style: CustomTextStyle.textStyle12w400Black3,
+                            // style: CustomTextStyle.textStyle12w400Black3,
                           )
                         : PlusMinusButtons(
                             addQuantity: () {
@@ -143,7 +143,7 @@ class PlusMinusButtons extends StatelessWidget {
           height: 22.w,
           decoration: BoxDecoration(
             borderRadius: radius4,
-            color: ColorPalate.grey4,
+            // color: ColorPalate.grey4,
           ),
           child: KInkWell(
             onTap: deleteQuantity,
@@ -151,14 +151,17 @@ class PlusMinusButtons extends StatelessWidget {
           ),
         ),
         gap8,
-        Text(text, style: CustomTextStyle.textStyle12w900Black1),
+        Text(
+          text,
+          // style: CustomTextStyle.textStyle12w900Black1,
+        ),
         gap8,
         Container(
           width: 26.w,
           height: 22.w,
           decoration: BoxDecoration(
             borderRadius: radius4,
-            color: ColorPalate.grey4,
+            // color: ColorPalate.grey4,
           ),
           child: KInkWell(
             onTap: addQuantity,

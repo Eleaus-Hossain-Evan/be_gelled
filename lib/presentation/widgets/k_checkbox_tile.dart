@@ -39,7 +39,7 @@ class KCheckBoxTile extends StatelessWidget {
             ),
             Text(
               title,
-              style: CustomTextStyle.textStyle14w400,
+              // style: CustomTextStyle.textStyle14w400,
             ),
             const Spacer(),
             trailing != null

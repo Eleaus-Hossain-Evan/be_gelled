@@ -32,7 +32,7 @@ class CartScreen extends HookConsumerWidget {
     }, const []);
 
     return Scaffold(
-      backgroundColor: ColorPalate.white2_2,
+      backgroundColor: ColorPalate.white,
       appBar: KAppBar(
         titleText: 'My Cart (${state.items.length})',
         actions: [
@@ -46,7 +46,7 @@ class CartScreen extends HookConsumerWidget {
               },
               child: Text(
                 'Delete',
-                style: CustomTextStyle.textStyle18w400Secondary,
+                // style: CustomTextStyle.textStyle18w400Secondary,
               ),
             ),
           ),
@@ -63,7 +63,7 @@ class CartScreen extends HookConsumerWidget {
         },
         separator: KDivider(
           height: 48.h,
-          color: ColorPalate.grey4,
+          // color: ColorPalate.grey4,
         ),
       ),
       bottomNavigationBar: Container(
@@ -74,10 +74,10 @@ class CartScreen extends HookConsumerWidget {
           start: 6.w,
         ),
         decoration: BoxDecoration(
-            color: ColorPalate.white1,
+            color: ColorPalate.white,
             border: Border.symmetric(
               horizontal: BorderSide(
-                color: ColorPalate.grey3,
+                // color: ColorPalate.grey3,
                 width: .5.w,
               ),
             )),
@@ -96,13 +96,13 @@ class CartScreen extends HookConsumerWidget {
                 ),
                 Text(
                   "All",
-                  style: CustomTextStyle.textStyle12w400Black1,
+                  // style: CustomTextStyle.textStyle12w400Black1,
                 ),
               ],
             ),
             Text(
               'Total: \$${ref.watch(digitLocalizationProvider(totalAmount))} SAR',
-              style: CustomTextStyle.textStyle14w600Secondary,
+              // style: CustomTextStyle.textStyle14w600Secondary,
             ),
             SizedBox(
               width: 125.w,

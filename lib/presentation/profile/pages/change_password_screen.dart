@@ -36,7 +36,7 @@ class PasswordScreen extends HookConsumerWidget {
             child: TextButton(
               child: Text(
                 "context.local.save",
-                style: CustomTextStyle.textStyle16w400secondary,
+                // style: CustomTextStyle.textStyle16w400secondary,
               ),
               onPressed: () {},
             ),
@@ -50,7 +50,7 @@ class PasswordScreen extends HookConsumerWidget {
           child: Container(
             padding: paddingH16,
             decoration: BoxDecoration(
-              color: ColorPalate.white1,
+              color: ColorPalate.white,
               borderRadius: BorderRadius.circular(16.r),
             ),
             child: Column(

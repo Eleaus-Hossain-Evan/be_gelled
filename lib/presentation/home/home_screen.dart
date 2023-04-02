@@ -64,7 +64,7 @@ class HomeScreen extends HookConsumerWidget {
               Center(
                 child: Text(
                   "Welcome Home ${authState.user.name}",
-                  style: CustomTextStyle.textStyle16w600Black3,
+                  // style: CustomTextStyle.textStyle16w600Black3,
                 ),
               ),
             ],

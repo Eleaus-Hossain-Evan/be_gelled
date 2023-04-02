@@ -38,7 +38,7 @@ class SignupScreen extends HookConsumerWidget {
       }
     });
     return Scaffold(
-      backgroundColor: ColorPalate.white2,
+      backgroundColor: ColorPalate.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
@@ -52,18 +52,14 @@ class SignupScreen extends HookConsumerWidget {
             children: [
               Text(
                 "context.local.signup.toTitleCase()",
-                style: CustomTextStyle.textStyle32w600,
+                // style: CustomTextStyle.textStyle32w600,
               ),
               gap20,
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
                 child: Text(
                   "context.local.signupBelowText",
-                  style: context.bodyMedium.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    color: ColorPalate.black3,
-                  ),
+                  style: TextStyle(),
                 ),
               ),
             ],
@@ -163,19 +159,14 @@ class SignupScreen extends HookConsumerWidget {
                     Text(
                       "context.local.orSignupWith",
                       textAlign: TextAlign.center,
-                      style: context.headline6.copyWith(
-                        color: ColorPalate.grey1,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.50,
-                      ),
+                      style: TextStyle(),
                     ),
                     gap16,
                     Row(
                       children: [
                         Flexible(
                           child: KElevatedButton(
-                            backgroundColor: ColorPalate.fbColor,
+                            // backgroundColor: ColorPalate.fbColor,
                             onPressed: () => context.push(SignupScreen.route),
                             text: '',
                             child: Image.asset(
@@ -187,7 +178,7 @@ class SignupScreen extends HookConsumerWidget {
                         gap16,
                         Flexible(
                           child: KElevatedButton(
-                            backgroundColor: ColorPalate.googleColor,
+                            // backgroundColor: ColorPalate.googleColor,
                             onPressed: () => context.push(SignupScreen.route),
                             text: '',
                             child: Image.asset(
@@ -202,12 +193,7 @@ class SignupScreen extends HookConsumerWidget {
                     Text(
                       "context.local.signUpPrivacyPolicy",
                       textAlign: TextAlign.center,
-                      style: context.caption.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12.sp,
-                        letterSpacing: .02,
-                        color: ColorPalate.grey2,
-                      ),
+                      style: TextStyle(),
                     ),
                     gap40,
                   ],

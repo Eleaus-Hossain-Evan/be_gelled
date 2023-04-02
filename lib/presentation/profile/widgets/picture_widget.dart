@@ -33,7 +33,7 @@ class ProfilePicWidget extends HookConsumerWidget {
       child: Container(
         padding: padding20,
         decoration: BoxDecoration(
-          color: ColorPalate.white1,
+          color: ColorPalate.white,
           borderRadius: radius16,
         ),
         child: Row(
@@ -63,19 +63,19 @@ class ProfilePicWidget extends HookConsumerWidget {
               children: [
                 Text(
                   getName(),
-                  style: CustomTextStyle.textStyle16w600,
+                  // style: CustomTextStyle.textStyle16w600,
                 ),
                 gap4,
                 Text(
                   state.user.email,
-                  style: CustomTextStyle.textStyle14w400Grey1,
+                  // style: CustomTextStyle.textStyle14w400Grey1,
                 ),
                 gap4,
                 Text(
                   ref.watch(appLocalProvider).languageCode == 'en'
                       ? state.user.phone
                       : int.parse(state.user.phone).toArabicDigits(),
-                  style: CustomTextStyle.textStyle14w400Grey1,
+                  // style: CustomTextStyle.textStyle14w400Grey1,
                 ),
               ],
             ),
@@ -83,7 +83,7 @@ class ProfilePicWidget extends HookConsumerWidget {
             Icon(
               Icons.chevron_right_rounded,
               size: 28.sp,
-              color: ColorPalate.black1,
+              color: ColorPalate.black,
             ),
           ],
         ),

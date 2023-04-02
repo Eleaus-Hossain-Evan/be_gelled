@@ -46,12 +46,12 @@ class CheckOtpWidget extends HookConsumerWidget {
       textStyle: GoogleFonts.openSans(
         fontWeight: FontWeight.w600,
         fontSize: 14.sp,
-        color: ColorPalate.black2,
+        color: ColorPalate.black,
         letterSpacing: 1.2,
       ),
       decoration: BoxDecoration(
-        color: ColorPalate.white2,
-        border: Border.all(color: ColorPalate.grey3),
+        color: ColorPalate.white,
+        // border: Border.all(color: ColorPalate.grey3),
         borderRadius: BorderRadius.circular(20),
       ),
     );
@@ -99,11 +99,7 @@ class CheckOtpWidget extends HookConsumerWidget {
             gap36,
             Text(
               "context.local.otpVerification",
-              style: context.headline6.copyWith(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w600,
-                color: ColorPalate.black2,
-              ),
+              style: TextStyle(),
             ),
             gap10,
             Row(
@@ -111,20 +107,12 @@ class CheckOtpWidget extends HookConsumerWidget {
               children: [
                 Text(
                   "context.local.enterTheOTPSentTo",
-                  style: context.caption.copyWith(
-                    fontSize: 15.sp,
-                    color: ColorPalate.caption,
-                  ),
+                  style: TextStyle(),
                 ),
                 gap6,
                 Text(
                   phone.value,
-                  style: context.caption.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15.sp,
-                    color: ColorPalate.black1,
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: TextStyle(),
                 ),
               ],
             ),
@@ -149,10 +137,7 @@ class CheckOtpWidget extends HookConsumerWidget {
                   children: [
                     Text(
                       errorText!,
-                      style: context.caption.copyWith(
-                        color: context.color.error,
-                        fontSize: 16.sp,
-                      ),
+                      style: TextStyle(),
                     ),
                   ],
                 ),
@@ -170,11 +155,7 @@ class CheckOtpWidget extends HookConsumerWidget {
             // return
             Text(
               "text",
-              style: context.caption.copyWith(
-                fontSize: 15.sp,
-                fontWeight: time == 00 ? FontWeight.w600 : FontWeight.w500,
-                color: time == 00 ? ColorPalate.error : ColorPalate.black3,
-              ),
+              style: TextStyle(),
             ),
             // ;
             // },

@@ -30,10 +30,10 @@ class KShadowContainer extends StatelessWidget {
       height: height,
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: ColorPalate.white1,
+        color: ColorPalate.white,
         borderRadius: borderRadius,
         border: Border.all(
-          color: ColorPalate.shadowBorderColor,
+          // color: ColorPalate.shadowBorderColor,
           width: .2,
         ),
         boxShadow: [

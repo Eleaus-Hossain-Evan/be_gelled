@@ -23,12 +23,7 @@ class KTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: style ??
-          context.labelLarge.copyWith(
-            fontSize: fontSize ?? 20.sp,
-            fontWeight: fontWeight,
-            color: fontColor,
-          ),
+      style: style ?? TextStyle(),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
     );

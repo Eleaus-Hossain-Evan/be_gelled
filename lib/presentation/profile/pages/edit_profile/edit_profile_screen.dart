@@ -85,7 +85,7 @@ class EditProfileScreen extends HookConsumerWidget {
               },
               child: Text(
                 "context.local.save",
-                style: CustomTextStyle.textStyle16w400secondary,
+                // style: CustomTextStyle.textStyle16w400secondary,
               ),
             ),
           ),
@@ -98,7 +98,7 @@ class EditProfileScreen extends HookConsumerWidget {
           child: Container(
             padding: paddingH16,
             decoration: BoxDecoration(
-              color: ColorPalate.white2,
+              color: ColorPalate.white,
               borderRadius: BorderRadius.circular(16.r),
             ),
             child: Column(
@@ -177,7 +177,7 @@ class EditProfileScreen extends HookConsumerWidget {
                     ),
                     Text(
                       "context.local.mobileVerified",
-                      style: CustomTextStyle.textStyle14w400,
+                      // style: CustomTextStyle.textStyle14w400,
                     )
                   ],
                 ),

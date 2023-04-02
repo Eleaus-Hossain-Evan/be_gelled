@@ -17,9 +17,9 @@ class ResetPasswordScreen extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final emailController = useTextEditingController();
     return Scaffold(
-      backgroundColor: ColorPalate.white2,
+      backgroundColor: ColorPalate.white,
       appBar: AppBar(
-        backgroundColor: ColorPalate.white2,
+        backgroundColor: ColorPalate.white,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -28,18 +28,14 @@ class ResetPasswordScreen extends HookConsumerWidget {
           children: [
             Text(
               "context.local.resetPassword.toTitleCase()",
-              style: CustomTextStyle.textStyle16w600,
+              // style: CustomTextStyle.textStyle16w600,
             ),
             gap20,
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
               child: Text(
                 "context.local.resetPasswordBelowText",
-                style: context.bodyMedium.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  color: ColorPalate.black3,
-                ),
+                style: TextStyle(),
               ),
             ),
           ],

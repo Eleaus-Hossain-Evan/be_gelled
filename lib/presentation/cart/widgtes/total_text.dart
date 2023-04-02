@@ -18,11 +18,11 @@ class TotalText extends HookConsumerWidget {
         children: [
           Text(
             text1,
-            style: CustomTextStyle.textStyle12w400Black3,
+            // style: CustomTextStyle.textStyle12w400Black3,
           ),
           Text(
             text2,
-            style: CustomTextStyle.textStyle16w600Black3,
+            // style: CustomTextStyle.textStyle16w600Black3,
           ),
         ],
       ),

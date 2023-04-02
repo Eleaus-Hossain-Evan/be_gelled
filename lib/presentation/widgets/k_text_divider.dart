@@ -22,19 +22,19 @@ class KTextDivider extends HookConsumerWidget {
             child: Divider(
               endIndent: 32.w,
               thickness: 1.1,
-              color: ColorPalate.grey4,
+              // color: ColorPalate.grey4,
             ),
           ),
           Text(
             text.toUpperCase(),
-            style: CustomTextStyle.textStyle12w600Black1
-                .copyWith(letterSpacing: 1.5.w),
+            // style: CustomTextStyle.textStyle12w600Black1
+            // .copyWith(letterSpacing: 1.5.w),
           ),
           Expanded(
             child: Divider(
               indent: 32.w,
               thickness: 1.1,
-              color: ColorPalate.grey4,
+              // color: ColorPalate.grey4,
             ),
           )
         ],

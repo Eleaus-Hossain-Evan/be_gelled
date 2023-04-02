@@ -40,9 +40,9 @@ class LoginScreen extends HookConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: ColorPalate.white2,
+      backgroundColor: ColorPalate.white,
       appBar: AppBar(
-        backgroundColor: ColorPalate.white2,
+        backgroundColor: ColorPalate.white,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -51,18 +51,14 @@ class LoginScreen extends HookConsumerWidget {
           children: [
             Text(
               "context.local.login.toTitleCase()",
-              style: CustomTextStyle.textStyle32w600,
+              // style: CustomTextStyle.textStyle32w600,
             ),
             gap20,
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
               child: Text(
                 "context.local.loginBelowText",
-                style: context.bodyMedium.copyWith(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                  color: ColorPalate.black3,
-                ),
+                style: TextStyle(),
               ),
             ),
           ],

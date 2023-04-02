@@ -53,7 +53,7 @@ class MainNav extends HookConsumerWidget {
       return Scaffold(
         body: navWidget[navIndex.value],
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: ColorPalate.white1,
+          backgroundColor: ColorPalate.white,
           key: bottomNavigatorKey,
           currentIndex: navIndex.value,
           onTap: (index) {
@@ -63,7 +63,7 @@ class MainNav extends HookConsumerWidget {
           selectedFontSize: 10.sp,
           unselectedFontSize: 10.sp,
           selectedItemColor: context.color.primary,
-          unselectedItemColor: ColorPalate.black1,
+          unselectedItemColor: ColorPalate.black,
           items: [
             BottomNavigationBarItem(
               icon: Image.asset(
@@ -72,7 +72,7 @@ class MainNav extends HookConsumerWidget {
                 height: 24.h,
                 color: navIndex.value == 0
                     ? context.color.primary
-                    : ColorPalate.black1,
+                    : ColorPalate.black,
               ),
               label: "context.local.home",
             ),
@@ -83,7 +83,7 @@ class MainNav extends HookConsumerWidget {
                 height: 24.h,
                 color: navIndex.value == 1
                     ? context.color.primary
-                    : ColorPalate.black1,
+                    : ColorPalate.black,
               ),
               label: "context.local.message",
             ),
@@ -94,7 +94,7 @@ class MainNav extends HookConsumerWidget {
                 height: 24.h,
                 color: navIndex.value == 2
                     ? context.color.primary
-                    : ColorPalate.black1,
+                    : ColorPalate.black,
               ),
               label: "context.local.cart",
             ),
@@ -105,7 +105,7 @@ class MainNav extends HookConsumerWidget {
                 height: 24.h,
                 color: navIndex.value == 3
                     ? context.color.primary
-                    : ColorPalate.black1,
+                    : ColorPalate.black,
               ),
               label: "context.local.profile",
             ),

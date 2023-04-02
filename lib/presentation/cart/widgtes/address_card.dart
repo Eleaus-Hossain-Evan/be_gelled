@@ -18,7 +18,7 @@ class AddressCard extends StatelessWidget {
       children: [
         KInkWell(
           onTap: onTap,
-          backgroundColor: ColorPalate.white1,
+          backgroundColor: ColorPalate.white,
           borderRadius: radius6,
           padding: padding12,
           child: Row(
@@ -30,34 +30,34 @@ class AddressCard extends StatelessWidget {
                   children: [
                     Text(
                       model.fullName,
-                      style: CustomTextStyle.textStyle14w600Secondary,
+                      // style: CustomTextStyle.textStyle14w600Secondary,
                     ),
                     Text(
                       model.phone,
-                      style: CustomTextStyle.textStyle14w400black2,
+                      // style: CustomTextStyle.textStyle14w400black2,
                     ),
                     Text(
                       model.email,
-                      style: CustomTextStyle.textStyle14w400black2,
+                      // style: CustomTextStyle.textStyle14w400black2,
                     ),
                     Text.rich(
                       TextSpan(
                         children: [
                           TextSpan(
                             text: model.address,
-                            style: CustomTextStyle.textStyle14w400black2,
+                            // style: CustomTextStyle.textStyle14w400black2,
                           ),
                           TextSpan(
                             text: '. ',
-                            style: CustomTextStyle.textStyle14w400black2,
+                            // style: CustomTextStyle.textStyle14w400black2,
                           ),
                           TextSpan(
                             text: model.city,
-                            style: CustomTextStyle.textStyle14w400black2,
+                            // style: CustomTextStyle.textStyle14w400black2,
                           ),
                           TextSpan(
                             text: '.',
-                            style: CustomTextStyle.textStyle14w400black2,
+                            // style: CustomTextStyle.textStyle14w400black2,
                           ),
                         ],
                       ),
@@ -71,7 +71,7 @@ class AddressCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Icon(
                     Icons.arrow_forward_ios,
-                    color: ColorPalate.black2,
+                    color: ColorPalate.black,
                     size: 16.sp,
                   ),
                 ),

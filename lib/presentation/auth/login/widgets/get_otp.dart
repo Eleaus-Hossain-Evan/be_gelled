@@ -69,12 +69,7 @@ class GetOtpWidget extends HookConsumerWidget {
               Text(
                 "context.local.or",
                 textAlign: TextAlign.center,
-                style: context.headline6.copyWith(
-                  color: ColorPalate.grey1,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.50,
-                ),
+                style: TextStyle(),
               ),
               gap16,
               KElevatedButton(

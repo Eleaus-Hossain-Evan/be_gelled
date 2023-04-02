@@ -43,7 +43,7 @@ class NotificationScreen extends HookConsumerWidget {
       return () => ref.invalidate(notificationProvider);
     }, const []);
     return Scaffold(
-      backgroundColor: ColorPalate.white2,
+      backgroundColor: ColorPalate.white,
       appBar: KAppBar(
         titleText: "context.local.notification",
         leading: const BackButton(),
@@ -57,7 +57,7 @@ class NotificationScreen extends HookConsumerWidget {
                     margin: paddingH20,
                     padding: EdgeInsets.all(16.w),
                     decoration: BoxDecoration(
-                      color: ColorPalate.white1,
+                      color: ColorPalate.white,
                       borderRadius: radius16,
                     ),
                     child: Row(
@@ -78,12 +78,12 @@ class NotificationScreen extends HookConsumerWidget {
                                 softWrap: true,
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
-                                style: CustomTextStyle.textStyle12w600Black3,
+                                // style: CustomTextStyle.textStyle12w600Black3,
                               ),
                               gap4,
                               Text(
                                 '9:20AM',
-                                style: CustomTextStyle.textStyle10w600Grey3,
+                                // style: CustomTextStyle.textStyle10w600Grey3,
                               ),
                             ],
                           ),

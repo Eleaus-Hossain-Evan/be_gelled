@@ -89,7 +89,7 @@ class ImagePickWidget extends HookConsumerWidget {
               end: 0,
               child: CircleAvatar(
                 radius: 18.r,
-                backgroundColor: ColorPalate.white2,
+                backgroundColor: ColorPalate.white,
                 child: CircleAvatar(
                   radius: 16.r,
                   child: const Icon(
@@ -126,10 +126,7 @@ class ImagePickOptionWidget extends StatelessWidget {
           gap24,
           Text(
             "context.local.chooseImageSource",
-            style: context.titleSmall.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: 20.sp,
-            ),
+            style: TextStyle(),
           ),
           gap10,
           Row(
@@ -150,9 +147,7 @@ class ImagePickOptionWidget extends StatelessWidget {
                       ),
                       Text(
                         "context.local.fromCamera",
-                        style: context.titleSmall.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(),
                       ),
                     ],
                   ),
@@ -174,9 +169,7 @@ class ImagePickOptionWidget extends StatelessWidget {
                       ),
                       Text(
                         "context.local.fromGallery",
-                        style: context.titleSmall.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(),
                       ),
                     ],
                   ),

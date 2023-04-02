@@ -3,48 +3,44 @@ import 'package:flutter/material.dart';
 class ColorPalate {
   ColorPalate._();
 
-  static const Color primary = Color(0xffB11A29);
-  static const Color secondary = Color(0xff00416B);
-  static const Color tertiary = Color(0xff90BADD);
+  static const Color navy = Color(0xff202157);
+  static const Color orange = Color(0xffF9A038);
+  static const Color red = Color(0xffF93838);
+  static const Color green = Color(0xff2EC28D);
+
+  static const Color primary = navy;
+  static const Color secondary = orange;
 
   static const Color info = Color(0xff2F80ED);
-  static const Color success = Color(0xff27AE60);
-  static const Color warning = Color(0xffE2B93B);
-  static const Color error = Color(0xffEB5757);
+  static const Color success = green;
+  static const Color warning = orange;
+  static const Color error = red;
 
-  static const Color banner = Color(0xff336789);
-  static const Color bannerBack = Color(0xff001D30);
+  static const Color star = orange;
 
-  static const Color star = Color(0xffFFAE0C);
-  static const Color checkbox = Color(0xff014052);
+  static const Color white = Color(0xffFFFFFF);
 
-  static const Color black1 = Color(0xff263238);
-  static const Color black2 = Color(0xff37474F);
-  static const Color black3 = Color(0xff455A64);
+  static const Color black = Color(0xff000000);
 
-  static const Color caption = Color(0xFF9C9C9C);
+  static const Color spaceScape100 = Color(0xFFe9e9ee);
+  static const Color spaceScape200 = Color(0xFFd2d3dd);
+  static const Color spaceScape300 = Color(0xFFa6a6bc);
+  static const Color spaceScape400 = Color(0xFF797a9a);
+  static const Color spaceScape500 = Color(0xFF4d4d79);
+  static const Color spaceScape600 = Color(0xFF202157);
+  static const Color spaceScape700 = Color(0xFF1a1a46);
+  static const Color spaceScape800 = Color(0xFF131434);
+  static const Color spaceScape900 = Color(0xFF0d0d23);
+  static const Color spaceScape1000 = Color(0xFF060711);
 
-  static const Color grey1 = Color(0xFF78909C);
-  static const Color grey2 = Color(0xFF90A4AE);
-  static const Color grey3 = Color(0xFFB0BEC5);
-  static const Color grey4 = Color(0xFFCFD8DC);
-
-  static const Color white1 = Color(0xffFFFFFF);
-  static const Color white2 = Color(0xffECEFF1);
-  static const Color white3 = Color(0xffD3D2D2);
-  static const Color white2_2 = Color(0xfff5f5f5);
-
-  static const Color borderColor = Color(0xff96A0AA);
-  static const Color shadowBorderColor = Color(0xffC6C6C6);
-
-  static const Color tileBackgroundColor = Color(0xfff7f7f8);
-  static const Color subtileTextColor = Color(0xff6D7780);
-  static const Color subtileTextColor2 = Color(0xff868E96);
-  static const Color starColor = Color(0xffFFAE0C);
-
-  static const Color speedDialTooltipColor = Color(0xff315574);
-  static const Color botToastBackgroundColor = Color(0x1F000000);
-
-  static const Color fbColor = Color(0xff0147A5);
-  static const Color googleColor = Color(0xffF74134);
+  static const Color harrisonGrey100 = Color(0xFFF5F5F5);
+  static const Color harrisonGrey200 = Color(0xFFEBEBEB);
+  static const Color harrisonGrey300 = Color(0xFFD7D7D8);
+  static const Color harrisonGrey400 = Color(0xFFC2C3C4);
+  static const Color harrisonGrey500 = Color(0xFFAEAFB1);
+  static const Color harrisonGrey600 = Color(0xFF9A9B9D);
+  static const Color harrisonGrey700 = Color(0xFF7B7C7E);
+  static const Color harrisonGrey800 = Color(0xFF5C5D5E);
+  static const Color harrisonGrey900 = Color(0xFF3E3E3F);
+  static const Color harrisonGrey1000 = Color(0xFF1F1F1F);
 }

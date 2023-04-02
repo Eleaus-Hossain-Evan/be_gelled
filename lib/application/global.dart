@@ -80,7 +80,7 @@ final notification = Provider.family<Function(), String>((ref, String text) {
 });
 
 showLoading() => BotToast.showLoading(
-      backgroundColor: ColorPalate.botToastBackgroundColor,
+      backgroundColor: ColorPalate.navy.withOpacity(.64),
     );
 closeLoading() => BotToast.closeAllLoading();
 
@@ -285,47 +285,47 @@ void showOtherServiceDialog({
         mainAxisSize: MainAxisSize.min,
         children: [
           gap18,
-          Image.asset(
-            KAssets.vendorProfilePic,
-            height: 64.h,
-            width: 64.w,
-          ),
-          gap12,
-          Text(
-            'Z Service Centre',
-            style: CustomTextStyle.textStyle14w600,
-          ),
-          gap6,
-          Row(
-            mainAxisAlignment: mainCenter,
-            children: [
-              Icon(
-                Icons.star,
-                color: ColorPalate.star,
-                size: 16.sp,
-              ),
-              gap4,
-              Text(
-                '4.1',
-                style: CustomTextStyle.textStyle12w400grey2,
-              ),
-              gap6,
-              Text(
-                "(750)",
-                style: CustomTextStyle.textStyle12w400grey2,
-              ),
-            ],
-          ),
-          gap8,
-          Padding(
-            padding: paddingH16,
-            child: Text(
-              'Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing',
-              style: CustomTextStyle.textStyle12w600Black3,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
+          // Image.asset(
+          //   KAssets.vendorProfilePic,
+          //   height: 64.h,
+          //   width: 64.w,
+          // ),
+          // gap12,
+          // Text(
+          //   'Z Service Centre',
+          //   style: CustomTextStyle.textStyle14w600,
+          // ),
+          // gap6,
+          // Row(
+          //   mainAxisAlignment: mainCenter,
+          //   children: [
+          //     Icon(
+          //       Icons.star,
+          //       color: ColorPalate.star,
+          //       size: 16.sp,
+          //     ),
+          //     gap4,
+          //     Text(
+          //       '4.1',
+          //       style: CustomTextStyle.textStyle12w400grey2,
+          //     ),
+          //     gap6,
+          //     Text(
+          //       "(750)",
+          //       style: CustomTextStyle.textStyle12w400grey2,
+          //     ),
+          //   ],
+          // ),
+          // gap8,
+          // Padding(
+          //   padding: paddingH16,
+          //   child: Text(
+          //     'Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing Lorem Ipsum is simply dummy text of the printing',
+          //     style: CustomTextStyle.textStyle12w600Black3,
+          //     maxLines: 3,
+          //     overflow: TextOverflow.ellipsis,
+          //   ),
+          // ),
           gap18,
           Padding(
             padding: paddingH12,

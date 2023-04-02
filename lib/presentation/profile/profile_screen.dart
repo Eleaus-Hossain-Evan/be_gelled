@@ -26,7 +26,7 @@ class ProfileScreen extends HookConsumerWidget {
     final isLoggedIn = ref.watch(loggedInProvider).loggedIn;
 
     return Scaffold(
-      backgroundColor: ColorPalate.white2_2,
+      backgroundColor: ColorPalate.white,
       appBar: KAppBar(titleText: "context.local.profile"),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -42,7 +42,7 @@ class ProfileScreen extends HookConsumerWidget {
             Container(
               padding: padding20,
               decoration: BoxDecoration(
-                color: ColorPalate.white1,
+                color: ColorPalate.white,
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Column(
@@ -117,20 +117,20 @@ class ProfileScreen extends HookConsumerWidget {
             Expanded(
               child: Text(
                 title,
-                style: CustomTextStyle.textStyle14w400,
+                // style: CustomTextStyle.textStyle14w400,
               ),
             ),
             trailingText == null
                 ? const SizedBox.shrink()
                 : Text(
                     trailingText,
-                    style: CustomTextStyle.textStyle14w400Tertiary,
+                    // style: CustomTextStyle.textStyle14w400Tertiary,
                   ),
             gap12,
             Icon(
               Icons.chevron_right_rounded,
               size: 28.sp,
-              color: ColorPalate.black1,
+              color: ColorPalate.black,
             ),
           ],
         ),
