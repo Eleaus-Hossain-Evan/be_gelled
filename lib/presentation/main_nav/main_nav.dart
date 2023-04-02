@@ -67,7 +67,7 @@ class MainNav extends HookConsumerWidget {
           items: [
             BottomNavigationBarItem(
               icon: Image.asset(
-                KAssets.home,
+                "KAssets.home",
                 width: 24.w,
                 height: 24.h,
                 color: navIndex.value == 0
@@ -78,7 +78,7 @@ class MainNav extends HookConsumerWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                KAssets.message,
+                "KAssets.message",
                 width: 24.w,
                 height: 24.h,
                 color: navIndex.value == 1
@@ -89,7 +89,7 @@ class MainNav extends HookConsumerWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                KAssets.cart,
+                "KAssets.cart",
                 width: 24.w,
                 height: 24.h,
                 color: navIndex.value == 2
@@ -100,7 +100,7 @@ class MainNav extends HookConsumerWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                KAssets.account,
+                "KAssets.account",
                 width: 24.w,
                 height: 24.h,
                 color: navIndex.value == 3

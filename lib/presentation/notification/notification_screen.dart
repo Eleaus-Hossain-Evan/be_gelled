@@ -64,7 +64,7 @@ class NotificationScreen extends HookConsumerWidget {
                       crossAxisAlignment: crossCenter,
                       children: [
                         Image.asset(
-                          KAssets.vendorProfilePic,
+                          "KAssets.vendorProfilePic",
                           height: 64.h,
                           width: 64.w,
                         ),

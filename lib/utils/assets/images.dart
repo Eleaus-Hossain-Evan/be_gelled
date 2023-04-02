@@ -1,0 +1,8 @@
+part of 'resources.dart';
+
+class Images {
+  Images._();
+
+  static const String logo = 'assets/images/logo.png';
+  static const String iconCallIconRed = 'assets/icons/call-icon-red.png';
+}

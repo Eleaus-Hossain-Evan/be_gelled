@@ -5,7 +5,7 @@ export 'text_theme_style_x.dart';
 export 'ui_constant.dart';
 export '../theme/theme.dart';
 export 'strings.dart';
-export 'assets.dart';
+export 'assets/resources.dart';
 export 'int_to_time_left.dart';
 export 'extension.dart';
 export 'network_util/network_handler.dart';

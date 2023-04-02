@@ -179,7 +179,7 @@ class SignupScreen extends HookConsumerWidget {
                             onPressed: () => context.push(SignupScreen.route),
                             text: '',
                             child: Image.asset(
-                              KAssets.fbIcon,
+                              "KAssets.fbIcon",
                               height: 20.h,
                             ),
                           ),
@@ -191,7 +191,7 @@ class SignupScreen extends HookConsumerWidget {
                             onPressed: () => context.push(SignupScreen.route),
                             text: '',
                             child: Image.asset(
-                              KAssets.googleIcon,
+                              "KAssets.googleIcon",
                               height: 20.h,
                             ),
                           ),

@@ -82,7 +82,7 @@ class SplashScreen extends HookConsumerWidget {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          KAssets.appIcon,
+          Images.logo,
           fit: BoxFit.cover,
           width: 0.5.sw,
         ),

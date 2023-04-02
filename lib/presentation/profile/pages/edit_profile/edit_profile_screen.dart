@@ -171,7 +171,7 @@ class EditProfileScreen extends HookConsumerWidget {
                   mainAxisAlignment: mainCenter,
                   children: [
                     Image.asset(
-                      KAssets.rightIcon,
+                      "KAssets.rightIcon",
                       fit: BoxFit.fitHeight,
                       height: 32.h,
                     ),
