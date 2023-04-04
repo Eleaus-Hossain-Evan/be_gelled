@@ -1,5 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../application/local_storage/storage_handler.dart';
@@ -59,6 +61,7 @@ class MyTheme {
     colors: const FlexSchemeColor(
       primary: ColorPalate.primary,
       secondary: ColorPalate.secondary,
+      tertiary: ColorPalate.green,
       error: ColorPalate.error,
     ),
     surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
@@ -66,12 +69,14 @@ class MyTheme {
     appBarBackground: ColorPalate.white,
     surface: ColorPalate.white,
     blendLevel: 9,
-    subThemesData: const FlexSubThemesData(useTextTheme: true),
+    subThemesData: FlexSubThemesData(
+      useTextTheme: true,
+    ),
     useMaterial3: true,
     useMaterial3ErrorColors: true,
     // visualDensity: FlexColorScheme.comfortablePlatformDensity,
     // To use the playground font, add GoogleFonts package and uncomment
-    // fontFamily: GoogleFonts.openSans().fontFamily,
+    fontFamily: GoogleFonts.inter().fontFamily,
   );
   static final darkTheme = FlexThemeData.dark(
     colors: const FlexSchemeColor(
@@ -89,7 +94,7 @@ class MyTheme {
     useMaterial3ErrorColors: true,
     // visualDensity: FlexColorScheme.comfortablePlatformDensity,
     // To use the playground font, add GoogleFonts package and uncomment
-    // fontFamily: GoogleFonts.openSans().fontFamily,
+    fontFamily: GoogleFonts.inter().fontFamily,
   );
 // If you do not have a themeMode switch, uncomment this line
 // to let the device system mode control the theme mode:

@@ -75,7 +75,7 @@ class CartItem extends HookConsumerWidget {
                       ),
                       child: Text(
                         model.product.type,
-                        style: CustomTextStyle.textStyle8w600.copyWith(
+                        style: CustomTextStyle.textStyle8w600White.copyWith(
                           color: isNew
                               ? ColorPalate.success
                               : const Color(0xff9C5134),

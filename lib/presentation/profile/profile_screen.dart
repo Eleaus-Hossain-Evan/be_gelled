@@ -181,23 +181,22 @@ class LogoutDialog extends HookConsumerWidget {
             children: [
               SizedBox(
                 width: .3.sw,
-                child: KElevatedButton(
+                child: KFilledButton(
                   text: "Cancel",
                   onPressed: () {
                     Navigator.pop(context);
                     onNoPressed.call();
                   },
-                  backgroundColor: Theme.of(context)
+                  color: Theme.of(context)
                       .colorScheme
                       .secondaryContainer
                       .withOpacity(.4),
-                  foregroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer,
+                  textColor: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
               SizedBox(
                 width: .3.sw,
-                child: KElevatedButton(
+                child: KFilledButton(
                   text: "Yes",
                   onPressed: () {
                     Navigator.pop(context);

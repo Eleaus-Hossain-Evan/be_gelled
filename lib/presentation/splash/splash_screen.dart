@@ -34,7 +34,6 @@ class SplashScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final state = ref.watch(loggedInProvider);
-    final isOnboard = useState(false);
     final isLoggedIn = useState(false);
     final hasUpdate = useState(false);
 
@@ -58,33 +57,31 @@ class SplashScreen extends HookConsumerWidget {
     }
 
     useEffect(() {
-      Future.microtask(() => appVersionCheck());
+      // Future.microtask(() => appVersionCheck());
       Future.microtask(() {
-        final box = Hive.box(KStrings.cacheBox);
-        isOnboard.value = box.get(KStrings.onBoard, defaultValue: false);
-        final token = box.get(KStrings.token, defaultValue: '') as String;
-        Logger.i('SplashScreen:  ${token.isNotEmpty}, $isOnboard');
         return hasUpdate.value
             ? null
             : Future.delayed(const Duration(seconds: 3), () {
                 Router.neglect(context, () {
-                  if (isOnboard.value && token.isNotEmpty) {
-                    context.go(MainNav.route);
-                  } else if (isOnboard.value && token.isNotEmpty == false) {
-                    context.go(LoginScreen.route);
-                  }
+                  context.go(LoginScreen.route);
                 });
               });
       });
       return null;
     }, []);
 
-    return Scaffold(
-      body: Center(
-        child: Image.asset(
-          Images.logo,
-          fit: BoxFit.cover,
-          width: 0.5.sw,
+    return Theme(
+      data: context.theme.copyWith(
+        scaffoldBackgroundColor: context.theme.primaryColor,
+        brightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        body: Center(
+          child: Image.asset(
+            Images.logo,
+            fit: BoxFit.cover,
+            width: 0.5.sw,
+          ),
         ),
       ),
     );

@@ -71,23 +71,21 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     final appTheme = ref.watch(themeProvider);
-    final user = ref.watch(loggedInProvider.notifier).user();
+    final user = ref.watch(loggedInProvider).user;
 
     useEffect(() {
       Future.wait([
         Future.microtask(
           () => ref.read(authProvider.notifier).setUser(user),
         ),
-        Future.microtask(
-            () => ref.read(loggedInProvider.notifier).onAppStart()),
-        Future.microtask(
-            () => ref.read(loggedInProvider.notifier).isLoggedIn()),
+        // Future.microtask(
+        //     () => ref.read(loggedInProvider.notifier).onAppStart()),
+        // Future.microtask(
+        //     () => ref.read(loggedInProvider.notifier).isLoggedIn()),
       ]);
 
       return null;
     }, []);
-    final size = MediaQuery.of(context).size;
-    Logger.d('size: $size');
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),

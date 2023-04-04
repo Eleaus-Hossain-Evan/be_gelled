@@ -57,8 +57,8 @@ class ResetPasswordScreen extends HookConsumerWidget {
                       controller: emailController,
                     ),
                     gap24,
-                    KElevatedButton(
-                      backgroundColor: context.color.secondary,
+                    KFilledButton(
+                      color: context.color.secondary,
                       onPressed: () {
                         // context.push(EmailSentScreen.route);
                       },

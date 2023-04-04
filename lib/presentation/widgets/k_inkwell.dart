@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/text_theme_style_x.dart';
+import '../../utils/utils.dart';
 
 class KInkWell extends StatelessWidget {
   const KInkWell({
@@ -32,9 +32,9 @@ class KInkWell extends StatelessWidget {
             borderRadius: borderRadius ?? BorderRadius.zero),
         // borderRadius: borderRadius ?? BorderRadius.zero,
         radius: radius,
-        highlightColor: context.color.secondary.withOpacity(.12),
-        splashColor: rippleColor?.withOpacity(.12) ??
-            context.color.secondary.withOpacity(.12),
+        highlightColor: context.color.primary.withOpacity(.08),
+        splashColor: rippleColor?.withOpacity(.08) ??
+            context.color.primary.withOpacity(.08),
         // overlayColor: MaterialStateProperty.resolveWith((states) {
         //   if (states.contains(MaterialState.hovered)) {
         //     return rippleColor?.withOpacity(.12) ??
@@ -54,8 +54,8 @@ class KInkWell extends StatelessWidget {
         //   }
         //   return null;
         // }),
-        child: Container(
-          padding: padding,
+        child: Padding(
+          padding: padding ?? EdgeInsetsDirectional.zero,
           child: child,
         ),
       ),

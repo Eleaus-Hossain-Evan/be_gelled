@@ -107,7 +107,7 @@ class CartScreen extends HookConsumerWidget {
             SizedBox(
               width: 125.w,
               height: 40.h,
-              child: KElevatedButton(
+              child: KFilledButton(
                 isSecondary: true,
                 text: 'Checkout (${selectedItemsList.length})',
                 onPressed: selectedItemsList.isEmpty

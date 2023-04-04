@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../utils/text_theme_style_x.dart';
 
 class KTitleText extends StatelessWidget {
   const KTitleText(this.title,

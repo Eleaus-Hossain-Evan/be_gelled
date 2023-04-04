@@ -25,7 +25,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: listenable,
-      // redirect: router._redirectLogic,
+      redirect: router._redirectLogic,
       routes: router._routes,
       initialLocation: SplashScreen.route,
       errorPageBuilder: router._errorPageBuilder,
@@ -35,46 +35,35 @@ final routerProvider = Provider<GoRouter>((ref) {
 });
 
 class RouterNotifier extends ChangeNotifier {
-  final Ref _ref;
+  final Ref ref;
 
-  RouterNotifier(this._ref) {
-    _ref.listen<bool>(
+  RouterNotifier(this.ref) {
+    ref.listen<bool>(
       loggedInProvider.select((value) => value.loggedIn),
-      (_, __) => notifyListeners(),
-    );
-    _ref.listen<bool>(
-      loggedInProvider.select((value) => value.onboarding),
       (_, __) => notifyListeners(),
     );
   }
 
   String? _redirectLogic(BuildContext context, GoRouterState state) {
-    final token = _ref.watch(loggedInProvider.notifier).token();
-    final user = _ref.watch(loggedInProvider.notifier).user();
+    final token = ref.watch(loggedInProvider.notifier).token;
+    final user = ref.watch(loggedInProvider.notifier).user;
 
-    final isUserIn = _ref.watch(loggedInProvider).loggedIn; //bool
-    final isOnboarding = _ref.watch(loggedInProvider).onboarding; //bool
+    final isLoggedIn = ref.watch(loggedInProvider).loggedIn; //bool
 
-    Logger.i('RouterNotifier:  $isUserIn, $isOnboarding');
-    Logger.i('RouterNotifier:  $token, $user');
+    Logger.i('RouterNotifier:  $isLoggedIn');
+    Logger.i('RouterNotifier: $user, $token');
 
-    // final areWeLoggingIn = state.location == LoginScreen.route;
-    // final areWeRegistering = state.location == SignupScreen.route;
-    // final areWeOnboarding = state.location == SelectLanguageScreen.route;
+    final areWeLoggingIn = state.location == LoginScreen.route;
+    final areWeRegistering = state.location == SignupScreen.route;
 
-    // if (!isOnboarding && areWeOnboarding) {
-    //   return areWeOnboarding ? null : SelectLanguageScreen.route;
-    // }
-    // if (!isUserIn && areWeLoggingIn) {
-    //   return areWeLoggingIn ? null : LoginScreen.route;
-    // }
-    // if (!isUserIn && areWeRegistering) {
-    //   return areWeRegistering ? null : SignupScreen.route;
-    // }
+    if (!isLoggedIn && areWeLoggingIn) {
+      return areWeLoggingIn ? null : LoginScreen.route;
+    }
+    if (!isLoggedIn && areWeRegistering) {
+      return areWeRegistering ? null : SignupScreen.route;
+    }
 
-    // if (areWeLoggingIn || areWeRegistering || areWeOnboarding) {
-    //   return MainNav.route;
-    // }
+    if (areWeLoggingIn || areWeRegistering) return MainNav.route;
 
     return null;
   }

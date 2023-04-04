@@ -133,8 +133,8 @@ class SignupScreen extends HookConsumerWidget {
                       },
                     ),
                     gap24,
-                    KElevatedButton(
-                      backgroundColor: context.color.secondary,
+                    KFilledButton(
+                      color: context.color.secondary,
                       onPressed: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
                         bool success = false;
@@ -165,7 +165,7 @@ class SignupScreen extends HookConsumerWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: KElevatedButton(
+                          child: KFilledButton(
                             // backgroundColor: ColorPalate.fbColor,
                             onPressed: () => context.push(SignupScreen.route),
                             text: '',
@@ -177,7 +177,7 @@ class SignupScreen extends HookConsumerWidget {
                         ),
                         gap16,
                         Flexible(
-                          child: KElevatedButton(
+                          child: KFilledButton(
                             // backgroundColor: ColorPalate.googleColor,
                             onPressed: () => context.push(SignupScreen.route),
                             text: '',

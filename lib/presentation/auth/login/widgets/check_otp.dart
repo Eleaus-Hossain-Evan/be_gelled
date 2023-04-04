@@ -202,7 +202,7 @@ class CheckOtpWidget extends HookConsumerWidget {
             gap4,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 60.w),
-              child: KElevatedButton(
+              child: KFilledButton(
                 onPressed:
                     // isTimerFinished.value ? null :
                     checkOtpPressed,

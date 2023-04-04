@@ -93,8 +93,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
       (r) {
         showToast(r.message);
-        ref.read(loggedInProvider.notifier).saveCache(r.user.token, r.user);
-        ref.read(loggedInProvider.notifier).isLoggedIn();
+        ref
+            .read(loggedInProvider.notifier)
+            .updateAuthCache(token: r.user.token, user: r.user);
+        // ref.read(loggedInProvider.notifier).isLoggedIn();
         success = r.success;
 
         final String deviceToken = ref
@@ -114,7 +116,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   void logout() {
     state = state.copyWith(user: UserModel.init());
 
-    ref.read(loggedInProvider.notifier).deleteCache();
+    ref.read(loggedInProvider.notifier).deleteAuthCache();
 
     // _ref.read(loggedInProvider.notifier).isLoggedIn();
 

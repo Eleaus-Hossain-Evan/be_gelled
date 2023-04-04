@@ -55,7 +55,7 @@ class GetOtpWidget extends HookConsumerWidget {
                     .build(),
               ),
               gap24,
-              KElevatedButton(
+              KFilledButton(
                 isSecondary: true,
                 onPressed: () {
                   FocusScope.of(context).unfocus();
@@ -72,7 +72,7 @@ class GetOtpWidget extends HookConsumerWidget {
                 style: TextStyle(),
               ),
               gap16,
-              KElevatedButton(
+              KFilledButton(
                 onPressed: goToSignUp,
                 text: "context.local.signup",
               ),

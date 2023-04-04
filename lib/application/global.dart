@@ -215,7 +215,7 @@ bool? showBotToastDialog({
           width: .32.sw,
           child: cancelWidget ??
               KOutlinedButton(
-                foregroundColor: ColorPalate.primary,
+                textColor: ColorPalate.primary,
                 borderColor: ColorPalate.primary,
                 onPressed: () {
                   cancelFunc();
@@ -230,7 +230,7 @@ bool? showBotToastDialog({
             height: 42.h,
             width: .32.sw,
             child: confirmWidget ??
-                KElevatedButton(
+                KFilledButton(
                   isSecondary: true,
                   onPressed: () {
                     confirm();
@@ -336,7 +336,7 @@ void showOtherServiceDialog({
                   height: 42.h,
                   width: .32.sw,
                   child: KOutlinedButton(
-                    foregroundColor: ColorPalate.primary,
+                    textColor: ColorPalate.primary,
                     borderColor: ColorPalate.primary,
                     onPressed: () {
                       cancelFunc();
@@ -349,7 +349,7 @@ void showOtherServiceDialog({
                 SizedBox(
                   height: 42.h,
                   width: .32.sw,
-                  child: KElevatedButton(
+                  child: KFilledButton(
                     isSecondary: true,
                     onPressed: () {
                       confirm();
