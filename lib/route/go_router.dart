@@ -5,13 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../application/auth/loggedin_provider.dart';
-import '../domain/car_parts/model/car_parts_model.dart';
-import '../domain/car/model/car_service_model.dart';
-import '../domain/message/cusmoter_model.dart';
-import '../domain/vendor/model/vendor_model.dart';
-import '../domain/vendor/model/vendor_problem_model.dart';
 import '../presentation/auth/login/login.dart';
-import '../presentation/auth/reset_password/reset_password.dart';
+import '../presentation/auth/otp_screen.dart';
 import '../presentation/auth/signup/signup.dart';
 import '../presentation/home/home_screen.dart';
 import '../presentation/main_nav/main_nav.dart';
@@ -20,11 +15,11 @@ import '../presentation/splash/splash_screen.dart';
 final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
 
-  final listenable = ValueNotifier<bool>(true);
+  // final listenable = ValueNotifier<bool>(true);
 
   return GoRouter(
       debugLogDiagnostics: true,
-      refreshListenable: listenable,
+      refreshListenable: router,
       redirect: router._redirectLogic,
       routes: router._routes,
       initialLocation: SplashScreen.route,
@@ -90,10 +85,10 @@ class RouterNotifier extends ChangeNotifier {
           builder: (context, state) => const SignupScreen(),
         ),
         GoRoute(
-          path: ResetPasswordScreen.route,
-          pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
-            key: state.pageKey,
-            child: const ResetPasswordScreen(),
+          path: "${OTPScreen.route}/:isLogin",
+          builder: (context, state) => OTPScreen(
+            isLogin: state.params['isLogin'] == 'Login',
+            phone: state.queryParams['number']!,
           ),
         ),
       ];

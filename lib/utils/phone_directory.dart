@@ -25,9 +25,15 @@ class PhoneDirectory extends Equatable {
 
   @override
   List<Object?> get props => [name, flag, code, dialCode];
+
+  @override
+  String toString() {
+    return 'PhoneDirectory{name: $name, flag: $flag, code: $code, dialCode: $dialCode}';
+  }
 }
 
-String yourJsonString = '''[
+String yourJsonString =
+    '''[
     {
     "name": "Afghanistan",
     "flag": "🇦🇫",
@@ -1507,10 +1513,10 @@ String yourJsonString = '''[
     ]''';
 
 class PhoneDirectoryProvider {
-  List<PhoneDirectory> phonedirectoryList =
+  static List<PhoneDirectory> phonedirectoryList =
       (json.decode(yourJsonString) as List)
           .map((data) => PhoneDirectory.fromJson(data))
           .toList();
 
-  List<PhoneDirectory> getDirectories() => phonedirectoryList;
+  static List<PhoneDirectory> getDirectories() => phonedirectoryList;
 }

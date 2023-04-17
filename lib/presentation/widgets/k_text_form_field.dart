@@ -13,133 +13,136 @@ import 'k_inkwell.dart';
 class KTextFormField extends HookConsumerWidget {
   const KTextFormField({
     Key? key,
-    required this.hintText,
     required TextEditingController controller,
-    this.isObscure = false,
+    required this.focusNode,
+    this.hintText,
+    required this.labelText,
+    this.hintStyle,
     this.readOnly = false,
-    this.borderRadius,
     this.prefixIcon,
-    this.suffixIcon,
-    this.borderColor = Colors.transparent,
-    this.fillColor = ColorPalate.white,
     this.keyboardType = TextInputType.text,
     this.validator,
-    this.focusNode,
-    this.onFieldSubmitted,
     this.onChanged,
-    this.onEditingComplete,
-    this.onSaved,
-    this.onTap,
     this.textInputAction,
     this.maxLines = 1,
-    this.hintStyle,
-    this.contentPadding,
+    this.onFieldSubmitted,
+    this.error = false,
   })  : _controller = controller,
         super(key: key);
 
-  final String hintText;
+  final String? hintText;
+  final String labelText;
+  final TextStyle? hintStyle;
   final TextEditingController _controller;
-  final bool isObscure, readOnly;
-  final FocusNode? focusNode;
-  final BorderRadius? borderRadius;
-  final Widget? prefixIcon, suffixIcon;
-  final Color? fillColor;
-  final Color borderColor;
+  final bool readOnly, error;
+  final FocusNode focusNode;
+  final Widget? prefixIcon;
   final TextInputType keyboardType;
-  final Function(String)? onFieldSubmitted;
   final TextInputAction? textInputAction;
-  final Function(String?)? onSaved;
   final Function(String)? onChanged;
-  final Function()? onEditingComplete, onTap;
   final String? Function(String?)? validator;
   final int? maxLines;
-  final TextStyle? hintStyle;
-  final EdgeInsetsGeometry? contentPadding;
+  final Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context, ref) {
-    final hideText = useState(true);
-
     final border = OutlineInputBorder(
-      borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(4.r)),
-      borderSide: BorderSide(color: borderColor),
+      borderRadius: radius8,
+      borderSide: const BorderSide(color: Colors.transparent),
     );
-    return TextFormField(
-      controller: _controller,
-      keyboardType: keyboardType,
-      validator: validator,
-      readOnly: readOnly,
-      maxLines: maxLines,
-      style: GoogleFonts.openSans(
-        fontWeight: FontWeight.normal,
-        fontSize: 14.sp,
-        color: ColorPalate.black,
-        letterSpacing: 1.2,
-      ),
-      obscureText: isObscure ? hideText.value : false,
-      focusNode: focusNode,
-      onFieldSubmitted: onFieldSubmitted,
-      onChanged: onChanged,
-      onEditingComplete: onEditingComplete,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onSaved: onSaved,
-      onTap: onTap,
-      decoration: InputDecoration(
-        contentPadding: contentPadding,
-        border: border,
-        focusedBorder: border,
-        enabledBorder: border,
-        errorBorder: border,
-        disabledBorder: border,
-        isDense: true,
-        filled: true,
-        fillColor: fillColor,
-        // contentPadding: EdgeInsets.symmetric(
-        //   horizontal: 12.w,
-        //   vertical: 6.h,
-        // ),
-        hintText: hintText,
-        hintStyle: hintStyle ??
-            GoogleFonts.openSans(
-              fontWeight: FontWeight.w400,
-              fontSize: 14.sp,
-              // color: ColorPalate.borderColor,
+
+    final hasFocus = useState(false);
+    final showCursor = useState(false);
+
+    void focusListener() {
+      hasFocus.value = focusNode.hasFocus;
+      showCursor.value = focusNode.hasPrimaryFocus;
+    }
+
+    useEffect(() {
+      focusNode.addListener(focusListener);
+
+      return () => focusNode.removeListener(focusListener);
+    }, []);
+
+    return GestureDetector(
+      onTap: () {
+        focusNode.requestFocus();
+      },
+      child: Container(
+        height: 64.h,
+        padding: EdgeInsetsDirectional.symmetric(
+          vertical: 12.h,
+          horizontal: 16.w,
+        ),
+        decoration: BoxDecoration(
+          color:
+              hasFocus.value ? Colors.transparent : ColorPalate.spaceScape100,
+          borderRadius: radius8,
+          border: error
+              ? Border.all(
+                  color: ColorPalate.error,
+                  width: 1,
+                )
+              : hasFocus.value
+                  ? Border.all(
+                      color: ColorPalate.harrisonGrey1000,
+                      width: 1,
+                    )
+                  : Border.all(
+                      color: ColorPalate.spaceScape100,
+                      width: 1,
+                    ),
+        ),
+        child: Column(
+          crossAxisAlignment: crossStart,
+          mainAxisSize: mainMin,
+          mainAxisAlignment: mainSpaceBetween,
+          children: [
+            Text(
+              labelText,
+              style: error
+                  ? CustomTextStyle.textStyle14w500Red
+                  : CustomTextStyle.textStyle14w500HG800.copyWith(height: 1.2),
             ),
-        prefixIcon: prefixIcon,
-        // suffix: suffixIcon,
-        suffixIcon: suffixIcon ??
-            (isObscure
-                ? KInkWell(
-                    borderRadius: radius12,
-                    onTap: () {
-                      hideText.value = !hideText.value;
-                    },
-                    child: hideText.value
-                        ? Container(
-                            height: 4.w,
-                            width: 4.w,
-                            padding: EdgeInsets.all(18.w),
-                            decoration: const BoxDecoration(
-                                // image: DecorationImage(
-                                //   image: AssetImage(
-                                //     'assets/cross_eye.png',
-                                //   ),
-                                //   fit: BoxFit.fitWidth,
-                                // ),
-                                // color: Colors.amber,
-                                ),
-                            child: Image.asset(
-                              'assets/cross_eye.png',
-                              fit: BoxFit.fitWidth,
-                            ),
-                          )
-                        : Icon(
-                            Icons.remove_red_eye,
-                            size: 20.sp,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                  )
-                : null),
+            TextFormField(
+              style: error
+                  ? CustomTextStyle.textStyle18w500Red
+                  : CustomTextStyle.textStyle18w500HG1000
+                      .copyWith(height: 1.45),
+              controller: _controller,
+              keyboardType: keyboardType,
+              validator: validator,
+              readOnly: readOnly,
+              maxLines: maxLines,
+              // showCursor: hasFocus.value,
+              cursorColor: ColorPalate.harrisonGrey1000,
+              focusNode: focusNode,
+              onChanged: onChanged,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onFieldSubmitted: onFieldSubmitted,
+              decoration: InputDecoration(
+                constraints: BoxConstraints(maxHeight: 20.h),
+                // hintStyle:
+                //     CustomTextStyle.textStyle18w500HG1000.copyWith(height: 1),
+                // labelStyle:
+                //     CustomTextStyle.textStyle18w500HG1000.copyWith(height: 1),
+                isDense: true,
+                contentPadding: EdgeInsets.zero,
+                border: border,
+                focusedBorder: border,
+                enabledBorder: border,
+                errorBorder: border,
+                disabledBorder: border,
+                filled: false,
+                fillColor: Colors.cyan,
+                prefixIcon: prefixIcon,
+                prefixIconConstraints: BoxConstraints(maxHeight: 40.h),
+                suffixIconConstraints: BoxConstraints(maxHeight: 40.h),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

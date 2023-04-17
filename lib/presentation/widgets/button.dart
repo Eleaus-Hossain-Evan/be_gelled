@@ -127,9 +127,7 @@ class KFilledButton extends KButton {
           key: key,
           onPressed: onPressed,
           text: text,
-          textStyle: CustomTextStyle.textStyle16w600White.copyWith(
-            letterSpacing: 0.15,
-          ),
+          textStyle: CustomTextStyle.textStyle16w600White,
           textTheme: ButtonTextTheme.normal,
           child: child,
           color: color,

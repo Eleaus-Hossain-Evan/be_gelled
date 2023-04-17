@@ -17,9 +17,11 @@ class LoggedInNotifier extends ChangeNotifier {
 
   String get token =>
       ref.read(hiveProvider).get(KStrings.token, defaultValue: '');
+
   UserModel get user => UserModel.fromJson(ref
       .read(hiveProvider)
       .get(KStrings.user, defaultValue: UserModel.init().toJson()));
+
   bool get loggedIn => token.isEmpty && user == UserModel.init() ? false : true;
 
   LoggedInNotifier(this.ref) : super();

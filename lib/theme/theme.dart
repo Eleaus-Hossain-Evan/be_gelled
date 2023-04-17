@@ -71,6 +71,9 @@ class MyTheme {
     blendLevel: 9,
     subThemesData: FlexSubThemesData(
       useTextTheme: true,
+      bottomSheetRadius: 20.r,
+      bottomSheetModalBackgroundColor: SchemeColor.surface,
+      bottomSheetBackgroundColor: SchemeColor.surface,
     ),
     useMaterial3: true,
     useMaterial3ErrorColors: true,

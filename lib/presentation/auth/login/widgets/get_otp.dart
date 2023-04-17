@@ -36,24 +36,24 @@ class GetOtpWidget extends HookConsumerWidget {
           child: Column(
             children: [
               gap36,
-              KTextFormField(
-                hintText: "context.local.phoneNumber",
-                controller: phoneController,
-                keyboardType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (value) {
-                  FocusScope.of(context).unfocus();
-                },
-                onChanged: (value) {
-                  phone.value = value;
-                },
-                validator: ValidationBuilder()
-                    .phone()
-                    .required()
-                    .maxLength(14)
-                    .minLength(11)
-                    .build(),
-              ),
+              // KTextFormField(
+              //   hintText: "context.local.phoneNumber",
+              //   controller: phoneController,
+              //   keyboardType: TextInputType.phone,
+              //   textInputAction: TextInputAction.next,
+              //   onFieldSubmitted: (value) {
+              //     FocusScope.of(context).unfocus();
+              //   },
+              //   onChanged: (value) {
+              //     phone.value = value;
+              //   },
+              //   validator: ValidationBuilder()
+              //       .phone()
+              //       .required()
+              //       .maxLength(14)
+              //       .minLength(11)
+              //       .build(),
+              // ),
               gap24,
               KFilledButton(
                 isSecondary: true,
