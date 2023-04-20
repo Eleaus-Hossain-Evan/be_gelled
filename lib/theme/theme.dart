@@ -77,6 +77,7 @@ class MyTheme {
     ),
     useMaterial3: true,
     useMaterial3ErrorColors: true,
+
     // visualDensity: FlexColorScheme.comfortablePlatformDensity,
     // To use the playground font, add GoogleFonts package and uncomment
     fontFamily: GoogleFonts.inter().fontFamily,

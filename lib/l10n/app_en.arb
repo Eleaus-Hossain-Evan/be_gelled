@@ -21,5 +21,9 @@
   "changeNumber": "Change Number?",
   "weveSentOneTimePasswordTo": "We've sent a One Time Password (OTP) to ",
   "resendCode": "Resend Code",
-  "dontReceiveCode": "Didn't receive the code?"
+  "dontReceiveCode": "Didn't receive the code?",
+  "home": "Home",
+  "wallet": "Wallet",
+  "history": "History",
+  "profile": "Profile"
 }

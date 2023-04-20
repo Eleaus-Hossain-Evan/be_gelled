@@ -143,6 +143,9 @@ EdgeInsetsDirectional paddingLeft18 = EdgeInsetsDirectional.only(start: 18.w);
 EdgeInsetsDirectional paddingLeft20 = EdgeInsetsDirectional.only(start: 20.w);
 EdgeInsetsDirectional paddingLeft22 = EdgeInsetsDirectional.only(start: 22.w);
 EdgeInsetsDirectional paddingLeft24 = EdgeInsetsDirectional.only(start: 24.w);
+EdgeInsetsDirectional paddingLeft26 = EdgeInsetsDirectional.only(start: 26.w);
+EdgeInsetsDirectional paddingLeft28 = EdgeInsetsDirectional.only(start: 28.w);
+EdgeInsetsDirectional paddingLeft30 = EdgeInsetsDirectional.only(start: 30.w);
 
 EdgeInsetsDirectional paddingRight4 = EdgeInsetsDirectional.only(end: 4.w);
 EdgeInsetsDirectional paddingRight6 = EdgeInsetsDirectional.only(end: 6.w);

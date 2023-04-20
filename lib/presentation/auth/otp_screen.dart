@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:be_gelled/presentation/auth/login/login.dart';
+import 'package:be_gelled/presentation/main_nav/main_nav.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:pinput/pinput.dart';
 
 import '../../application/auth/auth_provider.dart';
 import '../../utils/utils.dart';
+import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
 import 'signup/signup.dart';
 
@@ -108,7 +110,6 @@ class OTPScreen extends HookConsumerWidget {
                 style: CustomTextStyle.textStyle30w700,
               ),
               gap8,
-
               Text.rich(
                 TextSpan(
                   children: [
@@ -139,7 +140,6 @@ class OTPScreen extends HookConsumerWidget {
                   ],
                 ),
               ),
-
               gap32,
               Align(
                 alignment: Alignment.center,
@@ -174,22 +174,13 @@ class OTPScreen extends HookConsumerWidget {
               ),
               gap24,
               KFilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pop();
+                  context.pushReplacement(MainNav.route);
+                },
                 text:
                     isLogin ? context.local.logIn : context.local.createAccount,
               ),
-              // FilledButton(
-              //   onPressed: () {},
-              //   child: Text('Login with Google'),
-              // ),
-              // ElevatedButton(
-              //   onPressed: () {},
-              //   child: Text('Login with Facebook'),
-              // ),
-              // OutlinedButton(
-              //   onPressed: () {},
-              //   child: Text('Login with Apple'),
-              // ),
               gap24,
               Center(
                 child: Column(

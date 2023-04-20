@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
+import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
+import '../widgets/widgets.dart';
 
 class HomeScreen extends HookConsumerWidget {
   static String route = "/home";
@@ -40,15 +45,58 @@ class HomeScreen extends HookConsumerWidget {
     //f53d2d
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-        centerTitle: false,
+      appBar: KAppBar(
+        title: Column(
+          crossAxisAlignment: crossStart,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  Images.iconLocation,
+                  // width: 32.w,
+                  height: 22.w,
+                  fit: BoxFit.scaleDown,
+                ),
+                gap10,
+                Text("Home", style: CustomTextStyle.textStyle16w600),
+              ],
+            ),
+            Padding(
+              padding: paddingLeft28,
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Road 2, Sector 10, Uttara",
+                        style: CustomTextStyle.textStyle16w400HG900),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.top,
+                      child: InkWell(
+                        onTap: () {
+                          log("Road 2, Sector 10, Uttara");
+                        },
+                        child: Image.asset(
+                          Images.iconArrowDown,
+                          width: 16.w,
+                          height: 16.w,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Badge(
-              isLabelVisible: state.notification,
-              child: const Icon(Icons.notifications_outlined),
+            icon: const Badge(
+              backgroundColor: ColorPalate.orange,
+              isLabelVisible: true,
+              child: Icon(
+                Icons.notifications,
+              ),
             ),
           )
         ],
@@ -58,16 +106,183 @@ class HomeScreen extends HookConsumerWidget {
         width: 1.sw,
         child: SingleChildScrollView(
           controller: scrollController,
+          padding: padding16,
           child: Column(
             crossAxisAlignment: crossStart,
             children: [
-              Center(
-                child: Text(
-                  "Welcome Home ${authState.user.name}",
-                  // style: CustomTextStyle.textStyle16w600Black3,
-                ),
+              const _HomeBanner(),
+              gap24,
+              Text(
+                'Rides at your doorstep',
+                style: CustomTextStyle.textStyle16w600HG1000,
+              ),
+              gap16,
+              const _RideOptions(),
+              gap24,
+              _ContentOptions(
+                header: 'Ways to plan with Begelled',
+                imagePath: Images.healthyLifestyle,
+                title: 'Healthy Lifestyle',
+                onTap: () {},
+              ),
+              gap24,
+              _ContentOptions(
+                header: 'Get discount',
+                imagePath: Images.inviteFriends,
+                title: 'Invite Friends',
+                titleTextStyle: CustomTextStyle.textStyle16w600HG1000,
+                subtitle: 'Get 50% discount',
+                onTap: () {},
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ContentOptions extends StatelessWidget {
+  const _ContentOptions({
+    super.key,
+    required this.header,
+    required this.imagePath,
+    required this.title,
+    this.subTitleTextStyle,
+    this.titleTextStyle,
+    this.subtitle,
+    this.onTap,
+  });
+
+  final String header;
+  final String imagePath;
+  final String title;
+  final String? subtitle;
+  final TextStyle? titleTextStyle;
+  final TextStyle? subTitleTextStyle;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: crossStart,
+      children: [
+        Text(
+          header,
+          style: CustomTextStyle.textStyle16w600HG1000,
+        ),
+        gap16,
+        KInkWell(
+          onTap: onTap,
+          borderRadius: radius8,
+          child: KContainer(
+            height: 80.h,
+            child: Row(
+              children: [
+                Image.asset(
+                  imagePath,
+                  width: 48.w,
+                  height: 48.w,
+                  fit: BoxFit.cover,
+                ),
+                gap12,
+                Column(
+                  crossAxisAlignment: crossStart,
+                  mainAxisAlignment: mainCenter,
+                  children: [
+                    Text(
+                      title,
+                      style: titleTextStyle ??
+                          CustomTextStyle.textStyle16w400HG1000,
+                    ),
+                    subtitle == null
+                        ? const SizedBox.shrink()
+                        : Text(
+                            subtitle!,
+                            style: subTitleTextStyle ??
+                                CustomTextStyle.textStyle14w400HG800,
+                          ),
+                  ],
+                ),
+                const Spacer(),
+                Image.asset(
+                  Images.iconArrowRight,
+                  width: 24.w,
+                  height: 24.w,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _RideOptions extends StatelessWidget {
+  const _RideOptions({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: mainSpaceBetween,
+      children: [
+        _option(imagePath: Images.bikeRide, title: "Ride Sharing"),
+        _option(imagePath: Images.boxDelivery, title: "Delivery"),
+      ],
+    );
+  }
+
+  Widget _option({required String imagePath, required String title}) {
+    return KContainer(
+      width: 1.sw / 2.3,
+      child: Column(
+        children: [
+          Image.asset(
+            imagePath,
+            width: 48.w,
+            height: 48.w,
+            fit: BoxFit.cover,
+          ),
+          gap4,
+          Text(
+            title,
+            style: CustomTextStyle.textStyle16w400HG900,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HomeBanner extends StatelessWidget {
+  const _HomeBanner({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 140.h,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return Image.asset(
+            Images.banner,
+            height: 140.h,
+            fit: BoxFit.fill,
+          );
+        },
+        autoplay: true,
+        itemCount: 3,
+        pagination: SwiperPagination(
+          margin: paddingBottom8,
+          builder: DotSwiperPaginationBuilder(
+            activeColor: ColorPalate.white,
+            color: ColorPalate.white.withOpacity(0.32),
+            space: 6.w,
           ),
         ),
       ),

@@ -8,19 +8,20 @@ import 'widgets.dart';
 class KAppBar extends StatelessWidget implements PreferredSizeWidget {
   const KAppBar({
     Key? key,
-    required this.titleText,
+    this.titleText,
+    this.title,
     this.actions,
     this.leading,
     this.automaticallyImplyLeading = true,
     this.titleTextStyle,
-    this.centerTitle = true,
+    this.centerTitle = false,
     this.bottom,
     this.backgroundColor,
     this.elevation,
   }) : super(key: key);
 
-  final Widget? leading;
-  final String titleText;
+  final Widget? leading, title;
+  final String? titleText;
   final List<Widget>? actions;
   final bool automaticallyImplyLeading;
   final TextStyle? titleTextStyle;
@@ -37,9 +38,13 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor ?? Colors.transparent,
       foregroundColor: ColorPalate.black,
       leading: leading,
-      title: Text(titleText, style: titleTextStyle
-          // ?? CustomTextStyle.textStyle16w600,
-          ),
+      title: title ??
+          (titleText != null
+              ? Text(
+                  titleText!,
+                  style: titleTextStyle ?? CustomTextStyle.textStyle16w600,
+                )
+              : null),
       actions: actions,
       bottom: bottom,
       elevation: elevation,

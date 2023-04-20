@@ -10,6 +10,7 @@ import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
 import '../cart/cart_screen.dart';
 import '../home/home_screen.dart';
+import '../profile/profile_screen.dart';
 
 final bottomNavigatorKey = GlobalKey();
 
@@ -27,14 +28,18 @@ class MainNav extends HookConsumerWidget {
     final navWidget = [
       const HomeScreen(),
       // const VendorChatListScreen(),
-      const CartScreen(),
+      // const CartScreen(),//'Cart screen exists now...
       // const ProfileScreen(),
+
+      const Text("Wallet"),
+      const Text("History"),
+      const ProfileScreen()
     ];
 
     useEffect(() {
-      Future.wait([
-        Future.microtask(() => ref.read(homeProvider.notifier).getHomeData()),
-      ]);
+      // Future.wait([
+      //   Future.microtask(() => ref.read(homeProvider.notifier).getHomeData()),
+      // ]);
 
       // Future.microtask(() => ref.read(homeProvider.notifier).getHomeData());
 
@@ -52,64 +57,69 @@ class MainNav extends HookConsumerWidget {
       // Logger.i("constrain: $constrain");
       return Scaffold(
         body: navWidget[navIndex.value],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: ColorPalate.white,
-          key: bottomNavigatorKey,
-          currentIndex: navIndex.value,
-          onTap: (index) {
-            navIndex.value = index;
-          },
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 10.sp,
-          unselectedFontSize: 10.sp,
-          selectedItemColor: context.color.primary,
-          unselectedItemColor: ColorPalate.black,
-          items: [
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "KAssets.home",
-                width: 24.w,
-                height: 24.h,
-                color: navIndex.value == 0
-                    ? context.color.primary
-                    : ColorPalate.black,
-              ),
-              label: "context.local.home",
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            useMaterial3: false,
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: ColorPalate.white,
+            key: bottomNavigatorKey,
+            currentIndex: navIndex.value,
+            onTap: (index) {
+              navIndex.value = index;
+            },
+            type: BottomNavigationBarType.fixed,
+            selectedLabelStyle: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w600,
+              color: ColorPalate.primary,
             ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "KAssets.message",
-                width: 24.w,
-                height: 24.h,
-                color: navIndex.value == 1
-                    ? context.color.primary
-                    : ColorPalate.black,
-              ),
-              label: "context.local.message",
+            unselectedLabelStyle: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w400,
+              color: ColorPalate.harrisonGrey1000,
             ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "KAssets.cart",
-                width: 24.w,
-                height: 24.h,
-                color: navIndex.value == 2
-                    ? context.color.primary
-                    : ColorPalate.black,
+            items: [
+              BottomNavigationBarItem(
+                icon: navIndex.value == 0
+                    ? Image.asset(
+                        Images.iconHomeSelected,
+                        width: 24.w,
+                        height: 24.h,
+                      )
+                    : Image.asset(
+                        Images.iconHome,
+                        width: 24.w,
+                        height: 24.h,
+                      ),
+                label: context.local.home,
               ),
-              label: "context.local.cart",
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                "KAssets.account",
-                width: 24.w,
-                height: 24.h,
-                color: navIndex.value == 3
-                    ? context.color.primary
-                    : ColorPalate.black,
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  Images.iconWallet,
+                  width: 24.w,
+                  height: 24.h,
+                ),
+                label: context.local.wallet,
               ),
-              label: "context.local.profile",
-            ),
-          ],
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  Images.iconClockCircle,
+                  width: 24.w,
+                  height: 24.h,
+                ),
+                label: context.local.history,
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  Images.iconUserRectangle,
+                  width: 24.w,
+                  height: 24.h,
+                ),
+                label: context.local.profile,
+              ),
+            ],
+          ),
         ),
       );
     });
