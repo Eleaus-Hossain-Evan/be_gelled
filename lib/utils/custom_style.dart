@@ -14,6 +14,12 @@ class CustomTextStyle {
     letterSpacing: 1.80,
   );
 
+  static TextStyle textStyle24w700 = TextStyle(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w700,
+    color: ColorPalate.harrisonGrey1000,
+  );
+
   static TextStyle textStyle18w500HG1000 = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
@@ -24,6 +30,12 @@ class CustomTextStyle {
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     color: ColorPalate.error,
+  );
+
+  static TextStyle textStyle18w500HG800 = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w400,
+    color: ColorPalate.harrisonGrey800,
   );
 
   static TextStyle textStyle16w600 = TextStyle(
@@ -73,16 +85,22 @@ class CustomTextStyle {
     color: ColorPalate.orange,
   );
 
-  static TextStyle textStyle14w500HG900 = GoogleFonts.inter(
+  static TextStyle textStyle14w600 = GoogleFonts.inter(
     fontSize: 14.sp,
-    fontWeight: FontWeight.w500,
-    color: ColorPalate.harrisonGrey900,
+    fontWeight: FontWeight.w600,
+    color: ColorPalate.black,
   );
 
   static TextStyle textStyle14w600Orange = GoogleFonts.inter(
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
     color: ColorPalate.orange,
+  );
+
+  static TextStyle textStyle14w500HG900 = GoogleFonts.inter(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+    color: ColorPalate.harrisonGrey900,
   );
 
   static TextStyle textStyle14w500HG800 = GoogleFonts.inter(
@@ -95,6 +113,12 @@ class CustomTextStyle {
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
     color: ColorPalate.error,
+  );
+
+  static TextStyle textStyle14w400HG900 = GoogleFonts.inter(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    color: ColorPalate.harrisonGrey900,
   );
 
   static TextStyle textStyle14w400HG800 = GoogleFonts.inter(

@@ -53,6 +53,16 @@ class DatabaseService {
 }
 
 class MyTheme {
+  static final ColorScheme schemeLightOnBW = SeedColorScheme.fromSeeds(
+    brightness: Brightness.light,
+    primaryKey: ColorPalate.primary,
+    secondaryKey: ColorPalate.secondary,
+    tertiaryKey: ColorPalate.green,
+    errorKey: ColorPalate.error,
+    background: ColorPalate.white,
+    tones:
+        FlexTones.material(Brightness.light).onMainsUseBW().onSurfacesUseBW(),
+  );
   // This theme was made for FlexColorScheme version 6.1.1. Make sure
 // you use same or higher version, but still same major version. If
 // you use a lower version, some properties may not be supported. In
@@ -74,6 +84,17 @@ class MyTheme {
       bottomSheetRadius: 20.r,
       bottomSheetModalBackgroundColor: SchemeColor.surface,
       bottomSheetBackgroundColor: SchemeColor.surface,
+      buttonMinSize: Size.fromHeight(54.h),
+      outlinedButtonRadius: 8.r,
+      outlinedButtonTextStyle: MaterialStateProperty.all(
+        CustomTextStyle.textStyle16w600HG1000,
+      ),
+      outlinedButtonBorderWidth: 1.w,
+      filledButtonRadius: 8.r,
+      filledButtonTextStyle: MaterialStateProperty.all(
+        CustomTextStyle.textStyle16w600HG1000,
+      ),
+      filledButtonSchemeColor: SchemeColor.primary,
     ),
     useMaterial3: true,
     useMaterial3ErrorColors: true,

@@ -25,5 +25,16 @@
   "home": "Home",
   "wallet": "Wallet",
   "history": "History",
-  "profile": "Profile"
+  "profile": "Profile",
+  "ridesAtYourDoorstep": "Rides at your doorstep",
+  "waysToPlanWithBegelled": "Ways to plan with Begelled",
+  "healthyLifestyle": "Healthy Lifestyle",
+  "getDiscount": "Get discount",
+  "inviteFriends": "Invite Friends",
+  "get50Discount": "Get 50% discount",
+  "familyMembers": "Family Members",
+  "howManyFamilyMembers": "How many family members?",
+  "continueText": "Continue",
+  "rideSharing": "Ride Sharing",
+  "delivery": "Delivery"
 }

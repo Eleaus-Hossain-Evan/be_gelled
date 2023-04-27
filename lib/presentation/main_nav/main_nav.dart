@@ -61,64 +61,75 @@ class MainNav extends HookConsumerWidget {
           data: Theme.of(context).copyWith(
             useMaterial3: false,
           ),
-          child: BottomNavigationBar(
-            backgroundColor: ColorPalate.white,
-            key: bottomNavigatorKey,
-            currentIndex: navIndex.value,
-            onTap: (index) {
-              navIndex.value = index;
-            },
-            type: BottomNavigationBarType.fixed,
-            selectedLabelStyle: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w600,
-              color: ColorPalate.primary,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+                border: Border(
+              top: BorderSide(
+                color: const Color(0xff00000014),
+                width: 1.w,
+              ),
+            )),
+            child: BottomNavigationBar(
+              backgroundColor: ColorPalate.white,
+              elevation: 3,
+              useLegacyColorScheme: false,
+              key: bottomNavigatorKey,
+              currentIndex: navIndex.value,
+              onTap: (index) {
+                navIndex.value = index;
+              },
+              type: BottomNavigationBarType.fixed,
+              selectedLabelStyle: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
+                color: ColorPalate.primary,
+              ),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w400,
+                color: ColorPalate.harrisonGrey1000,
+              ),
+              items: [
+                BottomNavigationBarItem(
+                  icon: navIndex.value == 0
+                      ? Image.asset(
+                          Images.iconHomeSelected,
+                          width: 24.w,
+                          height: 24.h,
+                        )
+                      : Image.asset(
+                          Images.iconHome,
+                          width: 24.w,
+                          height: 24.h,
+                        ),
+                  label: context.local.home,
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    Images.iconWallet,
+                    width: 24.w,
+                    height: 24.h,
+                  ),
+                  label: context.local.wallet,
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    Images.iconClockCircle,
+                    width: 24.w,
+                    height: 24.h,
+                  ),
+                  label: context.local.history,
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    Images.iconUserRectangle,
+                    width: 24.w,
+                    height: 24.h,
+                  ),
+                  label: context.local.profile,
+                ),
+              ],
             ),
-            unselectedLabelStyle: TextStyle(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.w400,
-              color: ColorPalate.harrisonGrey1000,
-            ),
-            items: [
-              BottomNavigationBarItem(
-                icon: navIndex.value == 0
-                    ? Image.asset(
-                        Images.iconHomeSelected,
-                        width: 24.w,
-                        height: 24.h,
-                      )
-                    : Image.asset(
-                        Images.iconHome,
-                        width: 24.w,
-                        height: 24.h,
-                      ),
-                label: context.local.home,
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  Images.iconWallet,
-                  width: 24.w,
-                  height: 24.h,
-                ),
-                label: context.local.wallet,
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  Images.iconClockCircle,
-                  width: 24.w,
-                  height: 24.h,
-                ),
-                label: context.local.history,
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  Images.iconUserRectangle,
-                  width: 24.w,
-                  height: 24.h,
-                ),
-                label: context.local.profile,
-              ),
-            ],
           ),
         ),
       );

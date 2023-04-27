@@ -33,7 +33,7 @@ class MemberInfoScreen extends HookConsumerWidget {
             Container(
               color: Colors.amber,
               height: 64.h,
-              child: KTextFormField2(l: "Full Name"),
+              child: KTextFormField2(hintText: "Full Name"),
             )
           ],
         ),

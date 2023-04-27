@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../application/auth/loggedin_provider.dart';
+import '../presentation/family_member/member_info_screen.dart';
+import '../presentation/family_member/member_list_screen.dart';
 import '../presentation/auth/login/login.dart';
 import '../presentation/auth/otp_screen.dart';
 import '../presentation/auth/signup/signup.dart';
@@ -89,6 +91,19 @@ class RouterNotifier extends ChangeNotifier {
           builder: (context, state) => OTPScreen(
             isLogin: state.params['isLogin'] == 'Login',
             phone: state.queryParams['number']!,
+          ),
+        ),
+        GoRoute(
+          path: MemberListScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            child: const MemberListScreen(),
+          ),
+        ),
+        GoRoute(
+          path: "${MemberInfoScreen.route}/:index",
+          pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
+            child: MemberInfoScreen(
+                memberIndex: int.tryParse(state.params['index']!) ?? 0),
           ),
         ),
       ];

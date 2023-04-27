@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import '../../utils/custom_style.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ class KTextFormField extends HookConsumerWidget {
     this.maxLines = 1,
     this.onFieldSubmitted,
     this.error = false,
+    this.inputFormatters,
   })  : _controller = controller,
         super(key: key);
 
@@ -43,6 +46,7 @@ class KTextFormField extends HookConsumerWidget {
   final String? Function(String?)? validator;
   final int? maxLines;
   final Function(String)? onFieldSubmitted;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -121,6 +125,7 @@ class KTextFormField extends HookConsumerWidget {
               onChanged: onChanged,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               onFieldSubmitted: onFieldSubmitted,
+              inputFormatters: inputFormatters,
               decoration: InputDecoration(
                 constraints: BoxConstraints(maxHeight: 20.h),
                 // hintStyle:
@@ -167,10 +172,9 @@ class KTextFormField2 extends HookConsumerWidget {
     this.onFieldSubmitted,
     this.textInputAction,
     this.maxLines = 1,
-    this.contentPadding = const EdgeInsetsDirectional.only(
-        start: 16, end: 16, top: 10, bottom: 10),
-    this.fillColor = Colors.transparent,
-    this.borderColor = ColorPalate.harrisonGrey1000,
+    this.contentPadding,
+    this.fillColor = ColorPalate.spaceScape100,
+    this.borderColor = Colors.transparent,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -187,7 +191,7 @@ class KTextFormField2 extends HookConsumerWidget {
   final TextInputAction? textInputAction;
   final Function(String)? onChanged, onFieldSubmitted;
   final int? maxLines;
-  final EdgeInsetsGeometry contentPadding;
+  final EdgeInsetsGeometry? contentPadding;
   final Color fillColor, borderColor;
 
   @override
@@ -195,8 +199,8 @@ class KTextFormField2 extends HookConsumerWidget {
     final hideText = useState(true);
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
-      borderSide: const BorderSide(
-        color: ColorPalate.harrisonGrey1000,
+      borderSide: BorderSide(
+        color: borderColor,
         width: 1,
       ),
     );
@@ -212,10 +216,13 @@ class KTextFormField2 extends HookConsumerWidget {
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: isLabel ? null : hintText,
-        // hintStyle: CustomTextStyle.textStyle16w400black2,
+        hintStyle: CustomTextStyle.textStyle18w500HG800,
         labelText: isLabel ? hintText : null,
         // labelStyle: CustomTextStyle.textStyle16w400black2,
-        contentPadding: contentPadding,
+        contentPadding: contentPadding ??
+            EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+
+        filled: true,
         fillColor: fillColor,
         border: border,
         enabledBorder: border,
@@ -224,7 +231,6 @@ class KTextFormField2 extends HookConsumerWidget {
             color: borderColor,
           ),
         ),
-        filled: true,
         prefix: prefix,
         suffixIcon: suffixIcon ??
             (isObscure

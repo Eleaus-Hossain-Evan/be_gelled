@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../utils/utils.dart';
+import 'widgets.dart';
 
 class KContainer extends StatelessWidget {
   const KContainer({
@@ -14,32 +15,38 @@ class KContainer extends StatelessWidget {
     this.height,
     this.borderRadius,
     this.border,
+    this.onTap,
   }) : super(key: key);
 
   final Widget child;
   final EdgeInsetsGeometry? padding, margin;
-  final BorderRadiusGeometry? borderRadius;
+  final BorderRadius? borderRadius;
   final Color? backgroundColor;
   final double? width, height;
   final BoxBorder? border;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      padding:
-          padding ?? EdgeInsetsDirectional.fromSTEB(16.w, 16.h, 16.w, 16.h),
-      width: width ?? double.infinity,
-      height: height,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: borderRadius ?? radius8,
-        border: border ??
-            Border.all(
-              color: ColorPalate.harrisonGrey100,
-            ),
+    return KInkWell(
+      onTap: onTap,
+      borderRadius: borderRadius ?? radius8,
+      child: Container(
+        margin: margin,
+        padding:
+            padding ?? EdgeInsetsDirectional.fromSTEB(16.w, 16.h, 16.w, 16.h),
+        width: width ?? double.infinity,
+        height: height,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: borderRadius ?? radius8,
+          border: border ??
+              Border.all(
+                color: ColorPalate.harrisonGrey100,
+              ),
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 }

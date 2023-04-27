@@ -16,8 +16,9 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleTextStyle,
     this.centerTitle = false,
     this.bottom,
-    this.backgroundColor,
+    this.backgroundColor = ColorPalate.white,
     this.elevation,
+    this.scrolledUnderElevation,
   }) : super(key: key);
 
   final Widget? leading, title;
@@ -29,13 +30,14 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   final Color? backgroundColor;
   final double? elevation;
+  final double? scrolledUnderElevation;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: centerTitle,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      backgroundColor: backgroundColor ?? Colors.transparent,
+      backgroundColor: backgroundColor ?? ColorPalate.white,
       foregroundColor: ColorPalate.black,
       leading: leading,
       title: title ??
@@ -46,13 +48,28 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
                 )
               : null),
       actions: actions,
-      bottom: bottom,
+      bottom: bottom ?? const BottomBorder(),
       elevation: elevation,
+      scrolledUnderElevation: scrolledUnderElevation,
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class BottomBorder extends StatelessWidget implements PreferredSizeWidget {
+  const BottomBorder({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return KDivider();
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(1);
 }
 
 class KCustomAppBar extends StatelessWidget implements PreferredSizeWidget {

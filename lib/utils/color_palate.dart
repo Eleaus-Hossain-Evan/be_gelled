@@ -11,6 +11,8 @@ class ColorPalate {
   static const Color primary = navy;
   static const Color secondary = orange;
 
+  static const Color disableButton = Color(0xff9a9b9d);
+
   static const Color info = Color(0xff2F80ED);
   static const Color success = green;
   static const Color warning = orange;

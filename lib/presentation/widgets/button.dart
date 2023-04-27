@@ -75,6 +75,7 @@ class KButton extends HookConsumerWidget {
       height: 54.h,
       minWidth: double.infinity,
       color: color ?? context.color.primary,
+      disabledColor: disabledColor,
       textColor: textColor ?? context.color.onPrimary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
@@ -97,7 +98,8 @@ class KButton extends HookConsumerWidget {
                 strokeWidth: 3,
               ),
             )
-          : child ?? Text(text ?? "", style: textStyle),
+          : child ??
+              Text(text ?? "", style: textStyle?.copyWith(color: textColor)),
     );
   }
 }
@@ -107,9 +109,9 @@ class KFilledButton extends KButton {
   final String text;
   final Widget? child;
   final Color? color;
+  final Color? disabledColor;
   final Color? textColor;
   final Color? borderColor;
-
   final bool isSecondary;
   final bool? loading;
 
@@ -121,6 +123,7 @@ class KFilledButton extends KButton {
     this.loading,
     this.child,
     this.color,
+    this.disabledColor = ColorPalate.disableButton,
     this.textColor,
     this.borderColor,
   }) : super(
@@ -131,6 +134,7 @@ class KFilledButton extends KButton {
           textTheme: ButtonTextTheme.normal,
           child: child,
           color: color,
+          disabledColor: disabledColor,
           textColor: textColor,
           borderColor: color,
           borderWidth: 0,
@@ -145,7 +149,6 @@ class KOutlinedButton extends KButton {
   final Widget? child;
   final Color? textColor;
   final Color? borderColor;
-
   final bool isSecondary;
   final bool? loading;
 
