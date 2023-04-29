@@ -18,11 +18,16 @@ import '../../utils/utils.dart';
 import '../family_member/member_list_screen.dart';
 import '../widgets/widgets.dart';
 
+final familyProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 class HomeScreen extends HookConsumerWidget {
   static String route = "/home";
   const HomeScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final familyState = ref.watch(familyProvider);
     final scrollController = useScrollController();
     final state = ref.watch(homeProvider);
     final authState = ref.watch(authProvider);
@@ -118,41 +123,75 @@ class HomeScreen extends HookConsumerWidget {
             children: [
               const _HomeBanner(),
               gap24,
-              Text(
-                context.local.ridesAtYourDoorstep,
-                style: CustomTextStyle.textStyle16w600HG1000,
-              ),
-              gap16,
-              const _RideOptions(),
-              gap24,
-              _ContentOptions(
-                header: context.local.waysToPlanWithBegelled,
-                imagePath: Images.healthyLifestyle,
-                title: context.local.healthyLifestyle,
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: ColorPalate.white,
-                    isScrollControlled: true,
-                    builder: (context) {
-                      return const _AddFamilyMember();
-                    },
-                  );
-                },
-              ),
-              gap24,
-              _ContentOptions(
-                header: context.local.getDiscount,
-                imagePath: Images.inviteFriends,
-                title: context.local.inviteFriends,
-                titleTextStyle: CustomTextStyle.textStyle16w600HG1000,
-                subtitle: context.local.get50Discount,
-                onTap: () {},
-              ),
+              familyState
+                  ? Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              context.local.familyMembers,
+                              style: CustomTextStyle.textStyle16w600,
+                            ),
+                            Text(
+                              context.local.addMembers,
+                              style: CustomTextStyle.textStyle16w600Orange,
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        Text(
+                          context.local.ridesAtYourDoorstep,
+                          style: CustomTextStyle.textStyle16w600HG1000,
+                        ),
+                        gap16,
+                        const _RideOptions(),
+                        gap24,
+                        _ContentOptions(
+                          header: context.local.waysToPlanWithBegelled,
+                          imagePath: Images.healthyLifestyle,
+                          title: context.local.healthyLifestyle,
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              backgroundColor: ColorPalate.white,
+                              isScrollControlled: true,
+                              builder: (context) {
+                                return const _AddFamilyMember();
+                              },
+                            );
+                          },
+                        ),
+                        gap24,
+                        _ContentOptions(
+                          header: context.local.getDiscount,
+                          imagePath: Images.inviteFriends,
+                          title: context.local.inviteFriends,
+                          titleTextStyle: CustomTextStyle.textStyle16w600HG1000,
+                          subtitle: context.local.get50Discount,
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: familyState
+          ? Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w).copyWith(
+                bottom: 32.h,
+              ),
+              child: FilledButton(
+                onPressed: () {
+                  ref.read(familyProvider.notifier).update((state) => true);
+                },
+                child: Text(context.local.createOrder),
+              ),
+            )
+          : null,
     );
   }
 }

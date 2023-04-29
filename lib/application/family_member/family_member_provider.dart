@@ -21,4 +21,14 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
       ),
     );
   }
+
+  void setMemberInfo(MemberInfo memberInfo, int index) {
+    state = state.copyWith(
+      members: [
+        ...state.members.sublist(0, index),
+        memberInfo,
+        ...state.members.sublist(index + 1),
+      ],
+    );
+  }
 }

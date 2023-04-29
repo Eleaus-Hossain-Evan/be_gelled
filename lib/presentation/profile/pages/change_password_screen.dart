@@ -59,6 +59,7 @@ class PasswordScreen extends HookConsumerWidget {
                 KTextFormField2(
                   hintText: "context.local.currentPassword",
                   controller: currentPasswordController,
+                  focusNode: useFocusNode(),
                   borderColor: ColorPalate.secondary,
                   textInputAction: TextInputAction.next,
                   validator: ValidationBuilder()

@@ -80,22 +80,22 @@ class MyTheme {
     surface: ColorPalate.white,
     blendLevel: 9,
     subThemesData: FlexSubThemesData(
-      useTextTheme: true,
-      bottomSheetRadius: 20.r,
-      bottomSheetModalBackgroundColor: SchemeColor.surface,
-      bottomSheetBackgroundColor: SchemeColor.surface,
-      buttonMinSize: Size.fromHeight(54.h),
-      outlinedButtonRadius: 8.r,
-      outlinedButtonTextStyle: MaterialStateProperty.all(
-        CustomTextStyle.textStyle16w600HG1000,
-      ),
-      outlinedButtonBorderWidth: 1.w,
-      filledButtonRadius: 8.r,
-      filledButtonTextStyle: MaterialStateProperty.all(
-        CustomTextStyle.textStyle16w600HG1000,
-      ),
-      filledButtonSchemeColor: SchemeColor.primary,
-    ),
+        useTextTheme: true,
+        bottomSheetRadius: 20.r,
+        bottomSheetModalBackgroundColor: SchemeColor.surface,
+        bottomSheetBackgroundColor: SchemeColor.surface,
+        buttonMinSize: Size.fromHeight(54.h),
+        outlinedButtonRadius: 8.r,
+        outlinedButtonTextStyle: MaterialStateProperty.all(
+          CustomTextStyle.textStyle16w600HG1000,
+        ),
+        outlinedButtonBorderWidth: 1.w,
+        filledButtonRadius: 8.r,
+        filledButtonTextStyle: MaterialStateProperty.all(
+          CustomTextStyle.textStyle16w600HG1000,
+        ),
+        filledButtonSchemeColor: SchemeColor.primary,
+        radioSchemeColor: SchemeColor.secondary),
     useMaterial3: true,
     useMaterial3ErrorColors: true,
 

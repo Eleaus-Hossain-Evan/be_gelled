@@ -7,4 +7,27 @@ extension StringCasingExtension on String {
       .split(' ')
       .map((str) => str.toCapitalize())
       .join(' ');
+
+  List<String> iterable() {
+    List<String> items = [];
+    split("").forEach((item) => items.add(item));
+    return items;
+  }
+
+  String toWordTitleCase() {
+    return iterable()
+        .map((e) {
+          if (e == e.toUpperCase()) {
+            return " $e";
+          } else {
+            return e;
+          }
+        })
+        .toList()
+        .join('')
+        .trim()
+        .split(' ')
+        .map((str) => str.toCapitalize())
+        .join(' ');
+  }
 }

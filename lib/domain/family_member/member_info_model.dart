@@ -6,8 +6,8 @@ class MemberInfo extends Equatable {
   final String fullName;
   final Gender gender;
   final String dateOfBirth;
-  final int diabetic;
-  final int kidney;
+  final double diabetic;
+  final double kidney;
   final bool allergy;
   final String otherPhysicalProblem;
 
@@ -35,8 +35,8 @@ class MemberInfo extends Equatable {
     String? fullName,
     Gender? gender,
     String? dateOfBirth,
-    int? diabetic,
-    int? kidney,
+    double? diabetic,
+    double? kidney,
     bool? allergy,
     String? otherPhysicalProblem,
   }) {
@@ -68,8 +68,8 @@ class MemberInfo extends Equatable {
       fullName: map['fullName'] ?? '',
       gender: Gender.values.byName(map['gender']),
       dateOfBirth: map['dateOfBirth'] ?? '',
-      diabetic: map['diabetic']?.toInt() ?? 0,
-      kidney: map['kidney']?.toInt() ?? 0,
+      diabetic: map['diabetic']?.toDouble() ?? 0.0,
+      kidney: map['kidney']?.toDouble() ?? 0.0,
       allergy: map['allergy'] ?? false,
       otherPhysicalProblem: map['otherPhysicalProblem'] ?? '',
     );

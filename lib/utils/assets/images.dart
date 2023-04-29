@@ -12,6 +12,7 @@ class Images {
   static const String logo = 'assets/images/logo.png';
   static const String iconArrowDown = 'assets/icons/arrow-down.png';
   static const String iconArrowRight = 'assets/icons/arrow-right.png';
+  static const String iconCalendar = 'assets/icons/calendar.png';
   static const String iconCallIconRed = 'assets/icons/call-icon-red.png';
   static const String iconCheckMarkCircle =
       'assets/icons/check mark-circle.png';

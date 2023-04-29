@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/family_member/family_member_provider.dart';
 import '../../domain/family_member/member_info_model.dart';
+import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
 import 'member_info_screen.dart';
 
@@ -22,8 +23,8 @@ class MemberListScreen extends HookConsumerWidget {
       return () => ref.invalidate(familyMemberProvider);
     }, const []);
     return Scaffold(
-      appBar: const KAppBar(
-        titleText: "Members Informations",
+      appBar: KAppBar(
+        titleText: context.local.membersInformations,
         backgroundColor: ColorPalate.white,
       ),
       body: SizedBox(
@@ -51,7 +52,7 @@ class MemberListScreen extends HookConsumerWidget {
                     color: ColorPalate.primary,
                   ),
                 ),
-                label: const Text("Add More Member"),
+                label: Text(context.local.addMoreMember),
                 icon: Image.asset(
                   Images.iconPlus,
                   width: 24.w,
@@ -70,7 +71,9 @@ class MemberListScreen extends HookConsumerWidget {
           top: 8.h,
         ),
         child: FilledButton(
-          onPressed: () {},
+          onPressed: () {
+            ref.read(familyProvider.notifier).update((state) => true);
+          },
           child: Text(context.local.continueText),
         ),
       ),

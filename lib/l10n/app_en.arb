@@ -36,5 +36,16 @@
   "howManyFamilyMembers": "How many family members?",
   "continueText": "Continue",
   "rideSharing": "Ride Sharing",
-  "delivery": "Delivery"
+  "delivery": "Delivery",
+  "membersInformations": "Members Informations",
+  "addMoreMember": "Add More Member",
+  "medicalInformation": "Medical Information",
+  "diabeticPatient": "Diabetic Patient",
+  "kidneyPatient": "Kidney Patient",
+  "allergy": "Allergy",
+  "othersPhysicalProblem": "Others Physical Problem",
+  "aA": "Aa",
+  "save": "Save",
+  "createOrder": "Create Order",
+  "addMembers": "Add Members"
 }

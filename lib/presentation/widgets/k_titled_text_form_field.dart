@@ -11,13 +11,12 @@ class KTitledTextFormField extends StatelessWidget {
     required this.title,
     this.hintText,
     required TextEditingController controller,
-    FocusNode? focus,
+    required FocusNode focus,
     this.textInputAction,
     this.onFieldSubmitted,
     this.validator,
     this.isObscure = false,
     this.isReadOnly = false,
-    this.isLabel = false,
     this.textStyle,
     this.keyboardType = TextInputType.text,
     this.onChanged,
@@ -32,11 +31,10 @@ class KTitledTextFormField extends StatelessWidget {
   final String? hintText;
   final TextStyle? textStyle;
   final TextEditingController _controller;
-  final FocusNode? _focus;
+  final FocusNode _focus;
   final Function(String)? onFieldSubmitted;
   final String? Function(String?)? validator;
-  final bool isObscure;
-  final bool isReadOnly, isLabel;
+  final bool isReadOnly, isObscure;
   final TextInputAction? textInputAction;
   final TextInputType keyboardType;
   final Function(String?)? onChanged, onSaved;
@@ -65,7 +63,6 @@ class KTitledTextFormField extends StatelessWidget {
             validator: validator,
             onChanged: onChanged,
             onTap: onTap,
-            isLabel: isLabel,
             hintText: hintText ?? "",
           ),
         ],

@@ -59,6 +59,13 @@ class CustomTextStyle {
 
   static TextStyle textStyle16w600HG1000 = textStyle16w600.copyWith(
     color: ColorPalate.harrisonGrey1000,
+    letterSpacing: .15,
+  );
+
+  static TextStyle textStyle16w500HG1000 = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    color: ColorPalate.harrisonGrey1000,
   );
 
   static TextStyle textStyle16w500HG900 = TextStyle(

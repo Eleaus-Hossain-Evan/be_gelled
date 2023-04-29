@@ -123,40 +123,40 @@ class EditProfileScreen extends HookConsumerWidget {
                 ),
                 gap36,
                 KTextFormField2(
-                  hintText: "context.local.firstName",
+                  labelText: "context.local.firstName",
                   controller: firstNameController,
-                  isLabel: true,
                   validator: ValidationBuilder().maxLength(15).build(),
+                  focusNode: useFocusNode(),
                   onChanged: (value) {
                     firstName.value = value;
                   },
                 ),
                 gap24,
                 KTextFormField2(
-                  hintText: "context.local.lastName",
+                  labelText: "context.local.lastName",
                   controller: lastNameController,
-                  isLabel: true,
                   validator: ValidationBuilder().maxLength(15).build(),
+                  focusNode: useFocusNode(),
                   onChanged: (value) {
                     lastName.value = value;
                   },
                 ),
                 gap24,
                 KTextFormField2(
-                  hintText: "context.local.email",
+                  labelText: "context.local.email",
                   controller: emailController,
-                  isLabel: true,
                   validator: ValidationBuilder().maxLength(30).email().build(),
+                  focusNode: useFocusNode(),
                   onChanged: (value) {
                     email.value = value;
                   },
                 ),
                 gap24,
                 KTextFormField2(
-                  hintText: "context.local.phoneNumber",
+                  labelText: "context.local.phoneNumber",
                   controller: phoneController,
-                  isLabel: true,
                   readOnly: true,
+                  focusNode: useFocusNode(),
                   validator: ValidationBuilder()
                       .maxLength(11)
                       .minLength(11)

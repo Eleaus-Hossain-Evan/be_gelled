@@ -157,15 +157,16 @@ class KTextFormField2 extends HookConsumerWidget {
   const KTextFormField2({
     Key? key,
     this.controller,
-    required this.hintText,
+    this.hintText,
+    this.labelText,
     this.textAlign = TextAlign.start,
     this.suffixIcon,
     this.readOnly = false,
-    this.isLabel = false,
+    this.enabled = true,
     this.onTap,
-    this.prefix,
+    this.prefixIcon,
     this.validator,
-    this.focusNode,
+    required this.focusNode,
     this.isObscure = false,
     this.keyboardType = TextInputType.text,
     this.onChanged,
@@ -178,15 +179,15 @@ class KTextFormField2 extends HookConsumerWidget {
   }) : super(key: key);
 
   final TextEditingController? controller;
-  final String hintText;
+  final String? hintText;
+  final String? labelText;
   final TextAlign textAlign;
   final Widget? suffixIcon;
-  final bool readOnly, isLabel;
+  final bool readOnly, isObscure, enabled;
   final VoidCallback? onTap;
-  final Widget? prefix;
+  final Widget? prefixIcon;
   final String? Function(String?)? validator;
-  final bool isObscure;
-  final FocusNode? focusNode;
+  final FocusNode focusNode;
   final TextInputType keyboardType;
   final TextInputAction? textInputAction;
   final Function(String)? onChanged, onFieldSubmitted;
@@ -204,50 +205,81 @@ class KTextFormField2 extends HookConsumerWidget {
         width: 1,
       ),
     );
-    return TextFormField(
-      obscureText: isObscure ? hideText.value : false,
-      controller: controller,
-      focusNode: focusNode,
-      readOnly: readOnly,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      // style: CustomTextStyle.textStyle16w400,
-      textAlign: textAlign,
-      keyboardType: keyboardType,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        hintText: isLabel ? null : hintText,
-        hintStyle: CustomTextStyle.textStyle18w500HG800,
-        labelText: isLabel ? hintText : null,
-        // labelStyle: CustomTextStyle.textStyle16w400black2,
-        contentPadding: contentPadding ??
-            EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
 
-        filled: true,
-        fillColor: fillColor,
-        border: border,
-        enabledBorder: border,
-        focusedBorder: border.copyWith(
-          borderSide: BorderSide(
-            color: borderColor,
-          ),
-        ),
-        prefix: prefix,
-        suffixIcon: suffixIcon ??
-            (isObscure
-                ? KInkWell(
-                    borderRadius: radius24,
-                    onTap: () {
-                      hideText.value = !hideText.value;
-                    },
-                    child: hideText.value
-                        ? const Icon(EvaIcons.eye_off_2_outline)
-                        : const Icon(EvaIcons.eye),
-                  )
-                : null),
+    final hasFocus = useState(false);
+
+    void focusListener() {
+      hasFocus.value = focusNode.hasPrimaryFocus;
+    }
+
+    useEffect(() {
+      focusNode.addListener(focusListener);
+
+      return () => focusNode.removeListener(focusListener);
+    });
+    return AnimatedContainer(
+      duration: kThemeChangeDuration,
+      height: maxLines == null ? null : 64.h,
+      padding: contentPadding ??
+          (hasFocus.value
+              ? EdgeInsets.only(
+                  top: 20.w,
+                  bottom: 12.w,
+                  left: 16.w,
+                  right: 16.w,
+                )
+              : EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h)),
+      decoration: BoxDecoration(
+        color: fillColor,
+        borderRadius: BorderRadius.circular(8.r),
       ),
-      onTap: onTap,
-      validator: validator,
-      onFieldSubmitted: onFieldSubmitted,
+      alignment: Alignment.center,
+      child: TextFormField(
+        obscureText: isObscure ? hideText.value : false,
+        textAlignVertical: enabled ? const TextAlignVertical(y: 0.5) : null,
+        controller: controller,
+        focusNode: focusNode,
+        readOnly: readOnly,
+        // enabled: enabled,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        style: CustomTextStyle.textStyle18w500HG1000,
+        textAlign: textAlign,
+        keyboardType: keyboardType,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: CustomTextStyle.textStyle18w500HG800,
+          labelText: labelText,
+          labelStyle: CustomTextStyle.textStyle18w500HG800,
+          contentPadding: EdgeInsets.zero,
+          filled: true,
+          fillColor: fillColor,
+          border: border,
+          enabledBorder: border,
+          focusedBorder: border.copyWith(
+            borderSide: BorderSide(
+              color: borderColor,
+            ),
+          ),
+          disabledBorder: border,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon ??
+              (isObscure
+                  ? KInkWell(
+                      borderRadius: radius24,
+                      onTap: () {
+                        hideText.value = !hideText.value;
+                      },
+                      child: hideText.value
+                          ? const Icon(EvaIcons.eye_off_2_outline)
+                          : const Icon(EvaIcons.eye),
+                    )
+                  : null),
+        ),
+        onTap: onTap,
+        validator: validator,
+        onFieldSubmitted: onFieldSubmitted,
+      ),
     );
   }
 }

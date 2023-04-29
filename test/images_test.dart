@@ -14,6 +14,7 @@ void main() {
     expect(File(Images.logo).existsSync(), true);
     expect(File(Images.iconArrowDown).existsSync(), true);
     expect(File(Images.iconArrowRight).existsSync(), true);
+    expect(File(Images.iconCalendar).existsSync(), true);
     expect(File(Images.iconCallIconRed).existsSync(), true);
     expect(File(Images.iconCheckMarkCircle).existsSync(), true);
     expect(File(Images.iconClockCircle).existsSync(), true);
