@@ -9,6 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../application/family_member/family_member_provider.dart';
 import '../../application/auth/auth_provider.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final familyState = ref.watch(familyProvider);
+    final member = ref.watch(familyMemberProvider).member;
     final scrollController = useScrollController();
     final state = ref.watch(homeProvider);
     final authState = ref.watch(authProvider);
@@ -127,6 +129,7 @@ class HomeScreen extends HookConsumerWidget {
                   ? Column(
                       children: [
                         Row(
+                          mainAxisAlignment: mainSpaceBetween,
                           children: [
                             Text(
                               context.local.familyMembers,
@@ -137,7 +140,19 @@ class HomeScreen extends HookConsumerWidget {
                               style: CustomTextStyle.textStyle16w600Orange,
                             ),
                           ],
-                        )
+                        ),
+                        KListViewSeparated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => MemberListTile(
+                            index: index,
+                            memberInfo:
+                                ref.watch(familyMemberProvider).members[index],
+                          ),
+                          itemCount: member,
+                          separator: gap16,
+                        ),
+                        gap32,
                       ],
                     )
                   : Column(
@@ -154,10 +169,11 @@ class HomeScreen extends HookConsumerWidget {
                           imagePath: Images.healthyLifestyle,
                           title: context.local.healthyLifestyle,
                           onTap: () {
-                            showModalBottomSheet(
+                            showBarModalBottomSheet(
                               context: context,
                               backgroundColor: ColorPalate.white,
-                              isScrollControlled: true,
+                              barrierColor:
+                                  ColorPalate.primary.withOpacity(0.64),
                               builder: (context) {
                                 return const _AddFamilyMember();
                               },
@@ -197,9 +213,7 @@ class HomeScreen extends HookConsumerWidget {
 }
 
 class _AddFamilyMember extends HookConsumerWidget {
-  const _AddFamilyMember({
-    super.key,
-  });
+  const _AddFamilyMember();
 
   @override
   Widget build(BuildContext context, ref) {

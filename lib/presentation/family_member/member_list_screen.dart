@@ -10,6 +10,7 @@ import '../../domain/family_member/member_info_model.dart';
 import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
 import 'member_info_screen.dart';
+import 'vendor_list_screen.dart';
 
 class MemberListScreen extends HookConsumerWidget {
   static const route = "/member_list";
@@ -19,11 +20,14 @@ class MemberListScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final member = ref.watch(familyMemberProvider).member;
 
-    useEffect(() {
-      return () => ref.invalidate(familyMemberProvider);
-    }, const []);
     return Scaffold(
       appBar: KAppBar(
+        leading: BackButton(
+          onPressed: () {
+            ref.invalidate(familyMemberProvider);
+            context.go(HomeScreen.route);
+          },
+        ),
         titleText: context.local.membersInformations,
         backgroundColor: ColorPalate.white,
       ),
@@ -37,7 +41,7 @@ class MemberListScreen extends HookConsumerWidget {
               KListViewSeparated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => _MemberListTile(
+                itemBuilder: (context, index) => MemberListTile(
                   index: index,
                   memberInfo: ref.watch(familyMemberProvider).members[index],
                 ),
@@ -46,7 +50,8 @@ class MemberListScreen extends HookConsumerWidget {
               ),
               gap32,
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () =>
+                    ref.read(familyMemberProvider.notifier).addMember(),
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(
                     color: ColorPalate.primary,
@@ -72,85 +77,14 @@ class MemberListScreen extends HookConsumerWidget {
         ),
         child: FilledButton(
           onPressed: () {
-            ref.read(familyProvider.notifier).update((state) => true);
+            // context.pop();
+            // Navigator.pop(context);
+            // Navigator.pop(context);
+
+            context.push(VendorListScreen.route);
           },
           child: Text(context.local.continueText),
         ),
-      ),
-    );
-  }
-}
-
-class _MemberListTile extends HookWidget {
-  const _MemberListTile({
-    required this.index,
-    required this.memberInfo,
-  });
-
-  final int index;
-  final MemberInfo memberInfo;
-
-  @override
-  Widget build(BuildContext context) {
-    final isComplete = useState(
-        (memberInfo.fullName == MemberInfo.init().fullName ||
-                memberInfo.dateOfBirth == MemberInfo.init().dateOfBirth ||
-                memberInfo.allergy == MemberInfo.init().allergy ||
-                memberInfo.diabetic == MemberInfo.init().diabetic ||
-                memberInfo.kidney == MemberInfo.init().kidney)
-            ? false
-            : true);
-    return KContainer(
-      backgroundColor:
-          isComplete.value ? const Color(0x142ec28d) : ColorPalate.white,
-      onTap: () {
-        context.push("${MemberInfoScreen.route}/$index");
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: mainStart,
-            mainAxisSize: mainMin,
-            crossAxisAlignment: crossStart,
-            children: [
-              Text(
-                memberInfo.fullName.isEmpty
-                    ? "Member 0$index"
-                    : memberInfo.fullName,
-                style: CustomTextStyle.textStyle14w600,
-              ),
-              gap10,
-              Row(
-                mainAxisAlignment: mainStart,
-                mainAxisSize: mainMin,
-                children: [
-                  Image.asset(
-                    isComplete.value
-                        ? Images.iconCheckMarkCircle
-                        : Images.iconWarning,
-                    width: 20.w,
-                    height: 20.w,
-                    fit: BoxFit.cover,
-                  ),
-                  gap10,
-                  Text(
-                    isComplete.value
-                        ? "Profile completed"
-                        : "Please provide informations",
-                    style: CustomTextStyle.textStyle14w400HG900,
-                  ),
-                ],
-              )
-            ],
-          ),
-          Image.asset(
-            Images.iconArrowRight,
-            width: 24.w,
-            height: 24.w,
-            fit: BoxFit.cover,
-          ),
-        ],
       ),
     );
   }

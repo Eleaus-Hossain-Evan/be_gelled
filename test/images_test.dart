@@ -5,6 +5,7 @@ import 'package:be_gelled/utils/assets/resources.dart';
 
 void main() {
   test('images assets test', () {
+    expect(File(Images.aciLogo).existsSync(), true);
     expect(File(Images.banner).existsSync(), true);
     expect(File(Images.bikeRide).existsSync(), true);
     expect(File(Images.boxDelivery).existsSync(), true);
@@ -22,7 +23,9 @@ void main() {
     expect(File(Images.iconHome).existsSync(), true);
     expect(File(Images.iconLocation).existsSync(), true);
     expect(File(Images.iconPlus).existsSync(), true);
+    expect(File(Images.iconStar).existsSync(), true);
     expect(File(Images.iconUserRectangle).existsSync(), true);
+    expect(File(Images.iconUsers).existsSync(), true);
     expect(File(Images.iconWallet).existsSync(), true);
     expect(File(Images.iconWarning).existsSync(), true);
   });

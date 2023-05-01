@@ -4,7 +4,7 @@ enum Gender { male, female, other }
 
 class MemberInfo extends Equatable {
   final String fullName;
-  final Gender gender;
+  final Gender? gender;
   final String dateOfBirth;
   final double diabetic;
   final double kidney;
@@ -23,7 +23,7 @@ class MemberInfo extends Equatable {
 
   factory MemberInfo.init() => const MemberInfo(
         fullName: "",
-        gender: Gender.male,
+        gender: null,
         dateOfBirth: "",
         diabetic: 0,
         kidney: 0,
@@ -54,7 +54,7 @@ class MemberInfo extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'fullName': fullName,
-      'gender': gender.name,
+      'gender': gender?.name,
       'dateOfBirth': dateOfBirth,
       'diabetic': diabetic,
       'kidney': kidney,
@@ -66,7 +66,8 @@ class MemberInfo extends Equatable {
   factory MemberInfo.fromMap(Map<String, dynamic> map) {
     return MemberInfo(
       fullName: map['fullName'] ?? '',
-      gender: Gender.values.byName(map['gender']),
+      gender:
+          map['gender'] != null ? Gender.values.byName(map['gender']) : null,
       dateOfBirth: map['dateOfBirth'] ?? '',
       diabetic: map['diabetic']?.toDouble() ?? 0.0,
       kidney: map['kidney']?.toDouble() ?? 0.0,
@@ -84,7 +85,7 @@ class MemberInfo extends Equatable {
   List<Object> get props {
     return [
       fullName,
-      gender,
+      gender ?? "",
       dateOfBirth,
       diabetic,
       kidney,

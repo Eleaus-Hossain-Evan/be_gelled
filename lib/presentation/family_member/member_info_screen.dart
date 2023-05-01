@@ -2,15 +2,12 @@ import 'dart:developer';
 
 import 'package:be_gelled/application/family_member/family_member_provider.dart';
 import 'package:be_gelled/domain/family_member/member_info_model.dart';
-import 'package:be_gelled/utils/custom_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 
 import '../../utils/utils.dart';
 import '../widgets/widgets.dart';
@@ -28,21 +25,29 @@ class MemberInfoScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final memberInfo = ref.watch(familyMemberProvider).members[memberIndex];
 
-    final fullNameController = useTextEditingController();
+    final fullNameController =
+        useTextEditingController(text: memberInfo.fullName);
     final birthDate = useState<DateTime?>(null);
-    final dobController = useTextEditingController();
-    final otherController = useTextEditingController(text: context.local.aA);
+    final dobController =
+        useTextEditingController(text: memberInfo.dateOfBirth);
+    final otherController = useTextEditingController(
+        text: memberInfo.otherPhysicalProblem.isEmpty
+            ? context.local.aA
+            : memberInfo.otherPhysicalProblem);
     final fullNameNode = useFocusNode();
     final dobNode = useFocusNode();
     final otherNode = useFocusNode();
 
-    final isDiabetic = useState<DiseaseCondition?>(null);
-    final diabetic = useState(0.0);
+    final isDiabetic = useState<DiseaseCondition?>(
+        memberInfo.diabetic == 0 ? null : DiseaseCondition.yes);
+    final diabetic = useState(memberInfo.diabetic);
 
-    final isKidney = useState<DiseaseCondition?>(null);
-    final kidney = useState(0.0);
+    final isKidney = useState<DiseaseCondition?>(
+        memberInfo.kidney == 0 ? null : DiseaseCondition.yes);
+    final kidney = useState(memberInfo.kidney);
 
-    final isAllergy = useState<Allergy?>(null);
+    final isAllergy =
+        useState<Allergy?>(memberInfo.allergy ? Allergy.yes : null);
 
     void setInfo() {
       ref.read(familyMemberProvider.notifier).setMemberInfo(
@@ -61,20 +66,21 @@ class MemberInfoScreen extends HookConsumerWidget {
             ),
             memberIndex,
           );
-      context.pop();
+      Navigator.pop(context);
     }
 
     useEffect(() {
-      return () => setInfo();
+      return () {};
     }, const []);
 
-    return Scaffold(
-      appBar: const KAppBar(),
-      body: SingleChildScrollView(
+    return SizedBox(
+      height: .9.sh,
+      child: SingleChildScrollView(
         padding: padding16,
         child: Column(
           crossAxisAlignment: crossStart,
           children: [
+            gap28,
             Text(
               'Member 0$memberIndex',
               style: CustomTextStyle.textStyle24w700,

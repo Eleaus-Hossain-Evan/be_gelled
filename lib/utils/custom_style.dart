@@ -122,6 +122,11 @@ class CustomTextStyle {
     color: ColorPalate.error,
   );
 
+  static TextStyle textStyle14w400 = GoogleFonts.inter(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+  );
+
   static TextStyle textStyle14w400HG900 = GoogleFonts.inter(
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,

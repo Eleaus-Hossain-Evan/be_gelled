@@ -3,6 +3,7 @@ part of 'resources.dart';
 class Images {
   Images._();
 
+  static const String aciLogo = 'assets/images/aci logo.png';
   static const String banner = 'assets/images/banner.png';
   static const String bikeRide = 'assets/images/bike-ride.png';
   static const String boxDelivery = 'assets/images/box-delivery.png';
@@ -21,7 +22,9 @@ class Images {
   static const String iconHome = 'assets/icons/home.png';
   static const String iconLocation = 'assets/icons/location.png';
   static const String iconPlus = 'assets/icons/plus.png';
+  static const String iconStar = 'assets/icons/star.png';
   static const String iconUserRectangle = 'assets/icons/user-rectangle.png';
+  static const String iconUsers = 'assets/icons/users.png';
   static const String iconWallet = 'assets/icons/wallet.png';
   static const String iconWarning = 'assets/icons/warning.png';
 }

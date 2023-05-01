@@ -10,6 +10,7 @@ import '../presentation/family_member/member_list_screen.dart';
 import '../presentation/auth/login/login.dart';
 import '../presentation/auth/otp_screen.dart';
 import '../presentation/auth/signup/signup.dart';
+import '../presentation/family_member/vendor_list_screen.dart';
 import '../presentation/home/home_screen.dart';
 import '../presentation/main_nav/main_nav.dart';
 import '../presentation/splash/splash_screen.dart';
@@ -104,6 +105,12 @@ class RouterNotifier extends ChangeNotifier {
           pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
             child: MemberInfoScreen(
                 memberIndex: int.tryParse(state.params['index']!) ?? 0),
+          ),
+        ),
+        GoRoute(
+          path: VendorListScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            child: const VendorListScreen(),
           ),
         ),
       ];
