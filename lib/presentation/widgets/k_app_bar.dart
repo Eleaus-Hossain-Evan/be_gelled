@@ -2,7 +2,6 @@ import '../../utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../domain/message/cusmoter_model.dart';
 import 'widgets.dart';
 
 class KAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -70,49 +69,4 @@ class BottomBorder extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(1);
-}
-
-class KCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const KCustomAppBar({
-    Key? key,
-    required this.model,
-  }) : super(key: key);
-  final CustomerInfoModel model;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 2,
-      color: context.theme.scaffoldBackgroundColor,
-      child: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const BackButton(),
-            Container(
-              width: 48.w,
-              height: 32.h,
-              padding: paddingH8,
-              child: KCircleAvatar(
-                imgUrl: model.profilePicture,
-                radius: 16.r,
-                enableBorder: true,
-              ),
-            ),
-            gap10,
-            Text(
-              model.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              // style: CustomTextStyle.textStyle16w600,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
