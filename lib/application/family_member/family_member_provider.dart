@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/family_member/member_info_model.dart';
@@ -13,12 +14,11 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
   FamilyMemberNotifier(this.ref) : super(FamilyMemberState.init());
 
   void setMember(int parse) {
+    final newList = List.generate(parse, (index) => MemberInfo.init()).toIList()
+      ..first.copyWith(fullName: "Rabbani");
     state = state.copyWith(
       member: parse,
-      members: List.filled(
-        parse,
-        MemberInfo.init(),
-      ),
+      members: newList.unlock,
     );
   }
 

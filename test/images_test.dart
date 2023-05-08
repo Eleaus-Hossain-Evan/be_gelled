@@ -13,6 +13,7 @@ void main() {
     expect(File(Images.healthyLifestyle).existsSync(), true);
     expect(File(Images.inviteFriends).existsSync(), true);
     expect(File(Images.logo).existsSync(), true);
+    expect(File(Images.map).existsSync(), true);
     expect(File(Images.iconArrowDown).existsSync(), true);
     expect(File(Images.iconArrowRight).existsSync(), true);
     expect(File(Images.iconCalendar).existsSync(), true);
@@ -21,7 +22,9 @@ void main() {
     expect(File(Images.iconClockCircle).existsSync(), true);
     expect(File(Images.iconHomeSelected).existsSync(), true);
     expect(File(Images.iconHome).existsSync(), true);
+    expect(File(Images.iconInfo).existsSync(), true);
     expect(File(Images.iconLocation).existsSync(), true);
+    expect(File(Images.iconMinus).existsSync(), true);
     expect(File(Images.iconPlus).existsSync(), true);
     expect(File(Images.iconStar).existsSync(), true);
     expect(File(Images.iconUserRectangle).existsSync(), true);

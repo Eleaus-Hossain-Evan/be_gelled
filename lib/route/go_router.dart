@@ -13,6 +13,8 @@ import '../presentation/auth/signup/signup.dart';
 import '../presentation/family_member/vendor_list_screen.dart';
 import '../presentation/home/home_screen.dart';
 import '../presentation/main_nav/main_nav.dart';
+import '../presentation/order/order_details_screen.dart';
+import '../presentation/order/select_package_screen.dart';
 import '../presentation/splash/splash_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -112,6 +114,16 @@ class RouterNotifier extends ChangeNotifier {
           pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
             child: const VendorListScreen(),
           ),
+        ),
+        GoRoute(
+          path: SelectPackageScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            child: const SelectPackageScreen(),
+          ),
+        ),
+        GoRoute(
+          path: OrderDetailsScreen.route,
+          builder: (context, state) => const OrderDetailsScreen(),
         ),
       ];
   Page<void> _errorPageBuilder(BuildContext context, GoRouterState state) =>

@@ -20,11 +20,12 @@ class CartScreen extends HookConsumerWidget {
     final selectedItemsList =
         state.items.where((element) => element.isSelected).toList();
 
-    final totalAmount = selectedItemsList.isEmpty
-        ? 0
-        : selectedItemsList
-            .map((e) => e.product.amount * e.quantity)
-            .reduce((value, element) => value + element);
+    final totalAmount = 0;
+    // selectedItemsList.isEmpty
+    //     ? 0
+    //     : selectedItemsList
+    //         .map((e) => e.product.amount * e.quantity)
+    //         .reduce((value, element) => value + element);
 
     useEffect(() {
       Future.microtask(() => ref.read(cartProvider.notifier).getMyBids());

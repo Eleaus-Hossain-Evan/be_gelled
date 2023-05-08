@@ -17,6 +17,7 @@ import '../../application/family_member/family_member_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
 import '../family_member/member_list_screen.dart';
+import '../order/select_package_screen.dart';
 import '../widgets/widgets.dart';
 
 final familyProvider = StateProvider<bool>((ref) {
@@ -33,9 +34,6 @@ class HomeScreen extends HookConsumerWidget {
     final scrollController = useScrollController();
     final state = ref.watch(homeProvider);
     final authState = ref.watch(authProvider);
-    final searchController = useTextEditingController();
-
-    final isSelectedType = useState(0);
     ref.listen(homeProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
         BotToast.showLoading();
@@ -169,11 +167,8 @@ class HomeScreen extends HookConsumerWidget {
                           imagePath: Images.healthyLifestyle,
                           title: context.local.healthyLifestyle,
                           onTap: () {
-                            showBarModalBottomSheet(
+                            showCustomSheet(
                               context: context,
-                              backgroundColor: ColorPalate.white,
-                              barrierColor:
-                                  ColorPalate.primary.withOpacity(0.64),
                               builder: (context) {
                                 return const _AddFamilyMember();
                               },
@@ -202,7 +197,7 @@ class HomeScreen extends HookConsumerWidget {
               ),
               child: FilledButton(
                 onPressed: () {
-                  ref.read(familyProvider.notifier).update((state) => true);
+                  context.push(SelectPackageScreen.route);
                 },
                 child: Text(context.local.createOrder),
               ),

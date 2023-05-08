@@ -5,18 +5,19 @@ import '../../utils/utils.dart';
 import 'widgets.dart';
 
 class KContainer extends StatelessWidget {
-  const KContainer({
-    Key? key,
-    required this.child,
-    this.padding,
-    this.margin,
-    this.backgroundColor,
-    this.width,
-    this.height,
-    this.borderRadius,
-    this.border,
-    this.onTap,
-  }) : super(key: key);
+  const KContainer(
+      {Key? key,
+      required this.child,
+      this.padding,
+      this.margin,
+      this.backgroundColor,
+      this.width,
+      this.height,
+      this.borderRadius,
+      this.border,
+      this.onTap,
+      this.boxShadow})
+      : super(key: key);
 
   final Widget child;
   final EdgeInsetsGeometry? padding, margin;
@@ -25,6 +26,7 @@ class KContainer extends StatelessWidget {
   final double? width, height;
   final BoxBorder? border;
   final VoidCallback? onTap;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class KContainer extends StatelessWidget {
               Border.all(
                 color: ColorPalate.harrisonGrey100,
               ),
+          boxShadow: boxShadow,
         ),
         child: child,
       ),

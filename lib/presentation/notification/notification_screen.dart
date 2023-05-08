@@ -9,7 +9,6 @@ import '../../application/global.dart';
 import '../../application/home/home_provider.dart';
 import '../../application/notification/notification_provider.dart';
 import '../../domain/profile/accept_other_problem_body.dart';
-import '../../domain/profile/model/other_problem_unaccepted.dart';
 import '../../utils/utils.dart';
 import '../widgets/widgets.dart';
 
@@ -34,9 +33,9 @@ class NotificationScreen extends HookConsumerWidget {
     });
 
     useEffect(() {
-      Future.microtask(() {
-        ref.read(notificationProvider.notifier).getNotification();
-      });
+      // Future.microtask(() {
+      //   ref.read(notificationProvider.notifier).getNotification();
+      // });
       Future.microtask(() {
         ref.read(homeProvider.notifier).removeNotificationBadge();
       });
@@ -95,10 +94,11 @@ class NotificationScreen extends HookConsumerWidget {
               shrinkWrap: true,
               padding: EdgeInsetsDirectional.fromSTEB(20.w, 16.h, 20.w, 16.h),
               itemBuilder: (context, index) {
-                final notification = state.notifications[index];
+                // final notification = state.notifications[index];
                 return SizedBox();
               },
-              itemCount: state.notifications.length,
+              itemCount: 0,
+              //  state.notifications.length,
               separator: SizedBox(height: 12.h),
             ),
           ],

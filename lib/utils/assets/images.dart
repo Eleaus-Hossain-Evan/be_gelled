@@ -11,6 +11,7 @@ class Images {
   static const String healthyLifestyle = 'assets/images/healthy lifestyle.png';
   static const String inviteFriends = 'assets/images/invite friends.png';
   static const String logo = 'assets/images/logo.png';
+  static const String map = 'assets/images/map.png';
   static const String iconArrowDown = 'assets/icons/arrow-down.png';
   static const String iconArrowRight = 'assets/icons/arrow-right.png';
   static const String iconCalendar = 'assets/icons/calendar.png';
@@ -20,7 +21,9 @@ class Images {
   static const String iconClockCircle = 'assets/icons/clock-circle.png';
   static const String iconHomeSelected = 'assets/icons/home selected.png';
   static const String iconHome = 'assets/icons/home.png';
+  static const String iconInfo = 'assets/icons/info.png';
   static const String iconLocation = 'assets/icons/location.png';
+  static const String iconMinus = 'assets/icons/minus.png';
   static const String iconPlus = 'assets/icons/plus.png';
   static const String iconStar = 'assets/icons/star.png';
   static const String iconUserRectangle = 'assets/icons/user-rectangle.png';

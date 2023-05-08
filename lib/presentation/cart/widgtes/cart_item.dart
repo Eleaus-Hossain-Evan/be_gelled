@@ -16,7 +16,7 @@ class CartItem extends HookConsumerWidget {
   final bool isCheckout;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isNew = model.product.type == "new";
+    // final isNew = model.product.type == "new";
 
     return Container(
       padding: isCheckout ? padding12 : null,
@@ -36,62 +36,62 @@ class CartItem extends HookConsumerWidget {
                       .updateItem(model, isSelected: value);
                 }),
           ),
-          KCachedNetworkImageNoBase(
-            imageUrl: model.product.image,
-            width: 64.w,
-            height: 64.w,
-            borderRadius: radius6,
-            // borderColor: ColorPalate.grey4,
-          ),
+          // KCachedNetworkImageNoBase(
+          //   imageUrl: model.product.image,
+          //   width: 64.w,
+          //   height: 64.w,
+          //   borderRadius: radius6,
+          //   // borderColor: ColorPalate.grey4,
+          // ),
           gap10,
           Expanded(
             child: Column(
               mainAxisAlignment: mainStart,
               crossAxisAlignment: crossStart,
               children: [
-                Text(
-                  model.product.parts.name,
-                  textAlign: TextAlign.start,
-                  // style: CustomTextStyle.textStyle14w600,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      model.product.vendor.companyName,
-                      // style: CustomTextStyle.textStyle12w400Subtitle,
-                    ),
-                    Container(
-                      margin: paddingRight6,
-                      padding: EdgeInsetsDirectional.symmetric(
-                        horizontal: 4.w,
-                        vertical: 2.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isNew
-                            ? const Color(0xffDFF3E7)
-                            : const Color(0xffEFE4E0),
-                        borderRadius: radius4,
-                      ),
-                      child: Text(
-                        model.product.type,
-                        style: CustomTextStyle.textStyle8w600White.copyWith(
-                          color: isNew
-                              ? ColorPalate.success
-                              : const Color(0xff9C5134),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Text(
+                //   model.product.parts.name,
+                //   textAlign: TextAlign.start,
+                //   // style: CustomTextStyle.textStyle14w600,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text(
+                //       model.product.vendor.companyName,
+                //       // style: CustomTextStyle.textStyle12w400Subtitle,
+                //     ),
+                //     Container(
+                //       margin: paddingRight6,
+                //       padding: EdgeInsetsDirectional.symmetric(
+                //         horizontal: 4.w,
+                //         vertical: 2.h,
+                //       ),
+                //       decoration: BoxDecoration(
+                //         color: isNew
+                //             ? const Color(0xffDFF3E7)
+                //             : const Color(0xffEFE4E0),
+                //         borderRadius: radius4,
+                //       ),
+                //       child: Text(
+                //         model.product.type,
+                //         style: CustomTextStyle.textStyle8w600White.copyWith(
+                //           color: isNew
+                //               ? ColorPalate.success
+                //               : const Color(0xff9C5134),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 gap4,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "\$${ref.watch(digitLocalizationProvider(model.product.amount))}/SAR",
-                      // style: CustomTextStyle.textStyle14w600Secondary,
-                    ),
+                    // Text(
+                    //   "\$${ref.watch(digitLocalizationProvider(model.product.amount))}/SAR",
+                    //   // style: CustomTextStyle.textStyle14w600Secondary,
+                    // ),
                     isCheckout
                         ? Text(
                             "Qty: ${ref.watch(digitLocalizationProvider(model.quantity))}",

@@ -5,20 +5,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../utils/utils.dart';
+import '../../widgets/widgets.dart';
 
 showPhoneSelectingSheet({
   required BuildContext context,
   required List<PhoneDirectory> directory,
   required Function(PhoneDirectory) directorySelector,
 }) =>
-    showBarModalBottomSheet(
+    showCustomSheet(
       context: context,
-      // shape: RoundedRectangleBorder(
-      //   borderRadius: BorderRadius.vertical(
-      //     top: Radius.circular(20.r),
-      //   ),
-      // ),
-      barrierColor: Colors.black54,
       builder: (context) {
         return PhoneSearchWidget(
           directory: directory,

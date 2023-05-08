@@ -24,8 +24,8 @@ class MemberListScreen extends HookConsumerWidget {
       appBar: KAppBar(
         leading: BackButton(
           onPressed: () {
-            ref.invalidate(familyMemberProvider);
             context.go(HomeScreen.route);
+            ref.invalidate(familyMemberProvider);
           },
         ),
         titleText: context.local.membersInformations,

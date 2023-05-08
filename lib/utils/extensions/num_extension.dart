@@ -22,4 +22,12 @@ extension NumberConverter on num {
     }
     return sb.toString();
   }
+
+  String toWeightString() {
+    if (this < 1) {
+      return '${(this * 1000).toStringAsFixed(0)} gm';
+    } else {
+      return '${toStringAsFixed(0)} kg';
+    }
+  }
 }

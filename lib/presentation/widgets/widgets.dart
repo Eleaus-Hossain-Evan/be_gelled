@@ -23,5 +23,6 @@ export 'k_app_bar.dart';
 export 'bottom_rounded_container.dart';
 export 'k_container.dart';
 export 'k_checkbox_tile.dart';
+export 'k_show_widgets.dart';
 export 'image_pick_widget.dart';
 export 'member_list_tile.dart';
