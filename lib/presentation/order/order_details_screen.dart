@@ -198,13 +198,13 @@ class OrderDetailsScreen extends HookConsumerWidget {
                       Text(
                         "Subtotal:",
                         style: CustomTextStyle.textStyle14w400.copyWith(
-                          color: Color(0xff40444E),
+                          color: const Color(0xff40444E),
                         ),
                       ),
                       Text(
                         "৳ 600",
                         style: CustomTextStyle.textStyle14w400.copyWith(
-                          color: Color(0xff40444E),
+                          color: const Color(0xff40444E),
                         ),
                       ),
                     ],
@@ -216,13 +216,13 @@ class OrderDetailsScreen extends HookConsumerWidget {
                       Text(
                         "Delivery Fee:",
                         style: CustomTextStyle.textStyle14w400.copyWith(
-                          color: Color(0xff40444E),
+                          color: const Color(0xff40444E),
                         ),
                       ),
                       Text(
                         "৳ 0",
                         style: CustomTextStyle.textStyle14w400.copyWith(
-                          color: Color(0xff40444E),
+                          color: const Color(0xff40444E),
                         ),
                       ),
                     ],
@@ -231,7 +231,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
               ),
             ),
             gap24,
-            KDivider(color: ColorPalate.harrisonGrey100),
+            const KDivider(color: ColorPalate.harrisonGrey100),
             gap16,
             Row(
               mainAxisAlignment: mainSpaceBetween,
@@ -256,7 +256,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
                 Navigator.pop(context);
                 context.pop();
               },
-              child: Text("Place Order"),
+              child: const Text("Place Order"),
             ),
           ],
         ),
