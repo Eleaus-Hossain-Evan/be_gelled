@@ -3,7 +3,12 @@ import 'package:equatable/equatable.dart';
 enum Gender { male, female, other }
 
 class MemberInfo extends Equatable {
-  final String fullName;
+  final String name;
+  final String nameBengali;
+  final String phone;
+  final int height;
+  final int? weight;
+  final int physicalActivity;
   final Gender? gender;
   final String dateOfBirth;
   final double diabetic;
@@ -12,7 +17,12 @@ class MemberInfo extends Equatable {
   final String otherPhysicalProblem;
 
   const MemberInfo({
-    required this.fullName,
+    required this.name,
+    required this.nameBengali,
+    required this.phone,
+    required this.height,
+    required this.weight,
+    required this.physicalActivity,
     required this.gender,
     required this.dateOfBirth,
     required this.diabetic,
@@ -22,7 +32,12 @@ class MemberInfo extends Equatable {
   });
 
   factory MemberInfo.init() => const MemberInfo(
-        fullName: "",
+        name: "",
+        height: 0,
+        phone: "",
+        nameBengali: '',
+        physicalActivity: 0,
+        weight: null,
         gender: null,
         dateOfBirth: "",
         diabetic: 0,
@@ -32,7 +47,12 @@ class MemberInfo extends Equatable {
       );
 
   MemberInfo copyWith({
-    String? fullName,
+    String? name,
+    String? nameBengali,
+    String? phone,
+    int? height,
+    int? weight,
+    int? physicalActivity,
     Gender? gender,
     String? dateOfBirth,
     double? diabetic,
@@ -41,7 +61,12 @@ class MemberInfo extends Equatable {
     String? otherPhysicalProblem,
   }) {
     return MemberInfo(
-      fullName: fullName ?? this.fullName,
+      name: name ?? this.name,
+      nameBengali: nameBengali ?? this.nameBengali,
+      phone: phone ?? this.phone,
+      height: height ?? this.height,
+      weight: weight ?? this.weight,
+      physicalActivity: physicalActivity ?? this.physicalActivity,
       gender: gender ?? this.gender,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       diabetic: diabetic ?? this.diabetic,
@@ -53,7 +78,12 @@ class MemberInfo extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'fullName': fullName,
+      'name': name,
+      'nameBengali': nameBengali,
+      'phone': phone,
+      'height': height,
+      'weight': weight ?? 0,
+      'physicalActivity': physicalActivity,
       'gender': gender?.name,
       'dateOfBirth': dateOfBirth,
       'diabetic': diabetic,
@@ -65,7 +95,12 @@ class MemberInfo extends Equatable {
 
   factory MemberInfo.fromMap(Map<String, dynamic> map) {
     return MemberInfo(
-      fullName: map['fullName'] ?? '',
+      name: map['name'] ?? '',
+      nameBengali: map['nameBengali'] ?? '',
+      phone: map['phone'] ?? '',
+      height: map['height']?.toInt() ?? 0,
+      weight: map['weight']?.toInt() ?? 0,
+      physicalActivity: map['physicalActivity']?.toInt() ?? 0,
       gender:
           map['gender'] != null ? Gender.values.byName(map['gender']) : null,
       dateOfBirth: map['dateOfBirth'] ?? '',
@@ -78,14 +113,19 @@ class MemberInfo extends Equatable {
 
   @override
   String toString() {
-    return 'MemberInfo(fullName: $fullName, gender: $gender, dateOfBirth: $dateOfBirth, diabetic: $diabetic, kidney: $kidney, allergy: $allergy, otherPhysicalProblem: $otherPhysicalProblem)';
+    return 'MemberInfo(name: $name, nameBengali: $nameBengali, phone: $phone, height: $height, weight: $weight, physicalActivity: $physicalActivity, gender: $gender, dateOfBirth: $dateOfBirth, diabetic: $diabetic, kidney: $kidney, allergy: $allergy, otherPhysicalProblem: $otherPhysicalProblem)';
   }
 
   @override
   List<Object> get props {
     return [
-      fullName,
-      gender ?? "",
+      name,
+      nameBengali,
+      phone,
+      height,
+      weight ?? 0,
+      physicalActivity,
+      gender?.name ?? '',
       dateOfBirth,
       diabetic,
       kidney,

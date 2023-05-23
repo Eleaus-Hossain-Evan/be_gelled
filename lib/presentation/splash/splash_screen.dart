@@ -66,6 +66,7 @@ class SplashScreen extends HookConsumerWidget {
     }, []);
 
     return Scaffold(
+      backgroundColor: ColorPalate.primary,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

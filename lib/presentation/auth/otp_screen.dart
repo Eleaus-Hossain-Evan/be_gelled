@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:be_gelled/application/auth/loggedin_provider.dart';
 import 'package:be_gelled/presentation/auth/login/login.dart';
 import 'package:be_gelled/presentation/main_nav/main_nav.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -171,8 +172,11 @@ class OTPScreen extends HookConsumerWidget {
               gap24,
               KFilledButton(
                 onPressed: () {
-                  context.pop();
+                  if (!isLogin) context.pop();
                   context.pushReplacement(MainNav.route);
+                  ref
+                      .read(loggedInProvider.notifier)
+                      .updateAuthCache(token: "token");
                 },
                 text:
                     isLogin ? context.local.logIn : context.local.createAccount,

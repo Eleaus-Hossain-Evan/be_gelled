@@ -3,12 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../application/auth/auth_provider.dart';
-import '../../application/auth/loggedin_provider.dart';
-import '../../application/home/home_provider.dart';
-
 import '../../utils/utils.dart';
-import '../cart/cart_screen.dart';
 import '../home/home_screen.dart';
 import '../profile/profile_screen.dart';
 
@@ -21,9 +16,6 @@ class MainNav extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authProvider);
-    final user = ref.watch(loggedInProvider);
-
     final navIndex = useState(0);
     final navWidget = [
       const HomeScreen(),

@@ -170,11 +170,12 @@ class KTextFormField2 extends HookConsumerWidget {
     this.keyboardType = TextInputType.text,
     this.onChanged,
     this.onFieldSubmitted,
-    this.textInputAction,
+    this.textInputAction = TextInputAction.next,
     this.maxLines = 1,
     this.contentPadding,
     this.fillColor = ColorPalate.spaceScape100,
     this.borderColor = Colors.transparent,
+    this.inputFormatters,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -193,6 +194,7 @@ class KTextFormField2 extends HookConsumerWidget {
   final int? maxLines;
   final EdgeInsetsGeometry? contentPadding;
   final Color fillColor, borderColor;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -208,7 +210,7 @@ class KTextFormField2 extends HookConsumerWidget {
     final hasFocus = useState(false);
 
     void focusListener() {
-      hasFocus.value = focusNode.hasPrimaryFocus;
+      hasFocus.value = focusNode.hasPrimaryFocus || controller!.text.isNotEmpty;
     }
 
     useEffect(() {
@@ -222,11 +224,7 @@ class KTextFormField2 extends HookConsumerWidget {
       padding: contentPadding ??
           (hasFocus.value
               ? EdgeInsets.only(
-                  top: 20.w,
-                  bottom: 12.w,
-                  left: 16.w,
-                  right: 16.w,
-                )
+                  top: 20.w, bottom: 12.w, left: 16.w, right: 16.w)
               : EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h)),
       decoration: BoxDecoration(
         color: fillColor,
@@ -235,22 +233,26 @@ class KTextFormField2 extends HookConsumerWidget {
       alignment: Alignment.center,
       child: TextFormField(
         obscureText: isObscure ? hideText.value : false,
-        textAlignVertical: enabled ? const TextAlignVertical(y: 0.5) : null,
+        textAlignVertical: enabled ? const TextAlignVertical(y: .4) : null,
         controller: controller,
         focusNode: focusNode,
         readOnly: readOnly,
         // enabled: enabled,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        style: CustomTextStyle.textStyle18w500HG1000,
+        style: CustomTextStyle.textStyle18w500HG1000.copyWith(height: 1),
         textAlign: textAlign,
         keyboardType: keyboardType,
         maxLines: maxLines,
+        inputFormatters: inputFormatters,
+        cursorHeight: 18.h,
+        textInputAction: textInputAction,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: CustomTextStyle.textStyle18w500HG800,
           labelText: labelText,
           labelStyle: CustomTextStyle.textStyle18w500HG800,
-          contentPadding: EdgeInsets.zero,
+          floatingLabelStyle: CustomTextStyle.textStyle18w500HG800,
+          contentPadding: EdgeInsets.only(bottom: 4.h),
           filled: true,
           fillColor: fillColor,
           border: border,

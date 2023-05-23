@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:be_gelled/application/family_member/family_member_provider.dart';
 import 'package:be_gelled/domain/family_member/member_info_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,8 +25,13 @@ class MemberInfoScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final memberInfo = ref.watch(familyMemberProvider).members[memberIndex];
 
-    final fullNameController =
-        useTextEditingController(text: memberInfo.fullName);
+    //:Text editing controllers
+    final nameController = useTextEditingController(text: memberInfo.name);
+    final banglaNameController =
+        useTextEditingController(text: memberInfo.nameBengali);
+    final phoneController = useTextEditingController(text: memberInfo.phone);
+    final weightController =
+        useTextEditingController(text: memberInfo.weight?.toString());
     final birthDate = useState<DateTime?>(null);
     final dobController =
         useTextEditingController(text: memberInfo.dateOfBirth);
@@ -33,9 +39,18 @@ class MemberInfoScreen extends HookConsumerWidget {
         text: memberInfo.otherPhysicalProblem.isEmpty
             ? context.local.aA
             : memberInfo.otherPhysicalProblem);
+
+    //: Focus nodes
     final fullNameNode = useFocusNode();
+    final banglaNameNode = useFocusNode();
+    final phoneNode = useFocusNode();
     final dobNode = useFocusNode();
+    final weightNode = useFocusNode();
     final otherNode = useFocusNode();
+
+    //: Values
+
+    final height = useState(memberInfo.height.toDouble());
 
     final isDiabetic = useState<DiseaseCondition?>(
         memberInfo.diabetic == 0 ? null : DiseaseCondition.yes);
@@ -51,7 +66,10 @@ class MemberInfoScreen extends HookConsumerWidget {
     void setInfo() {
       ref.read(familyMemberProvider.notifier).setMemberInfo(
             memberInfo.copyWith(
-              fullName: fullNameController.text,
+              name: nameController.text,
+              nameBengali: banglaNameController.text,
+              phone: phoneController.text,
+              weight: int.parse(weightController.text),
               dateOfBirth: dobController.text,
               diabetic: isDiabetic.value == DiseaseCondition.yes
                   ? diabetic.value
@@ -96,8 +114,21 @@ class MemberInfoScreen extends HookConsumerWidget {
                   gap24,
                   KTextFormField2(
                     labelText: "Full Name",
-                    controller: fullNameController,
+                    controller: nameController,
                     focusNode: fullNameNode,
+                  ),
+                  gap24,
+                  KTextFormField2(
+                    labelText: "Name In Bangla",
+                    controller: banglaNameController,
+                    focusNode: banglaNameNode,
+                  ),
+                  gap24,
+                  KTextFormField2(
+                    labelText: "Phone",
+                    controller: phoneController,
+                    focusNode: phoneNode,
+                    keyboardType: TextInputType.phone,
                   ),
                   gap24,
                   Text(
@@ -139,22 +170,48 @@ class MemberInfoScreen extends HookConsumerWidget {
                       right: 16.w,
                     ),
                     // contentPadding: EdgeInsets.zero,
-                    prefixIcon: KInkWell(
-                      onTap: () {},
-                      padding: const EdgeInsets.only(
-                          // top: 16.h,
-                          // bottom: 16.h,
-                          // left: 14.w,
-                          // right: 12.w,
-                          ),
-                      child: Image.asset(
-                        Images.iconCalendar,
-                        width: 22.w,
-                        height: 22.w,
-                        color: const Color(0xff28303F),
-                        fit: BoxFit.scaleDown,
-                      ),
+                    prefixIcon: Image.asset(
+                      Images.iconCalendar,
+                      width: 22.w,
+                      height: 22.w,
+                      color: const Color(0xff28303F),
+                      fit: BoxFit.scaleDown,
                     ),
+                  ),
+                  gap24,
+                  Text(
+                    "Height : ${(height.value / 12).toStringAsFixed(0)}ft : ${(height.value % 12).toStringAsFixed(0)}inch",
+                    style: CustomTextStyle.textStyle16w500HG1000,
+                  ),
+                  gap16,
+                  Slider(
+                    value: height.value,
+                    min: 0.0,
+                    max: 96.0,
+                    divisions: 96,
+                    label: height.value.toStringAsFixed(1),
+                    onChanged: (value) {
+                      height.value = value;
+                    },
+                  ),
+                  gap24,
+                  KTextFormField2(
+                    labelText: "Weight (kg)",
+                    controller: weightController,
+                    focusNode: weightNode,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                  gap24,
+                  Text(
+                    "Physical Activity Level",
+                    style: CustomTextStyle.textStyle16w500HG1000,
+                  ),
+                  Row(
+                    children: [
+                      ...List.generate(Gender.values.length,
+                          (index) => _genderRadioTile(index, ref))
+                    ],
                   ),
                 ],
               ),

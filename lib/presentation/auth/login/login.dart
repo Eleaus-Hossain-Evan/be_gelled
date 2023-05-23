@@ -4,19 +4,23 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/auth/auth_provider.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
-import '../otp_screen.dart';
-import '../signup/signup.dart';
 import '../widgets/phone_search_widget.dart';
 
 class LoginScreen extends HookConsumerWidget {
   static String route = "/login";
-  const LoginScreen({super.key});
+  const LoginScreen({
+    super.key,
+    required this.onPressedSend,
+    this.onPressedSignUp,
+  });
+
+  final Function(String) onPressedSend;
+  final Function()? onPressedSignUp;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -94,12 +98,10 @@ class LoginScreen extends HookConsumerWidget {
                 ),
               ),
               gap24,
-              KFilledButton(
-                onPressed: () {
-                  context.push(
-                      "${OTPScreen.route}/Login?number=${selectedPhoneDirectory.value.dialCode + phoneController.text}");
-                },
-                text: context.local.sendCode,
+              FilledButton(
+                onPressed: () => onPressedSend(
+                    "${selectedPhoneDirectory.value.dialCode + phoneController.text}"),
+                child: Text(context.local.sendCode),
               ),
               // FilledButton(
               //   onPressed: () {},
@@ -166,7 +168,7 @@ class LoginScreen extends HookConsumerWidget {
               ),
               gap16,
               KOutlinedButton(
-                onPressed: () => context.pushReplacement(SignupScreen.route),
+                onPressed: onPressedSignUp,
                 text: context.local.createAccount,
               ),
             ],

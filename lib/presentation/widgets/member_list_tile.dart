@@ -25,7 +25,7 @@ class MemberListTile extends HookConsumerWidget {
     final isComplete = useState(false);
 
     useMemoized(() {
-      isComplete.value = memberInfo.fullName.isNotEmpty &&
+      isComplete.value = memberInfo.name.isNotEmpty &&
           memberInfo.dateOfBirth.isNotEmpty &&
           memberInfo.gender != null;
     }, [ref.watch(familyMemberProvider).members[index]]);
@@ -54,9 +54,7 @@ class MemberListTile extends HookConsumerWidget {
             crossAxisAlignment: crossStart,
             children: [
               Text(
-                memberInfo.fullName.isEmpty
-                    ? "Member 0$index"
-                    : memberInfo.fullName,
+                memberInfo.name.isEmpty ? "Member 0$index" : memberInfo.name,
                 style: CustomTextStyle.textStyle14w600,
               ),
               gap10,

@@ -1,5 +1,6 @@
 import 'package:be_gelled/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,13 +17,21 @@ class MemberListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final member = ref.watch(familyMemberProvider).member;
+    final isBack = useState(false);
+    useEffect(() {
+      return () {
+        isBack.value
+            ? Future.microtask(() => ref.invalidate(familyMemberProvider))
+            : null;
+      };
+    }, const []);
 
     return Scaffold(
       appBar: KAppBar(
         leading: BackButton(
           onPressed: () {
+            isBack.value = true;
             context.go(HomeScreen.route);
-            ref.invalidate(familyMemberProvider);
           },
         ),
         titleText: context.local.membersInformations,

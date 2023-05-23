@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 
 import '../../domain/family_member/member_info_model.dart';
 
 class FamilyMemberState extends Equatable {
   final int member;
-  final List<MemberInfo> members;
+  final IList<MemberInfo> members;
 
   const FamilyMemberState({
     required this.member,
@@ -16,13 +17,13 @@ class FamilyMemberState extends Equatable {
   factory FamilyMemberState.init() {
     return const FamilyMemberState(
       member: 1,
-      members: [],
+      members: IListConst([]),
     );
   }
 
   FamilyMemberState copyWith({
     int? member,
-    List<MemberInfo>? members,
+    IList<MemberInfo>? members,
   }) {
     return FamilyMemberState(
       member: member ?? this.member,
@@ -41,7 +42,8 @@ class FamilyMemberState extends Equatable {
     return FamilyMemberState(
       member: map['member']?.toInt() ?? 0,
       members: List<MemberInfo>.from(
-          map['members']?.map((x) => MemberInfo.fromMap(x)) ?? const []),
+              map['members']?.map((x) => MemberInfo.fromMap(x)) ?? const [])
+          .lock,
     );
   }
 

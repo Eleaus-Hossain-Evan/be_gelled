@@ -83,7 +83,9 @@ class RouterNotifier extends ChangeNotifier {
         ),
         GoRoute(
           path: LoginScreen.route,
-          builder: (context, state) => const LoginScreen(),
+          builder: (context, state) => LoginScreen(
+            onPressedSend: (number) {},
+          ),
         ),
         GoRoute(
           path: SignupScreen.route,

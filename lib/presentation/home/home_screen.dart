@@ -15,6 +15,8 @@ import '../../application/family_member/family_member_provider.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
+import '../auth/otp_screen.dart';
+import '../auth/signup/signup.dart';
 import '../family_member/member_list_screen.dart';
 import '../order/select_package_screen.dart';
 import '../widgets/widgets.dart';
@@ -171,7 +173,16 @@ class HomeScreen extends HookConsumerWidget {
                               builder: (context) {
                                 return ref.watch(loggedInProvider).loggedIn
                                     ? const _AddFamilyMember()
-                                    :const LoginScreen();
+                                    : LoginScreen(
+                                        onPressedSend: (number) {
+                                          Navigator.pop(context);
+                                          context.push(
+                                              "${OTPScreen.route}/Login?number=$number");
+                                        },
+                                        onPressedSignUp: () =>
+                                            context.pushReplacement(
+                                                SignupScreen.route),
+                                      );
                               },
                             );
                           },
