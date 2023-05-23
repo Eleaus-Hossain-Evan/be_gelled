@@ -9,6 +9,7 @@ class Images {
   static const String boxDelivery = 'assets/images/box-delivery.png';
   static const String familyMember = 'assets/images/family member.png';
   static const String healthyLifestyle = 'assets/images/healthy lifestyle.png';
+  static const String healthyFood = 'assets/images/healthy_food.png';
   static const String inviteFriends = 'assets/images/invite friends.png';
   static const String logo = 'assets/images/logo.png';
   static const String map = 'assets/images/map.png';

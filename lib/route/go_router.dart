@@ -53,17 +53,17 @@ class RouterNotifier extends ChangeNotifier {
     Logger.i('RouterNotifier:  $isLoggedIn');
     Logger.i('RouterNotifier: $user, $token');
 
-    final areWeLoggingIn = state.location == LoginScreen.route;
-    final areWeRegistering = state.location == SignupScreen.route;
+    // final areWeLoggingIn = state.location == LoginScreen.route;
+    // final areWeRegistering = state.location == SignupScreen.route;
 
-    if (!isLoggedIn && areWeLoggingIn) {
-      return areWeLoggingIn ? null : LoginScreen.route;
-    }
-    if (!isLoggedIn && areWeRegistering) {
-      return areWeRegistering ? null : SignupScreen.route;
-    }
+    // if (!isLoggedIn && areWeLoggingIn) {
+    //   return areWeLoggingIn ? null : LoginScreen.route;
+    // }
+    // if (!isLoggedIn && areWeRegistering) {
+    //   return areWeRegistering ? null : SignupScreen.route;
+    // }
 
-    if (areWeLoggingIn || areWeRegistering) return MainNav.route;
+    // if (areWeLoggingIn || areWeRegistering) return MainNav.route;
 
     return null;
   }

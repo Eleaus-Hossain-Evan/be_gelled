@@ -1,15 +1,15 @@
 import 'dart:developer';
 
 import 'package:app_version_update/app_version_update.dart';
+import 'package:be_gelled/presentation/main_nav/main_nav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../application/auth/loggedin_provider.dart';
 import '../../utils/utils.dart';
-import '../auth/login/login.dart';
 
 class SplashScreen extends HookConsumerWidget {
   static const route = '/';
@@ -30,8 +30,6 @@ class SplashScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(loggedInProvider);
-    final isLoggedIn = useState(false);
     final hasUpdate = useState(false);
 
     Future<void> appVersionCheck() async {
@@ -60,25 +58,24 @@ class SplashScreen extends HookConsumerWidget {
             ? null
             : Future.delayed(const Duration(seconds: 3), () {
                 Router.neglect(context, () {
-                  context.go(LoginScreen.route);
+                  context.go(MainNav.route);
                 });
               });
       });
       return null;
     }, []);
 
-    return Theme(
-      data: context.theme.copyWith(
-        scaffoldBackgroundColor: context.theme.primaryColor,
-        brightness: Brightness.dark,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      child: Scaffold(
-        body: Center(
-          child: Image.asset(
-            Images.logo,
-            fit: BoxFit.cover,
-            width: 0.5.sw,
-          ),
+      body: Center(
+        child: Image.asset(
+          Images.logo,
+          fit: BoxFit.cover,
+          width: 0.5.sw,
         ),
       ),
     );

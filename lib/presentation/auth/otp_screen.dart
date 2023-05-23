@@ -27,10 +27,6 @@ class OTPScreen extends HookConsumerWidget {
     final otpController = useTextEditingController();
     final otpFocus = useFocusScopeNode();
     final formKey = useMemoized(GlobalKey.new);
-    List<PhoneDirectory> directory =
-        useMemoized(() => PhoneDirectoryProvider.getDirectories());
-
-    final selectedPhoneDirectory = useState<PhoneDirectory>(directory.first);
 
     ref.listen(
       authProvider,

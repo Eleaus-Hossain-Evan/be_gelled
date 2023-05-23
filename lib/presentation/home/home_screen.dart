@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:be_gelled/presentation/auth/login/login.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../application/auth/loggedin_provider.dart';
 import '../../application/family_member/family_member_provider.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/home/home_provider.dart';
@@ -161,13 +163,15 @@ class HomeScreen extends HookConsumerWidget {
                         gap24,
                         _ContentOptions(
                           header: context.local.waysToPlanWithBegelled,
-                          imagePath: Images.healthyLifestyle,
-                          title: context.local.healthyLifestyle,
+                          imagePath: Images.healthyFood,
+                          title: context.local.healthyFood,
                           onTap: () {
                             showCustomSheet(
                               context: context,
                               builder: (context) {
-                                return const _AddFamilyMember();
+                                return ref.watch(loggedInProvider).loggedIn
+                                    ? const _AddFamilyMember()
+                                    :const LoginScreen();
                               },
                             );
                           },
@@ -281,6 +285,7 @@ class _ContentOptions extends StatelessWidget {
     this.titleTextStyle,
     this.subtitle,
     this.onTap,
+    this.subTitleTextStyle,
   });
 
   final String header;

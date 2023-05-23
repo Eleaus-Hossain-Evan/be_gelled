@@ -53,86 +53,108 @@ class MainNav extends HookConsumerWidget {
       return null;
     }, []);
 
-    return LayoutBuilder(builder: (context, constrain) {
-      // Logger.i("constrain: $constrain");
-      return Scaffold(
-        body: navWidget[navIndex.value],
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            useMaterial3: false,
+    return WillPopScope(
+      onWillPop: () async {
+        return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(context.local.appExitText),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+                child: Text(context.local.no),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, true),
+                child: Text(context.local.yes),
+              ),
+            ],
           ),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                border: Border(
-              top: BorderSide(
-                color: const Color(0xff00000014),
-                width: 1.w,
-              ),
-            )),
-            child: BottomNavigationBar(
-              backgroundColor: ColorPalate.white,
-              elevation: 3,
-              useLegacyColorScheme: false,
-              key: bottomNavigatorKey,
-              currentIndex: navIndex.value,
-              onTap: (index) {
-                navIndex.value = index;
-              },
-              type: BottomNavigationBarType.fixed,
-              selectedLabelStyle: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
-                color: ColorPalate.primary,
-              ),
-              unselectedLabelStyle: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w400,
-                color: ColorPalate.harrisonGrey1000,
-              ),
-              items: [
-                BottomNavigationBarItem(
-                  icon: navIndex.value == 0
-                      ? Image.asset(
-                          Images.iconHomeSelected,
-                          width: 24.w,
-                          height: 24.h,
-                        )
-                      : Image.asset(
-                          Images.iconHome,
-                          width: 24.w,
-                          height: 24.h,
-                        ),
-                  label: context.local.home,
+        );
+      },
+      child: LayoutBuilder(builder: (context, constrain) {
+        // Logger.i("constrain: $constrain");
+        return Scaffold(
+          body: navWidget[navIndex.value],
+          bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(
+              useMaterial3: false,
+            ),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                  border: Border(
+                top: BorderSide(
+                  color: const Color(0xff00000014),
+                  width: 1.w,
                 ),
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    Images.iconWallet,
-                    width: 24.w,
-                    height: 24.h,
+              )),
+              child: BottomNavigationBar(
+                backgroundColor: ColorPalate.white,
+                elevation: 3,
+                useLegacyColorScheme: false,
+                key: bottomNavigatorKey,
+                currentIndex: navIndex.value,
+                onTap: (index) {
+                  navIndex.value = index;
+                },
+                type: BottomNavigationBarType.fixed,
+                selectedLabelStyle: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w600,
+                  color: ColorPalate.primary,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w400,
+                  color: ColorPalate.harrisonGrey1000,
+                ),
+                items: [
+                  BottomNavigationBarItem(
+                    icon: navIndex.value == 0
+                        ? Image.asset(
+                            Images.iconHomeSelected,
+                            width: 24.w,
+                            height: 24.h,
+                          )
+                        : Image.asset(
+                            Images.iconHome,
+                            width: 24.w,
+                            height: 24.h,
+                          ),
+                    label: context.local.home,
                   ),
-                  label: context.local.wallet,
-                ),
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    Images.iconClockCircle,
-                    width: 24.w,
-                    height: 24.h,
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      Images.iconWallet,
+                      width: 24.w,
+                      height: 24.h,
+                    ),
+                    label: context.local.wallet,
                   ),
-                  label: context.local.history,
-                ),
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    Images.iconUserRectangle,
-                    width: 24.w,
-                    height: 24.h,
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      Images.iconClockCircle,
+                      width: 24.w,
+                      height: 24.h,
+                    ),
+                    label: context.local.history,
                   ),
-                  label: context.local.profile,
-                ),
-              ],
+                  BottomNavigationBarItem(
+                    icon: Image.asset(
+                      Images.iconUserRectangle,
+                      width: 24.w,
+                      height: 24.h,
+                    ),
+                    label: context.local.profile,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

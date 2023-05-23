@@ -11,6 +11,7 @@ void main() {
     expect(File(Images.boxDelivery).existsSync(), true);
     expect(File(Images.familyMember).existsSync(), true);
     expect(File(Images.healthyLifestyle).existsSync(), true);
+    expect(File(Images.healthyFood).existsSync(), true);
     expect(File(Images.inviteFriends).existsSync(), true);
     expect(File(Images.logo).existsSync(), true);
     expect(File(Images.map).existsSync(), true);

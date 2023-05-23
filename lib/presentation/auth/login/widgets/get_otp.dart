@@ -1,10 +1,15 @@
+import 'dart:developer';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../application/auth/auth_provider.dart';
 import '../../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
+import '../../widgets/phone_search_widget.dart';
 
 typedef GoToSignUp = void Function();
 
@@ -24,56 +29,155 @@ class GetOtpWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final formKey = useMemoized(GlobalKey<FormState>.new);
-    return Form(
-      key: formKey,
-      child: Material(
+    final phoneController = useTextEditingController();
+    final phoneFocus = useFocusScopeNode();
+    final remember = useState<bool>(false);
+    final formKey = useMemoized(GlobalKey.new);
+    List<PhoneDirectory> directory =
+        useMemoized(() => PhoneDirectoryProvider.getDirectories());
+
+    final selectedPhoneDirectory = useState<PhoneDirectory>(directory.first);
+
+    ref.listen(
+      authProvider,
+      (previous, next) {
+        if (previous!.loading == true && next.loading == false) {
+          BotToast.closeAllLoading();
+        } else {
+          BotToast.showLoading();
+        }
+      },
+    );
+
+    // useEffect(() {
+    //   directory = PhoneDirectoryProvider.getDirectories();
+    // }, const []);
+
+    return Scaffold(
+      body: Form(
+        key: formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsetsDirectional.fromSTEB(20.w, 0, 20.w, 0),
+          padding: EdgeInsets.symmetric(horizontal: 32.w),
           child: Column(
+            crossAxisAlignment: crossStart,
             children: [
-              gap36,
-              // KTextFormField(
-              //   hintText: "context.local.phoneNumber",
-              //   controller: phoneController,
-              //   keyboardType: TextInputType.phone,
-              //   textInputAction: TextInputAction.next,
-              //   onFieldSubmitted: (value) {
-              //     FocusScope.of(context).unfocus();
-              //   },
-              //   onChanged: (value) {
-              //     phone.value = value;
-              //   },
-              //   validator: ValidationBuilder()
-              //       .phone()
-              //       .required()
-              //       .maxLength(14)
-              //       .minLength(11)
-              //       .build(),
+              Gap(104.h),
+              Text(
+                context.local.logIn.toTitleCase(),
+                style: CustomTextStyle.textStyle30w700,
+              ),
+              gap8,
+              Text(
+                context.local.logInSubtitle,
+                style: CustomTextStyle.textStyle16w400HG900,
+              ),
+              gap32,
+              KTextFormField(
+                controller: phoneController,
+                focusNode: phoneFocus,
+                keyboardType: TextInputType.phone,
+                labelText: context.local.phoneNumber,
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(right: 2.w),
+                  child: KInkWell(
+                    onTap: () => showPhoneSelectingSheet(
+                      context: context,
+                      directory: directory,
+                      directorySelector: (PhoneDirectory? agentType) {
+                        selectedPhoneDirectory.value = agentType!;
+                        log(selectedPhoneDirectory.value.toString());
+                      },
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(selectedPhoneDirectory.value.flag),
+                        const Icon(Icons.arrow_drop_down_rounded),
+                        Text(
+                          selectedPhoneDirectory.value.dialCode,
+                          style: CustomTextStyle.textStyle18w500HG1000,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              gap24,
+              KFilledButton(
+                onPressed: () {
+                  // context.push(
+                  //     "${OTPScreen.route}/Login?number=${selectedPhoneDirectory.value.dialCode + phoneController.text}");
+                },
+                text: context.local.sendCode,
+              ),
+              // FilledButton(
+              //   onPressed: () {},
+              //   child: Text('Login with Google'),
+              // ),
+              // ElevatedButton(
+              //   onPressed: () {},
+              //   child: Text('Login with Facebook'),
+              // ),
+              // OutlinedButton(
+              //   onPressed: () {},
+              //   child: Text('Login with Apple'),
               // ),
               gap24,
-              KFilledButton(
-                isSecondary: true,
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  if (formKey.currentState!.validate()) {
-                    sendOtp.call();
-                  }
-                },
-                text: "context.local.getOtp",
+              Row(
+                mainAxisAlignment: mainSpaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () => remember.value = !remember.value,
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: remember.value,
+                          onChanged: (value) {
+                            remember.value = value!;
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.r),
+                          ),
+                          side: BorderSide(
+                            color: ColorPalate.harrisonGrey1000,
+                            width: 1.5.w,
+                          ),
+                          visualDensity: VisualDensity.compact,
+                        ),
+                        Text(
+                          context.local.remember,
+                          style: CustomTextStyle.textStyle16w500HG900,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    child: KInkWell(
+                      // style: ButtonStyle(
+                      //   padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      // ),
+                      child: Text(
+                        context.local.forgotPassword,
+                        style: CustomTextStyle.textStyle16w600Orange,
+                      ),
+                      onTap: () {},
+                    ),
+                  ),
+                ],
               ),
               gap24,
-              const Text(
-                "context.local.or",
-                textAlign: TextAlign.center,
-                style: TextStyle(),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  context.local.dontHaveAccount,
+                  style: CustomTextStyle.textStyle16w500HG900,
+                ),
               ),
               gap16,
-              KFilledButton(
-                onPressed: goToSignUp,
-                text: "context.local.signup",
+              KOutlinedButton(
+                onPressed: () {},
+                text: context.local.createAccount,
               ),
-              bottomGap,
             ],
           ),
         ),
