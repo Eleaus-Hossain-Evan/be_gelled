@@ -83,7 +83,7 @@ class EditProfileScreen extends HookConsumerWidget {
                     ),
                     imageFile.value);
               },
-              child: Text(
+              child: const Text(
                 "context.local.save",
                 // style: CustomTextStyle.textStyle16w400secondary,
               ),
@@ -175,7 +175,7 @@ class EditProfileScreen extends HookConsumerWidget {
                       fit: BoxFit.fitHeight,
                       height: 32.h,
                     ),
-                    Text(
+                    const Text(
                       "context.local.mobileVerified",
                       // style: CustomTextStyle.textStyle14w400,
                     )

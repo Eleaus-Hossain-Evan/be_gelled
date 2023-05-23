@@ -8,7 +8,7 @@ class OrderResponse extends Equatable {
   final Data data;
   final bool success;
   final String message;
-  OrderResponse({
+  const OrderResponse({
     required this.data,
     required this.success,
     required this.message,
@@ -75,7 +75,7 @@ class Data extends Equatable {
   final String createdAt;
   final String updatedAt;
   final int v;
-  Data({
+  const Data({
     required this.id,
     required this.customer,
     required this.orders,
@@ -217,7 +217,7 @@ class Order extends Equatable {
   final String type;
   final int customerBitAmount;
   final bool bidingAcceptByVendor;
-  Order({
+  const Order({
     required this.id,
     required this.vendor,
     required this.parts,

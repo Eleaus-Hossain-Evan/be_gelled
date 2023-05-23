@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/auth/auth_provider.dart';
-import '../../../domain/auth/signup_body.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 import '../otp_screen.dart';

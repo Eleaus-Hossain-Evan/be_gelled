@@ -35,8 +35,8 @@ class CleanFailure extends Equatable {
       required Map<String, dynamic> body,
       bool enableDialogue = true,
       required dynamic error}) {
-    final String _tag = tag == 'Type' ? url : tag;
-    final Map<String, dynamic> _errorMap = {
+    final String t = tag == 'Type' ? url : tag;
+    final Map<String, dynamic> errorMap = {
       'url': url,
       'method': method,
       if (header.isNotEmpty) 'header': header,
@@ -46,10 +46,10 @@ class CleanFailure extends Equatable {
     };
     final encoder = JsonEncoder.withIndent(' ' * 2);
     // return encoder.convert(toJson());
-    final String _errorStr = encoder.convert(_errorMap);
+    final String errorStr = encoder.convert(errorMap);
     return CleanFailure(
-        tag: _tag,
-        error: _errorStr,
+        tag: t,
+        error: errorStr,
         enableDialogue: enableDialogue,
         statusCode: statusCode);
   }
@@ -153,10 +153,10 @@ class CleanFailureDetailsPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(
                         Icons.error_outline_rounded,
                         color: Colors.red,

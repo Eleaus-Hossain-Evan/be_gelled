@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
@@ -44,6 +43,7 @@ class PhoneSearchWidget extends HookConsumerWidget {
                 .startsWith(searchController.text.toLowerCase()))
             .toList();
       });
+      return null;
     }, const []);
     return SizedBox(
       height: .6.sh,
@@ -53,7 +53,7 @@ class PhoneSearchWidget extends HookConsumerWidget {
             controller: searchController,
             decoration: InputDecoration(
               hintText: context.local.search,
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search),
             ),
           ),
           Expanded(

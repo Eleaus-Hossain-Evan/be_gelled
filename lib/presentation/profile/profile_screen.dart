@@ -27,7 +27,7 @@ class ProfileScreen extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: ColorPalate.white,
-      appBar: KAppBar(titleText: "context.local.profile"),
+      appBar: const KAppBar(titleText: "context.local.profile"),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(

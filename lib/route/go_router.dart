@@ -83,7 +83,7 @@ class RouterNotifier extends ChangeNotifier {
         ),
         GoRoute(
           path: LoginScreen.route,
-          builder: (context, state) => LoginScreen(),
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
           path: SignupScreen.route,
@@ -92,8 +92,8 @@ class RouterNotifier extends ChangeNotifier {
         GoRoute(
           path: "${OTPScreen.route}/:isLogin",
           builder: (context, state) => OTPScreen(
-            isLogin: state.params['isLogin'] == 'Login',
-            phone: state.queryParams['number']!,
+            isLogin: state.pathParameters['isLogin'] == 'Login',
+            phone: state.queryParameters['number']!,
           ),
         ),
         GoRoute(
@@ -106,7 +106,7 @@ class RouterNotifier extends ChangeNotifier {
           path: "${MemberInfoScreen.route}/:index",
           pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
             child: MemberInfoScreen(
-                memberIndex: int.tryParse(state.params['index']!) ?? 0),
+                memberIndex: int.tryParse(state.pathParameters['index']!) ?? 0),
           ),
         ),
         GoRoute(

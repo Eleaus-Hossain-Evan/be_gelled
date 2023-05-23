@@ -23,7 +23,7 @@ class HtmlTextScreen extends HookConsumerWidget {
         padding: padding20,
         child: Html(
           data: details,
-          onLinkTap: (url) async {
+          onLinkTap: (url, _, __) async {
             if (url != null) {
               // context.push("${WebViewScreen.route}?url=$url");
             }

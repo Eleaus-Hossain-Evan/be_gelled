@@ -14,7 +14,6 @@ import 'package:pinput/pinput.dart';
 
 import '../../application/auth/auth_provider.dart';
 import '../../utils/utils.dart';
-import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
 import 'signup/signup.dart';
 
@@ -46,6 +45,7 @@ class OTPScreen extends HookConsumerWidget {
 
     useEffect(() {
       log("OTP Screen $phone");
+      return null;
     }, const []);
 
     final defaultPinTheme = PinTheme(
@@ -164,7 +164,7 @@ class OTPScreen extends HookConsumerWidget {
                       children: [
                         Text(
                           errorText!,
-                          style: TextStyle(),
+                          style: const TextStyle(),
                         ),
                       ],
                     ),

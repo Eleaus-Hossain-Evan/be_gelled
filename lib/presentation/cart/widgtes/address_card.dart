@@ -47,7 +47,7 @@ class AddressCard extends StatelessWidget {
                             text: model.address,
                             // style: CustomTextStyle.textStyle14w400black2,
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: '. ',
                             // style: CustomTextStyle.textStyle14w400black2,
                           ),
@@ -55,7 +55,7 @@ class AddressCard extends StatelessWidget {
                             text: model.city,
                             // style: CustomTextStyle.textStyle14w400black2,
                           ),
-                          TextSpan(
+                          const TextSpan(
                             text: '.',
                             // style: CustomTextStyle.textStyle14w400black2,
                           ),

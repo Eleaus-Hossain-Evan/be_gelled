@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/cart/cart_provider.dart';
@@ -20,7 +19,7 @@ class CartScreen extends HookConsumerWidget {
     final selectedItemsList =
         state.items.where((element) => element.isSelected).toList();
 
-    final totalAmount = 0;
+    const totalAmount = 0;
     // selectedItemsList.isEmpty
     //     ? 0
     //     : selectedItemsList
@@ -45,7 +44,7 @@ class CartScreen extends HookConsumerWidget {
                     .read(cartProvider.notifier)
                     .removeFromCart(selectedItemsList);
               },
-              child: Text(
+              child: const Text(
                 'Delete',
                 // style: CustomTextStyle.textStyle18w400Secondary,
               ),
@@ -95,7 +94,7 @@ class CartScreen extends HookConsumerWidget {
                   },
                   visualDensity: VisualDensity.compact,
                 ),
-                Text(
+                const Text(
                   "All",
                   // style: CustomTextStyle.textStyle12w400Black1,
                 ),

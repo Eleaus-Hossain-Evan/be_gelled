@@ -21,7 +21,7 @@ class KTitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: style ?? TextStyle(),
+      style: style ?? const TextStyle(),
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
     );

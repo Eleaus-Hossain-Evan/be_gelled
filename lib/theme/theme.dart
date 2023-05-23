@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../application/local_storage/storage_handler.dart';
-import '../utils/strings.dart';
 import '../utils/utils.dart';
 
 final themeProvider = ChangeNotifierProvider<ThemeController>((ref) {

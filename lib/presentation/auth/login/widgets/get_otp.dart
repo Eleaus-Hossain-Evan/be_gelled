@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_validator/form_validator.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
-import '../../signup/signup.dart';
 
 typedef GoToSignUp = void Function();
 
@@ -66,7 +63,7 @@ class GetOtpWidget extends HookConsumerWidget {
                 text: "context.local.getOtp",
               ),
               gap24,
-              Text(
+              const Text(
                 "context.local.or",
                 textAlign: TextAlign.center,
                 style: TextStyle(),

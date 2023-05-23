@@ -97,7 +97,7 @@ class CheckOtpWidget extends HookConsumerWidget {
         child: Column(
           children: [
             gap36,
-            Text(
+            const Text(
               "context.local.otpVerification",
               style: TextStyle(),
             ),
@@ -105,14 +105,14 @@ class CheckOtpWidget extends HookConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "context.local.enterTheOTPSentTo",
                   style: TextStyle(),
                 ),
                 gap6,
                 Text(
                   phone.value,
-                  style: TextStyle(),
+                  style: const TextStyle(),
                 ),
               ],
             ),
@@ -137,7 +137,7 @@ class CheckOtpWidget extends HookConsumerWidget {
                   children: [
                     Text(
                       errorText!,
-                      style: TextStyle(),
+                      style: const TextStyle(),
                     ),
                   ],
                 ),
@@ -153,7 +153,7 @@ class CheckOtpWidget extends HookConsumerWidget {
             //         ? context.local.timeExpired
             //         : "${(time / 60).floor()}:${(time % 60).floor()}";
             // return
-            Text(
+            const Text(
               "text",
               style: TextStyle(),
             ),

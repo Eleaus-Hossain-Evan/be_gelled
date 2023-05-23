@@ -1,15 +1,12 @@
 import 'package:be_gelled/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/family_member/family_member_provider.dart';
-import '../../domain/family_member/member_info_model.dart';
 import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
-import 'member_info_screen.dart';
 import 'vendor_list_screen.dart';
 
 class MemberListScreen extends HookConsumerWidget {

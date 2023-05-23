@@ -1,27 +1,18 @@
 import 'dart:developer';
 
-import 'package:be_gelled/presentation/widgets/button.dart';
-import 'package:be_gelled/presentation/widgets/k_inkwell.dart';
-import 'package:be_gelled/presentation/widgets/k_text_button.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../../application/auth/auth_provider.dart';
-import '../../../domain/country_code_model.dart';
 import '../../../utils/utils.dart';
-import '../../main_nav/main_nav.dart';
 import '../../widgets/widgets.dart';
 import '../otp_screen.dart';
 import '../signup/signup.dart';
 import '../widgets/phone_search_widget.dart';
-import 'widgets/check_otp.dart';
-import 'widgets/get_otp.dart';
 
 class LoginScreen extends HookConsumerWidget {
   static String route = "/login";

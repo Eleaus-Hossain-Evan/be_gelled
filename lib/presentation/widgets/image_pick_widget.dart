@@ -124,7 +124,7 @@ class ImagePickOptionWidget extends StatelessWidget {
         crossAxisAlignment: crossCenter,
         children: [
           gap24,
-          Text(
+          const Text(
             "context.local.chooseImageSource",
             style: TextStyle(),
           ),
@@ -145,7 +145,7 @@ class ImagePickOptionWidget extends StatelessWidget {
                         color: context.color.secondary,
                         size: 60.sp,
                       ),
-                      Text(
+                      const Text(
                         "context.local.fromCamera",
                         style: TextStyle(),
                       ),
@@ -167,7 +167,7 @@ class ImagePickOptionWidget extends StatelessWidget {
                         color: context.color.secondary,
                         size: 60.sp,
                       ),
-                      Text(
+                      const Text(
                         "context.local.fromGallery",
                         style: TextStyle(),
                       ),

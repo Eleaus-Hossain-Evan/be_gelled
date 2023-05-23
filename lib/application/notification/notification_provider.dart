@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../domain/profile/accept_other_problem_body.dart';
 import '../../infrastructure/notification_repo.dart';
 import 'notification_state.dart';
 

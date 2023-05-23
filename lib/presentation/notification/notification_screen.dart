@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
-import '../../application/global.dart';
 import '../../application/home/home_provider.dart';
 import '../../application/notification/notification_provider.dart';
-import '../../domain/profile/accept_other_problem_body.dart';
 import '../../utils/utils.dart';
 import '../widgets/widgets.dart';
 
@@ -43,9 +40,9 @@ class NotificationScreen extends HookConsumerWidget {
     }, const []);
     return Scaffold(
       backgroundColor: ColorPalate.white,
-      appBar: KAppBar(
+      appBar: const KAppBar(
         titleText: "context.local.notification",
-        leading: const BackButton(),
+        leading: BackButton(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -72,7 +69,7 @@ class NotificationScreen extends HookConsumerWidget {
                           child: Column(
                             crossAxisAlignment: crossStart,
                             children: [
-                              Text(
+                              const Text(
                                 "Lorem ipsum dolor sit amet consectetur. Non massa molestie nequ.",
                                 softWrap: true,
                                 maxLines: 3,
@@ -80,7 +77,7 @@ class NotificationScreen extends HookConsumerWidget {
                                 // style: CustomTextStyle.textStyle12w600Black3,
                               ),
                               gap4,
-                              Text(
+                              const Text(
                                 '9:20AM',
                                 // style: CustomTextStyle.textStyle10w600Grey3,
                               ),
@@ -95,7 +92,7 @@ class NotificationScreen extends HookConsumerWidget {
               padding: EdgeInsetsDirectional.fromSTEB(20.w, 16.h, 20.w, 16.h),
               itemBuilder: (context, index) {
                 // final notification = state.notifications[index];
-                return SizedBox();
+                return const SizedBox();
               },
               itemCount: 0,
               //  state.notifications.length,

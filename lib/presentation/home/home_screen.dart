@@ -2,18 +2,15 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:card_swiper/card_swiper.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../application/family_member/family_member_provider.dart';
 import '../../application/auth/auth_provider.dart';
-import '../../application/family_member/family_member_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
 import '../family_member/member_list_screen.dart';
@@ -278,14 +275,12 @@ class _AddFamilyMember extends HookConsumerWidget {
 
 class _ContentOptions extends StatelessWidget {
   const _ContentOptions({
-    super.key,
     required this.header,
     required this.imagePath,
     required this.title,
     this.titleTextStyle,
     this.subtitle,
     this.onTap,
-    this.subTitleTextStyle,
   });
 
   final String header;
@@ -352,9 +347,7 @@ class _ContentOptions extends StatelessWidget {
 }
 
 class _RideOptions extends StatelessWidget {
-  const _RideOptions({
-    super.key,
-  });
+  const _RideOptions();
 
   @override
   Widget build(BuildContext context) {
@@ -403,9 +396,7 @@ class _RideOptions extends StatelessWidget {
 }
 
 class _HomeBanner extends StatelessWidget {
-  const _HomeBanner({
-    super.key,
-  });
+  const _HomeBanner();
 
   @override
   Widget build(BuildContext context) {

@@ -55,7 +55,7 @@ class PackageItemModel extends Equatable {
   }) {
     return PackageItemModel(
       name: name ?? this.name,
-      amount: price ?? this.amount,
+      amount: price ?? amount,
     );
   }
 
