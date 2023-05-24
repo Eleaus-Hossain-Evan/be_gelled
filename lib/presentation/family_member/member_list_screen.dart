@@ -1,3 +1,4 @@
+import 'package:be_gelled/domain/family_member/member_info_model.dart';
 import 'package:be_gelled/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,6 +20,12 @@ class MemberListScreen extends HookConsumerWidget {
     final member = ref.watch(familyMemberProvider).member;
     final isBack = useState(false);
     useEffect(() {
+      Future.microtask(
+        () => ref.read(familyMemberProvider.notifier).setMemberInfo(
+              MemberInfo.init().copyWith(name: "Rabbani"),
+              0,
+            ),
+      );
       return () {
         isBack.value
             ? Future.microtask(() => ref.invalidate(familyMemberProvider))

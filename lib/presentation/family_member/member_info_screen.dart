@@ -63,6 +63,9 @@ class MemberInfoScreen extends HookConsumerWidget {
     final isAllergy =
         useState<Allergy?>(memberInfo.allergy ? Allergy.yes : null);
 
+    final otherTextFieldKey = useMemoized(GlobalKey.new);
+    final weightTextFieldKey = useMemoized(GlobalKey.new);
+
     void setInfo() {
       ref.read(familyMemberProvider.notifier).setMemberInfo(
             memberInfo.copyWith(
@@ -90,198 +93,212 @@ class MemberInfoScreen extends HookConsumerWidget {
       return () {};
     }, const []);
 
-    return SizedBox(
-      height: .9.sh,
-      child: SingleChildScrollView(
-        padding: padding16,
-        child: Column(
-          crossAxisAlignment: crossStart,
-          children: [
-            gap28,
-            Text(
-              'Member 0$memberIndex',
-              style: CustomTextStyle.textStyle24w700,
-            ),
-            gap32,
-            KContainer(
-              child: Column(
-                crossAxisAlignment: crossStart,
-                children: [
-                  Text(
-                    "Personal Information",
-                    style: CustomTextStyle.textStyle16w600HG1000,
-                  ),
-                  gap24,
-                  KTextFormField2(
-                    labelText: "Full Name",
-                    controller: nameController,
-                    focusNode: fullNameNode,
-                  ),
-                  gap24,
-                  KTextFormField2(
-                    labelText: "Name In Bangla",
-                    controller: banglaNameController,
-                    focusNode: banglaNameNode,
-                  ),
-                  gap24,
-                  KTextFormField2(
-                    labelText: "Phone",
-                    controller: phoneController,
-                    focusNode: phoneNode,
-                    keyboardType: TextInputType.phone,
-                  ),
-                  gap24,
-                  Text(
-                    "Gender",
-                    style: CustomTextStyle.textStyle16w500HG1000,
-                  ),
-                  Row(
-                    children: [
-                      ...List.generate(Gender.values.length,
-                          (index) => _genderRadioTile(index, ref))
-                    ],
-                  ),
-                  gap24,
-                  KTextFormField2(
-                    controller: dobController,
-                    onTap: () {
-                      log("TAPPED");
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1900),
-                        lastDate: DateTime.now(),
-                      ).then((date) {
-                        if (date != null) {
-                          birthDate.value = date;
-                          dobController.text =
-                              DateFormat("dd MMM yyyy").format(date);
-                        }
-                      });
-                    },
-                    hintText: "Date of Birth",
-                    focusNode: dobNode,
-                    readOnly: true,
-                    enabled: false,
-                    contentPadding: EdgeInsets.only(
-                      top: 20.h,
-                      bottom: 20.h,
-                      left: 2.w,
-                      right: 16.w,
-                    ),
-                    // contentPadding: EdgeInsets.zero,
-                    prefixIcon: Image.asset(
-                      Images.iconCalendar,
-                      width: 22.w,
-                      height: 22.w,
-                      color: const Color(0xff28303F),
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                  gap24,
-                  Text(
-                    "Height : ${(height.value / 12).toStringAsFixed(0)}ft : ${(height.value % 12).toStringAsFixed(0)}inch",
-                    style: CustomTextStyle.textStyle16w500HG1000,
-                  ),
-                  gap16,
-                  Slider(
-                    value: height.value,
-                    min: 0.0,
-                    max: 96.0,
-                    divisions: 96,
-                    label: height.value.toStringAsFixed(1),
-                    onChanged: (value) {
-                      height.value = value;
-                    },
-                  ),
-                  gap24,
-                  KTextFormField2(
-                    labelText: "Weight (kg)",
-                    controller: weightController,
-                    focusNode: weightNode,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                  gap24,
-                  Text(
-                    "Physical Activity Level",
-                    style: CustomTextStyle.textStyle16w500HG1000,
-                  ),
-                  Row(
-                    children: [
-                      ...List.generate(Gender.values.length,
-                          (index) => _genderRadioTile(index, ref))
-                    ],
-                  ),
-                ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SizedBox(
+        height: .9.sh,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.h).copyWith(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            crossAxisAlignment: crossStart,
+            children: [
+              gap28,
+              Text(
+                'Member 0$memberIndex',
+                style: CustomTextStyle.textStyle24w700,
               ),
-            ),
-            gap16,
-            KContainer(
-              child: Column(
-                crossAxisAlignment: crossStart,
-                children: [
-                  Text(
-                    context.local.medicalInformation,
-                    style: CustomTextStyle.textStyle16w600HG1000,
-                  ),
-                  gap24,
-                  _diseasesItem(
-                    title: context.local.diabeticPatient,
-                    isDisease: isDiabetic,
-                    disease: diabetic,
-                  ),
-                  gap24,
-                  _diseasesItem(
-                    title: context.local.kidneyPatient,
-                    isDisease: isKidney,
-                    disease: kidney,
-                  ),
-                  gap24,
-                  Text(
-                    context.local.allergy,
-                    style: CustomTextStyle.textStyle16w500HG1000,
-                  ),
-                  Row(
-                    children: [
-                      ...List.generate(
-                        Allergy.values.length,
-                        (index) => Row(
-                          children: [
-                            Radio(
-                              value: Allergy.values[index],
-                              groupValue: isAllergy.value,
-                              onChanged: (value) {
-                                isAllergy.value = value;
-                              },
-                            ),
-                            Text(Allergy.values[index].name
-                                .toString()
-                                .toWordTitleCase()),
-                          ],
-                        ),
+              gap32,
+              KContainer(
+                child: Column(
+                  crossAxisAlignment: crossStart,
+                  children: [
+                    Text(
+                      "Personal Information",
+                      style: CustomTextStyle.textStyle16w600HG1000,
+                    ),
+                    gap24,
+                    KTextFormField2(
+                      labelText: "Full Name",
+                      controller: nameController,
+                      focusNode: fullNameNode,
+                    ),
+                    gap24,
+                    KTextFormField2(
+                      labelText: "Name In Bangla",
+                      controller: banglaNameController,
+                      focusNode: banglaNameNode,
+                    ),
+                    gap24,
+                    KTextFormField2(
+                      labelText: "Phone",
+                      controller: phoneController,
+                      focusNode: phoneNode,
+                      keyboardType: TextInputType.phone,
+                    ),
+                    gap24,
+                    Text(
+                      "Gender",
+                      style: CustomTextStyle.textStyle16w500HG1000,
+                    ),
+                    Row(
+                      children: [
+                        ...List.generate(Gender.values.length,
+                            (index) => _genderRadioTile(index, ref))
+                      ],
+                    ),
+                    gap24,
+                    KTextFormField2(
+                      controller: dobController,
+                      onTap: () {
+                        log("TAPPED");
+                        showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                        ).then((date) {
+                          if (date != null) {
+                            birthDate.value = date;
+                            dobController.text =
+                                DateFormat("dd MMM yyyy").format(date);
+                          }
+                        });
+                      },
+                      hintText: "Date of Birth",
+                      focusNode: dobNode,
+                      readOnly: true,
+                      enabled: false,
+                      contentPadding: EdgeInsets.only(
+                        top: 20.h,
+                        bottom: 20.h,
+                        left: 2.w,
+                        right: 16.w,
                       ),
-                    ],
-                  ),
-                  gap16,
-                  KTextFormField2(
-                    labelText: context.local.othersPhysicalProblem,
-                    controller: otherController,
-                    focusNode: otherNode,
-                    maxLines: null,
-                    onTap: () => otherController.text == context.local.aA
-                        ? otherController.clear()
-                        : null,
-                  ),
-                ],
+                      // contentPadding: EdgeInsets.zero,
+                      prefixIcon: Image.asset(
+                        Images.iconCalendar,
+                        width: 22.w,
+                        height: 22.w,
+                        color: const Color(0xff28303F),
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    gap24,
+                    Text(
+                      "Height : ${(height.value / 12).toStringAsFixed(0)}ft : ${(height.value % 12).toStringAsFixed(0)}inch",
+                      style: CustomTextStyle.textStyle16w500HG1000,
+                    ),
+                    gap16,
+                    Slider(
+                      value: height.value,
+                      min: 0.0,
+                      max: 96.0,
+                      divisions: 96,
+                      label: height.value.toStringAsFixed(1),
+                      onChanged: (value) {
+                        height.value = value;
+                      },
+                    ),
+                    gap24,
+                    KTextFormField2(
+                      key: weightTextFieldKey,
+                      labelText: "Weight (kg)",
+                      controller: weightController,
+                      focusNode: weightNode,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      onTap: () => ensureVisibleOnTextArea(
+                          textfieldKey: weightTextFieldKey),
+                    ),
+                    gap24,
+                    Text(
+                      "Physical Activity Level",
+                      style: CustomTextStyle.textStyle16w500HG1000,
+                    ),
+                    Row(
+                      children: [
+                        ...List.generate(Gender.values.length,
+                            (index) => _genderRadioTile(index, ref))
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            gap32,
-            FilledButton(
-              onPressed: () => setInfo(),
-              child: Text(context.local.save),
-            ),
-          ],
+              gap16,
+              KContainer(
+                child: Column(
+                  crossAxisAlignment: crossStart,
+                  children: [
+                    Text(
+                      context.local.medicalInformation,
+                      style: CustomTextStyle.textStyle16w600HG1000,
+                    ),
+                    gap24,
+                    _diseasesItem(
+                      title: context.local.diabeticPatient,
+                      isDisease: isDiabetic,
+                      disease: diabetic,
+                    ),
+                    gap24,
+                    _diseasesItem(
+                      title: context.local.kidneyPatient,
+                      isDisease: isKidney,
+                      disease: kidney,
+                    ),
+                    gap24,
+                    Text(
+                      context.local.allergy,
+                      style: CustomTextStyle.textStyle16w500HG1000,
+                    ),
+                    Row(
+                      children: [
+                        ...List.generate(
+                          Allergy.values.length,
+                          (index) => Row(
+                            children: [
+                              Radio(
+                                value: Allergy.values[index],
+                                groupValue: isAllergy.value,
+                                onChanged: (value) {
+                                  isAllergy.value = value;
+                                },
+                              ),
+                              Text(Allergy.values[index].name
+                                  .toString()
+                                  .toWordTitleCase()),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    gap16,
+                    KTextFormField2(
+                      key: otherTextFieldKey,
+                      labelText: context.local.othersPhysicalProblem,
+                      controller: otherController,
+                      focusNode: otherNode,
+                      maxLines: null,
+                      onTap: () {
+                        otherController.text == context.local.aA
+                            ? otherController.clear()
+                            : null;
+
+                        ensureVisibleOnTextArea(
+                            textfieldKey: otherTextFieldKey);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              gap32,
+              FilledButton(
+                onPressed: () => setInfo(),
+                child: Text(context.local.save),
+              ),
+            ],
+          ),
         ),
       ),
     );
