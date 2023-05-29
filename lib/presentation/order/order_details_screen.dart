@@ -7,8 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../utils/utils.dart';
 import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
-import 'select_package_screen.dart';
-import 'widgets/package_tile.dart';
 
 enum DayChoice { days2, days3 }
 
@@ -24,6 +22,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: const KAppBar(
         titleText: 'Order Details',
+        leading: BackButton(),
       ),
       body: SingleChildScrollView(
         padding: padding16,
@@ -104,12 +103,12 @@ class OrderDetailsScreen extends HookConsumerWidget {
               ],
             ),
             gap16,
-            PackageTile(
-              model: packageList[3],
-              border: const Border(),
-              backgroundColor: const Color(0xFFF9F9FA),
-              headTextStyle: CustomTextStyle.textStyle18w600HG1000,
-            ),
+            // PackageTile(
+            //   title: packageList[3],
+            //   border: const Border(),
+            //   backgroundColor: const Color(0xFFF9F9FA),
+            //   headTextStyle: CustomTextStyle.textStyle18w600HG1000,
+            // ),
             gap18,
             Row(
               mainAxisAlignment: mainSpaceBetween,
@@ -155,7 +154,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
             ),
             gap18,
             Text(
-              "Select your choose package",
+              "Delivery will be in 7-9am in specific day",
               style: CustomTextStyle.textStyle16w500HG1000,
             ),
             gap6,

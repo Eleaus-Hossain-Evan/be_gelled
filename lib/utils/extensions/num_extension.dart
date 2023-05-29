@@ -24,10 +24,10 @@ extension NumberConverter on num {
   }
 
   String toWeightString() {
-    if (this < 1) {
-      return '${(this * 1000).toStringAsFixed(0)} gm';
+    if (this >= 1000) {
+      return '${(this / 1000).toStringAsFixed(2)} kg';
     } else {
-      return '${toStringAsFixed(0)} kg';
+      return '${toStringAsFixed(0)} gm';
     }
   }
 }

@@ -1,10 +1,10 @@
+import 'package:be_gelled/domain/order/model/food_item_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/cart/cart_provider.dart';
 import '../../../application/global.dart';
-import '../../../domain/cart/model/cart_model.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 
@@ -12,7 +12,7 @@ class CartItem extends HookConsumerWidget {
   const CartItem({Key? key, required this.model, this.isCheckout = false})
       : super(key: key);
 
-  final CartModel model;
+  final FoodItemModel model;
   final bool isCheckout;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,11 +29,9 @@ class CartItem extends HookConsumerWidget {
           Visibility(
             visible: !isCheckout,
             child: Checkbox(
-                value: model.isSelected,
+                value: model.isDeleted,
                 onChanged: (value) {
-                  ref
-                      .read(cartProvider.notifier)
-                      .updateItem(model, isSelected: value);
+                  ref.read(cartProvider.notifier).updateCartItem(model);
                 }),
           ),
           // KCachedNetworkImageNoBase(
@@ -99,16 +97,17 @@ class CartItem extends HookConsumerWidget {
                           )
                         : PlusMinusButtons(
                             addQuantity: () {
-                              ref.read(cartProvider.notifier).updateItem(model,
-                                  quantity: model.quantity + 1);
+                              ref
+                                  .read(cartProvider.notifier)
+                                  .updateCartItem(model);
                             },
                             text: ref.watch(
                                 digitLocalizationProvider(model.quantity)),
                             deleteQuantity: () {
                               if (model.quantity > 1) {
-                                ref.read(cartProvider.notifier).updateItem(
-                                    model,
-                                    quantity: model.quantity - 1);
+                                ref
+                                    .read(cartProvider.notifier)
+                                    .updateCartItem(model);
                               }
                             },
                           ),

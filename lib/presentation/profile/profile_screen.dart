@@ -4,11 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../application/auth/loggedin_provider.dart';
 import '../../utils/utils.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/global.dart';
-import '../../application/home/home_provider.dart';
 import '../auth/login/login.dart';
 import '../widgets/widgets.dart';
 import 'pages/change_password_screen.dart';
@@ -20,10 +18,10 @@ class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider);
-    final homeState = ref.watch(homeProvider);
+    // final state = ref.watch(authProvider);
+    // final homeState = ref.watch(homeProvider);
     final localState = ref.watch(appLocalProvider);
-    final isLoggedIn = ref.watch(loggedInProvider).loggedIn;
+    // final isLoggedIn = ref.watch(loggedInProvider).loggedIn;
 
     return Scaffold(
       backgroundColor: ColorPalate.white,

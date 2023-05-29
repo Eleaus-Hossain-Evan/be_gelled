@@ -105,7 +105,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
         Logger.d("deviceToken: $deviceToken");
 
-        if (deviceToken.isNotEmpty) repo.setDeviceToken(deviceToken);
+        // if (deviceToken.isNotEmpty) repo.setDeviceToken(deviceToken);
 
         return state.copyWith(user: r.user, loading: false);
       },
@@ -124,43 +124,39 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void profileView() async {
-    state = state.copyWith(loading: true);
-    final result = await repo.profileView();
+    // state = state.copyWith(loading: true);
+    // final result = await repo.profileView();
 
-    state = result.fold(
-      (l) {
-        BotToast.showText(text: l.error, contentColor: ColorPalate.error);
-        return state = state.copyWith(failure: l, loading: false);
-      },
-      (r) {
-        return state.copyWith(user: r.user, loading: false);
-      },
-    );
+    // state = result.fold(
+    //   (l) {
+    //     BotToast.showText(text: l.error, contentColor: ColorPalate.error);
+    //     return state = state.copyWith(failure: l, loading: false);
+    //   },
+    //   (r) {
+    //     return state.copyWith(user: r.user, loading: false);
+    //   },
+    // );
   }
 
   void profileUpdate(ProfileUpdateBody user, File? image) async {
-    state = state.copyWith(loading: true);
-    String? imageUrl;
-    if (image != null) {
-      imageUrl = await uploadImage(image);
-    }
-    user = user.copyWith(profilePicture: imageUrl ?? user.profilePicture);
-    Logger.v('user: $user');
-    final result = await repo.profileUpdate(user);
+    // state = state.copyWith(loading: true);
+    // String? imageUrl;
+    // if (image != null) {
+    //   imageUrl = await uploadImage(image);
+    // }
+    // user = user.copyWith(profilePicture: imageUrl ?? user.profilePicture);
+    // Logger.v('user: $user');
+    // final result = await repo.profileUpdate(user);
 
-    state = result.fold(
-      (l) {
-        BotToast.showText(text: l.error, contentColor: ColorPalate.error);
-        return state = state.copyWith(failure: l, loading: false);
-      },
-      (r) {
-        ref.read(routerProvider).pop();
-        return state.copyWith(user: r.user, loading: false);
-      },
-    );
-  }
-
-  Future<String> uploadImage(File file) {
-    return repo.imageUpload(file);
+    // state = result.fold(
+    //   (l) {
+    //     BotToast.showText(text: l.error, contentColor: ColorPalate.error);
+    //     return state = state.copyWith(failure: l, loading: false);
+    //   },
+    //   (r) {
+    //     ref.read(routerProvider).pop();
+    //     return state.copyWith(user: r.user, loading: false);
+    //   },
+    // );
   }
 }

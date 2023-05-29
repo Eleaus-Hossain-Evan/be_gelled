@@ -40,98 +40,76 @@ class SignupScreen extends HookConsumerWidget {
     //   directory = PhoneDirectoryProvider.getDirectories();
     // }, const []);
 
-    return WillPopScope(
-      onWillPop: () async {
-        return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(context.local.appExitText),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, false);
-                },
-                child: Text(context.local.no),
+    return Scaffold(
+      body: Form(
+        key: formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          child: Column(
+            crossAxisAlignment: crossStart,
+            children: [
+              Gap(104.h),
+              Text(
+                context.local.createAccount.toTitleCase(),
+                style: CustomTextStyle.textStyle30w700,
               ),
-              TextButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: Text(context.local.yes),
+              gap8,
+              Text(
+                context.local.createAccountSubtitle,
+                style: CustomTextStyle.textStyle16w400HG900,
               ),
-            ],
-          ),
-        );
-      },
-      child: Scaffold(
-        body: Form(
-          key: formKey,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 32.w),
-            child: Column(
-              crossAxisAlignment: crossStart,
-              children: [
-                Gap(104.h),
-                Text(
-                  context.local.createAccount.toTitleCase(),
-                  style: CustomTextStyle.textStyle30w700,
-                ),
-                gap8,
-                Text(
-                  context.local.createAccountSubtitle,
-                  style: CustomTextStyle.textStyle16w400HG900,
-                ),
-                gap32,
-                KTextFormField(
-                  controller: phoneController,
-                  focusNode: phoneFocus,
-                  keyboardType: TextInputType.phone,
-                  labelText: context.local.phoneNumber,
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(right: 2.w),
-                    child: KInkWell(
-                      onTap: () => showPhoneSelectingSheet(
-                        context: context,
-                        directory: directory,
-                        directorySelector: (PhoneDirectory? agentType) {
-                          selectedPhoneDirectory.value = agentType!;
-                        },
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(selectedPhoneDirectory.value.flag),
-                          const Icon(Icons.arrow_drop_down_rounded),
-                          Text(
-                            selectedPhoneDirectory.value.dialCode,
-                            style: CustomTextStyle.textStyle18w500HG1000,
-                          ),
-                        ],
-                      ),
+              gap32,
+              KTextFormField(
+                controller: phoneController,
+                focusNode: phoneFocus,
+                keyboardType: TextInputType.phone,
+                labelText: context.local.phoneNumber,
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(right: 2.w),
+                  child: KInkWell(
+                    onTap: () => showPhoneSelectingSheet(
+                      context: context,
+                      directory: directory,
+                      directorySelector: (PhoneDirectory? agentType) {
+                        selectedPhoneDirectory.value = agentType!;
+                      },
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(selectedPhoneDirectory.value.flag),
+                        const Icon(Icons.arrow_drop_down_rounded),
+                        Text(
+                          selectedPhoneDirectory.value.dialCode,
+                          style: CustomTextStyle.textStyle18w500HG1000,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                gap24,
-                KFilledButton(
-                  onPressed: () {
-                    context.push(
-                        "${OTPScreen.route}/signup?number=${selectedPhoneDirectory.value.dialCode + phoneController.text}");
-                  },
-                  text: context.local.sendCode,
+              ),
+              gap24,
+              KFilledButton(
+                onPressed: () {
+                  context.push(
+                      "${OTPScreen.route}/signup?number=${selectedPhoneDirectory.value.dialCode + phoneController.text}");
+                },
+                text: context.local.sendCode,
+              ),
+              gap24,
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  context.local.alreadyHaveAnAccount,
+                  style: CustomTextStyle.textStyle16w500HG900,
                 ),
-                gap24,
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    context.local.alreadyHaveAnAccount,
-                    style: CustomTextStyle.textStyle16w500HG900,
-                  ),
-                ),
-                gap16,
-                KOutlinedButton(
-                  onPressed: () => context.pushReplacement(LoginScreen.route),
-                  text: context.local.logIn,
-                ),
-              ],
-            ),
+              ),
+              gap16,
+              KOutlinedButton(
+                onPressed: () => context.pushReplacement(LoginScreen.route),
+                text: context.local.logIn,
+              ),
+            ],
           ),
         ),
       ),

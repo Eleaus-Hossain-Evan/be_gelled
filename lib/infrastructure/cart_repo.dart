@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_easylogger/flutter_logger.dart';
 
-import '../domain/cart/my_bids_response.dart';
 import '../domain/cart/order_body.dart';
 import '../domain/cart/order_response.dart';
 import '../domain/simple_response.dart';
@@ -34,22 +33,6 @@ class CartRepo {
       endPoint: APIRoute.BIDDING_CREATE,
       body: {"id": id, "bidingAmount": price},
       fromData: (json) => SimpleResponse.fromMap(json),
-      withToken: true,
-    );
-
-    Logger.v("data: $data");
-
-    return data.fold((l) {
-      final error = jsonDecode(l.error);
-      final failure = l.copyWith(error: error['error']["message"]);
-      return left(failure);
-    }, (r) => right(r));
-  }
-
-  Future<Either<CleanFailure, MyBidsResponse>> getMyBids() async {
-    final data = await api.get(
-      endPoint: APIRoute.MY_BIDS,
-      fromData: (json) => MyBidsResponse.fromMap(json),
       withToken: true,
     );
 

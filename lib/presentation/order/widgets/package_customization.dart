@@ -6,7 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../utils/utils.dart';
 import '../order_details_screen.dart';
-import '../package_model.dart';
+import '../../../domain/order/model/package_model.dart';
+import 'food_item_tile.dart';
 
 class PackageCustomization extends HookConsumerWidget {
   const PackageCustomization({
@@ -35,9 +36,9 @@ class PackageCustomization extends HookConsumerWidget {
             items.value.length,
             (index) {
               final item = items.value[index];
-              return _tile(
+              return FoodItemTile(
                 title: item.name,
-                amount: item.amount,
+                amount: 0.0,
                 increment: () {},
                 decrement: index < 3 ? null : () {},
               );
@@ -63,88 +64,6 @@ class PackageCustomization extends HookConsumerWidget {
               context.push(OrderDetailsScreen.route);
             },
             child: Text(context.local.continueText),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _tile({
-    required String title,
-    required double amount,
-    required VoidCallback? increment,
-    required VoidCallback? decrement,
-  }) {
-    return Padding(
-      padding: paddingBottom24,
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: CustomTextStyle.textStyle14w500HG1000,
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: mainSpaceBetween,
-              children: [
-                SizedBox(
-                  height: 32.w,
-                  width: 32.w,
-                  child: FilledButton(
-                    onPressed: decrement,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: ColorPalate.primary,
-                      foregroundColor: ColorPalate.white,
-                      disabledBackgroundColor: ColorPalate.white,
-                      disabledForegroundColor: ColorPalate.black,
-                      padding: padding0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: radius8,
-                      ),
-                      side: const BorderSide(
-                        color: ColorPalate.spaceScape100,
-                        width: 1,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.remove,
-                      size: 18.w,
-                    ),
-                  ),
-                ),
-                Text(
-                  amount.toWeightString(),
-                  style: CustomTextStyle.textStyle14w500HG1000,
-                ),
-                SizedBox(
-                  height: 32.w,
-                  width: 32.w,
-                  child: FilledButton(
-                    onPressed: increment,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: ColorPalate.primary,
-                      foregroundColor: ColorPalate.white,
-                      disabledBackgroundColor: ColorPalate.white,
-                      disabledForegroundColor: ColorPalate.black,
-                      padding: padding0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: radius8,
-                      ),
-                      side: const BorderSide(
-                        color: ColorPalate.spaceScape100,
-                        width: 1,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: 18.w,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

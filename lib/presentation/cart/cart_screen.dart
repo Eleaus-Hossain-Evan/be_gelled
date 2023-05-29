@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,7 +16,7 @@ class CartScreen extends HookConsumerWidget {
     final state = ref.watch(cartProvider);
 
     final selectedItemsList =
-        state.items.where((element) => element.isSelected).toList();
+        state.selectedFoodItems.where((element) => element.isDeleted).toList();
 
     const totalAmount = 0;
     // selectedItemsList.isEmpty
@@ -26,15 +25,10 @@ class CartScreen extends HookConsumerWidget {
     //         .map((e) => e.product.amount * e.quantity)
     //         .reduce((value, element) => value + element);
 
-    useEffect(() {
-      Future.microtask(() => ref.read(cartProvider.notifier).getMyBids());
-      return null;
-    }, const []);
-
     return Scaffold(
       backgroundColor: ColorPalate.white,
       appBar: KAppBar(
-        titleText: 'My Cart (${state.items.length})',
+        titleText: 'My Cart ({state.items.length})',
         actions: [
           SizedBox(
             width: 80.w,
@@ -42,7 +36,7 @@ class CartScreen extends HookConsumerWidget {
               onPressed: () {
                 ref
                     .read(cartProvider.notifier)
-                    .removeFromCart(selectedItemsList);
+                    .removeFromCart(selectedItemsList.first);
               },
               child: const Text(
                 'Delete',
@@ -56,9 +50,9 @@ class CartScreen extends HookConsumerWidget {
         alternateWidget: const Center(
           child: Text("Cart Empty..."),
         ),
-        itemCount: state.items.length,
+        itemCount: state.selectedFoodItems.length,
         itemBuilder: (context, index) {
-          final cartItem = state.items[index];
+          final cartItem = state.selectedFoodItems[index];
           return CartItem(model: cartItem);
         },
         separator: KDivider(
@@ -87,7 +81,8 @@ class CartScreen extends HookConsumerWidget {
             Row(
               children: [
                 Checkbox(
-                  value: selectedItemsList.length == state.items.length,
+                  value: selectedItemsList.length ==
+                      state.selectedFoodItems.length,
                   // groupValue: true,
                   onChanged: (value) {
                     ref.read(cartProvider.notifier).toggolAll(value);

@@ -6,6 +6,7 @@ import 'package:be_gelled/presentation/main_nav/main_nav.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -94,6 +95,12 @@ class OTPScreen extends HookConsumerWidget {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        automaticallyImplyLeading: false,
+      ),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -101,7 +108,7 @@ class OTPScreen extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: crossStart,
             children: [
-              Gap(104.h),
+              Gap(48.h),
               Text(
                 context.local.otp.toUpperCase(),
                 style: CustomTextStyle.textStyle30w700,

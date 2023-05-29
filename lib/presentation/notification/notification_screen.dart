@@ -15,7 +15,7 @@ class NotificationScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(notificationProvider);
+    // final state = ref.watch(notificationProvider);
     final loading = useState(false);
 
     ref.listen(notificationProvider, (previous, next) {

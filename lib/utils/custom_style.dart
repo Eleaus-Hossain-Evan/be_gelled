@@ -63,6 +63,11 @@ class CustomTextStyle {
     letterSpacing: 0,
   );
 
+  static TextStyle textStyle16w600HG800 = textStyle16w600.copyWith(
+    color: ColorPalate.harrisonGrey800,
+    letterSpacing: 0,
+  );
+
   static TextStyle textStyle16w600HG1000 = textStyle16w600.copyWith(
     color: ColorPalate.harrisonGrey1000,
     letterSpacing: .15,

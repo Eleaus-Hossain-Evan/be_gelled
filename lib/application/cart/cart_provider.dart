@@ -1,8 +1,8 @@
+import 'package:be_gelled/domain/order/model/food_item_mode.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/cart/model/address_model.dart';
-import '../../domain/cart/model/cart_model.dart';
 import '../../domain/cart/order_body.dart';
 import '../../domain/cart/order_response.dart';
 import '../../infrastructure/cart_repo.dart';
@@ -19,49 +19,48 @@ class CartNotifier extends StateNotifier<CartState> {
   final CartRepo repo;
   CartNotifier(this.ref, this.repo) : super(CartState.init());
 
-  void setAddress(
-    AddressModel address,
-  ) {
+  // void setAddress(
+  //   AddressModel address,
+  // ) {
+  //   state = state.copyWith(
+  //     address: address,
+  //   );
+  // }
+
+  void addToCart(FoodItemModel model) {
+    state =
+        state.copyWith(selectedFoodItems: state.selectedFoodItems.add(model));
+  }
+
+  void removeFromCart(FoodItemModel items) {
     state = state.copyWith(
-      address: address,
+      selectedFoodItems:
+          state.selectedFoodItems.removeWhere((e) => e.id == items.id),
     );
   }
 
-  void addToCart(CartModel model) {
-    state = state.copyWith(items: state.items.add(model));
-  }
-
-  void removeFromCart(List<CartModel> items) {
-    state = state.copyWith(items: state.items.removeAll(items));
-  }
-
   void clearCart() {
-    state = state.copyWith(items: state.items.clear());
+    state = state.copyWith(selectedFoodItems: state.selectedFoodItems.clear());
   }
 
-  void updateItem(CartModel model, {int? quantity, bool? isSelected}) {
+  void updateCartItem(FoodItemModel item) {
     state = state.copyWith(
-      items: state.items
-          .map((e) {
-            if (e == model) {
-              return e.copyWith(quantity: quantity, isSelected: isSelected);
-            }
-            return e;
-          })
+      selectedFoodItems: state.selectedFoodItems
+          .map((e) => e.id == item.id ? item : e)
           .toList()
           .lock,
     );
   }
 
   void toggolAll(bool? isSelected) {
-    state = state.copyWith(
-      items: state.items
-          .map((e) {
-            return e.copyWith(isSelected: isSelected);
-          })
-          .toList()
-          .lock,
-    );
+    // state = state.copyWith(
+    //   items: state.items
+    //       .map((e) {
+    //         return e.copyWith(isSelected: isSelected);
+    //       })
+    //       .toList()
+    //       .lock,
+    // );
   }
 
   Future<Either<CleanFailure, OrderResponse>> placeOrder(OrderBody body) async {
@@ -81,40 +80,5 @@ class CartNotifier extends StateNotifier<CartState> {
       },
     );
     return result;
-  }
-
-  Future<void> bidPart(String id, double price) async {
-    // state = state.copyWith(loading: true);
-
-    final result = await repo.bidPart(id, price);
-
-    state = result.fold(
-      (l) {
-        showErrorToast(l.error);
-        return state = state.copyWith(failure: l, loading: false);
-      },
-      (r) {
-        showToast(r.message);
-        getMyBids();
-        return state.copyWith(loading: false);
-      },
-    );
-  }
-
-  void getMyBids() async {
-    // state = state.copyWith(loading: true);
-
-    final result = await repo.getMyBids();
-
-    state = result.fold(
-      (l) {
-        showErrorToast(l.error);
-        return state = state.copyWith(failure: l, loading: false);
-      },
-      (r) {
-        // showToast(r.message);
-        return state.copyWith(loading: false, myBids: r.data.lock);
-      },
-    );
   }
 }

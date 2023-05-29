@@ -2,13 +2,15 @@ import 'package:equatable/equatable.dart';
 
 enum Gender { male, female, other }
 
+enum PhysicalActivity { hard, moderate, low }
+
 class MemberInfo extends Equatable {
   final String name;
   final String nameBengali;
   final String phone;
   final int height;
   final int? weight;
-  final int physicalActivity;
+  final PhysicalActivity? physicalActivity;
   final Gender? gender;
   final String dateOfBirth;
   final double diabetic;
@@ -36,7 +38,7 @@ class MemberInfo extends Equatable {
         height: 0,
         phone: "",
         nameBengali: '',
-        physicalActivity: 0,
+        physicalActivity: null,
         weight: null,
         gender: null,
         dateOfBirth: "",
@@ -52,7 +54,7 @@ class MemberInfo extends Equatable {
     String? phone,
     int? height,
     int? weight,
-    int? physicalActivity,
+    PhysicalActivity? physicalActivity,
     Gender? gender,
     String? dateOfBirth,
     double? diabetic,
@@ -83,7 +85,7 @@ class MemberInfo extends Equatable {
       'phone': phone,
       'height': height,
       'weight': weight ?? 0,
-      'physicalActivity': physicalActivity,
+      'physicalActivity': physicalActivity?.name,
       'gender': gender?.name,
       'dateOfBirth': dateOfBirth,
       'diabetic': diabetic,
@@ -100,7 +102,9 @@ class MemberInfo extends Equatable {
       phone: map['phone'] ?? '',
       height: map['height']?.toInt() ?? 0,
       weight: map['weight']?.toInt() ?? 0,
-      physicalActivity: map['physicalActivity']?.toInt() ?? 0,
+      physicalActivity: map['physicalActivity'] != null
+          ? PhysicalActivity.values.byName(map['physicalActivity'])
+          : null,
       gender:
           map['gender'] != null ? Gender.values.byName(map['gender']) : null,
       dateOfBirth: map['dateOfBirth'] ?? '',
@@ -124,7 +128,7 @@ class MemberInfo extends Equatable {
       phone,
       height,
       weight ?? 0,
-      physicalActivity,
+      physicalActivity?.name ?? '',
       gender?.name ?? '',
       dateOfBirth,
       diabetic,

@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/order/model/food_item_mode.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
-import '../package_model.dart';
 
 class PackageTile extends StatelessWidget {
   const PackageTile({
     super.key,
-    required this.model,
+    required this.title,
+    required this.titleCalorie,
+    required this.items,
     this.onTap,
     this.border,
     this.backgroundColor,
     this.headTextStyle,
   });
 
-  final PackageModel model;
+  final String title;
+  final String titleCalorie;
+  final List<FoodItemModel> items;
   final VoidCallback? onTap;
   final BoxBorder? border;
   final Color? backgroundColor;
@@ -24,22 +28,25 @@ class PackageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return KContainer(
       onTap: onTap,
-      border: border,
+      border: items.isEmpty ? Border() : border,
       backgroundColor: backgroundColor,
+      padding: items.isEmpty ? padding0 : null,
       child: Column(
         children: [
           _tile(
-            title: model.name,
-            amount: "৳ 1,200",
+            title: title,
+            amount: titleCalorie,
             isHead: true,
             headTextStyle: headTextStyle,
+            haveListItems: items.isEmpty,
           ),
 
-          ...List.generate(model.items.length, (index) {
-            final item = model.items[index];
+          ...List.generate(items.length, (index) {
+            final item = items[index];
             return _tile(
               title: item.name,
-              amount: item.amount.toWeightString(),
+              amount: (item.caloriesPerHundredGram * item.quantity)
+                  .toStringAsFixed(2),
             );
           }),
           // _tile(
@@ -71,9 +78,14 @@ class PackageTile extends StatelessWidget {
     required String amount,
     bool isHead = false,
     TextStyle? headTextStyle,
+    bool haveListItems = false,
   }) {
     return Padding(
-      padding: isHead ? paddingBottom8 : paddingBottom4,
+      padding: haveListItems
+          ? padding0
+          : isHead
+              ? paddingBottom8
+              : paddingBottom4,
       child: Row(
         mainAxisAlignment: mainSpaceBetween,
         children: [
@@ -86,7 +98,12 @@ class PackageTile extends StatelessWidget {
           Text(
             amount,
             style: isHead
-                ? headTextStyle ?? CustomTextStyle.textStyle14w600Orange
+                ? headTextStyle ??
+                    CustomTextStyle.textStyle14w600Orange.copyWith(
+                      color: haveListItems
+                          ? ColorPalate.primary
+                          : ColorPalate.secondary,
+                    )
                 : CustomTextStyle.textStyle12w500HG800,
           ),
         ],

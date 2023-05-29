@@ -219,8 +219,8 @@ class MemberInfoScreen extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        ...List.generate(Gender.values.length,
-                            (index) => _genderRadioTile(index, ref))
+                        ...List.generate(PhysicalActivity.values.length,
+                            (index) => _physicalRadioTile(index, ref))
                       ],
                     ),
                   ],
@@ -368,6 +368,23 @@ class MemberInfoScreen extends HookConsumerWidget {
           },
         ),
         Text(Gender.values[index].name.toString().toTitleCase()),
+      ],
+    );
+  }
+
+  Row _physicalRadioTile(int index, WidgetRef ref) {
+    final member = ref.watch(familyMemberProvider).members[memberIndex];
+    return Row(
+      children: [
+        Radio(
+          value: PhysicalActivity.values[index],
+          groupValue: member.physicalActivity,
+          onChanged: (value) {
+            ref.read(familyMemberProvider.notifier).setMemberInfo(
+                member.copyWith(physicalActivity: value), memberIndex);
+          },
+        ),
+        Text(PhysicalActivity.values[index].name.toString().toTitleCase()),
       ],
     );
   }

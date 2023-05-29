@@ -24,14 +24,14 @@ class EditProfileScreen extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     final imageFile = useState<File?>(null);
-    final avatar = useState('');
+    // final avatar = useState('');
 
     final firstNameController = useTextEditingController();
     final lastNameController = useTextEditingController();
     final emailController = useTextEditingController();
     final phoneController = useTextEditingController();
 
-    final loading = useState(false);
+    // final loading = useState(false);
 
     useEffect(() {
       // Future.microtask(() => ref.read(profileProvider.notifier).getProfile());

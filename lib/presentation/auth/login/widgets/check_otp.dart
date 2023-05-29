@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../../application/auth/auth_provider.dart';
 import '../../../../utils/utils.dart';
 import '../../../widgets/widgets.dart';
 
@@ -35,7 +34,7 @@ class CheckOtpWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(authProvider);
+    // final state = ref.watch(authProvider);
 
     // final isTimerFinished = useState(
     // _controller.isCompleted != null && _controller.isCompleted == false);

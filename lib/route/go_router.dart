@@ -125,7 +125,9 @@ class RouterNotifier extends ChangeNotifier {
         ),
         GoRoute(
           path: OrderDetailsScreen.route,
-          builder: (context, state) => const OrderDetailsScreen(),
+          pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
+            child: const OrderDetailsScreen(),
+          ),
         ),
       ];
   Page<void> _errorPageBuilder(BuildContext context, GoRouterState state) =>
