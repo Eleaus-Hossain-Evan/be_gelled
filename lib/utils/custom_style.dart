@@ -106,7 +106,6 @@ class CustomTextStyle {
   static TextStyle textStyle14w600 = GoogleFonts.inter(
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
-    color: ColorPalate.black,
   );
 
   static TextStyle textStyle14w600Orange = GoogleFonts.inter(

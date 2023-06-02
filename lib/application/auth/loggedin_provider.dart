@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,14 +12,19 @@ final loggedInProvider = ChangeNotifierProvider((ref) {
 class LoggedInNotifier extends ChangeNotifier {
   final Ref ref;
 
-  String get token =>
-      ref.read(hiveProvider).get(KStrings.token, defaultValue: '');
+  String get token {
+    return ref.read(hiveProvider).get(KStrings.token, defaultValue: '');
+  }
 
-  UserModel get user => UserModel.fromJson(ref
-      .read(hiveProvider)
-      .get(KStrings.user, defaultValue: UserModel.init().toJson()));
+  UserModel get user {
+    return UserModel.fromJson(ref
+        .read(hiveProvider)
+        .get(KStrings.user, defaultValue: UserModel.init().toJson()));
+  }
 
-  bool get loggedIn => token.isEmpty && user == UserModel.init() ? false : true;
+  bool get loggedIn {
+    return token.isEmpty && user == UserModel.init() ? false : true;
+  }
 
   LoggedInNotifier(this.ref) : super();
 

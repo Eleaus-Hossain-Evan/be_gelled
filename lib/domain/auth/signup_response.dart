@@ -38,7 +38,9 @@ class AuthResponse extends Equatable {
 
   factory AuthResponse.fromMap(Map<String, dynamic> map) {
     return AuthResponse(
-      user: UserModel.fromMap(map['data']),
+      user: map['data'] == null
+          ? UserModel.init()
+          : UserModel.fromMap(map['data']),
       success: map['success'] ?? false,
       message: map['message'] ?? '',
     );

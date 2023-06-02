@@ -47,7 +47,7 @@ class LoginBody extends Equatable {
 
 class LoginOtpBody extends Equatable {
   final String phone;
-  final int otp;
+  final String otp;
 
   const LoginOtpBody({
     required this.phone,
@@ -56,7 +56,7 @@ class LoginOtpBody extends Equatable {
 
   LoginOtpBody copyWith({
     String? phone,
-    int? otp,
+    String? otp,
   }) {
     return LoginOtpBody(
       phone: phone ?? this.phone,
@@ -74,7 +74,7 @@ class LoginOtpBody extends Equatable {
   factory LoginOtpBody.fromMap(Map<String, dynamic> map) {
     return LoginOtpBody(
       phone: map['phone'] ?? '',
-      otp: map['otp']?.toInt() ?? 0,
+      otp: map['otp'] ?? '',
     );
   }
 

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:be_gelled/utils/ui_constant.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
@@ -29,8 +32,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       routes: router._routes,
       initialLocation: SplashScreen.route,
       errorPageBuilder: router._errorPageBuilder,
+      errorBuilder: router._errorBuilder,
       observers: [
         BotToastNavigatorObserver(),
+        MyNavigatorObserver(),
       ]);
 });
 
@@ -53,17 +58,19 @@ class RouterNotifier extends ChangeNotifier {
     Logger.i('RouterNotifier:  $isLoggedIn');
     Logger.i('RouterNotifier: $user, $token');
 
-    // final areWeLoggingIn = state.location == LoginScreen.route;
-    // final areWeRegistering = state.location == SignupScreen.route;
+    final areWeLoggingIn = state.location == LoginScreen.route ||
+        state.location == OTPScreen.route;
+    final areWeRegistering = state.location == SignupScreen.route ||
+        state.location == OTPScreen.route;
 
-    // if (!isLoggedIn && areWeLoggingIn) {
-    //   return areWeLoggingIn ? null : LoginScreen.route;
-    // }
-    // if (!isLoggedIn && areWeRegistering) {
-    //   return areWeRegistering ? null : SignupScreen.route;
-    // }
+    if (!isLoggedIn && areWeLoggingIn) {
+      return areWeLoggingIn ? null : LoginScreen.route;
+    }
+    if (!isLoggedIn && areWeRegistering) {
+      return areWeRegistering ? null : SignupScreen.route;
+    }
 
-    // if (areWeLoggingIn || areWeRegistering) return MainNav.route;
+    if (areWeLoggingIn || areWeRegistering) return MainNav.route;
 
     return null;
   }
@@ -83,9 +90,7 @@ class RouterNotifier extends ChangeNotifier {
         ),
         GoRoute(
           path: LoginScreen.route,
-          builder: (context, state) => LoginScreen(
-            onPressedSend: (number) {},
-          ),
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
           path: SignupScreen.route,
@@ -138,6 +143,22 @@ class RouterNotifier extends ChangeNotifier {
           body: Center(
             child: Text('Error: ${state.error.toString()}'),
           ),
+        ),
+      );
+  Widget _errorBuilder(BuildContext context, GoRouterState state) => Scaffold(
+        key: state.pageKey,
+        // backgroundColor: Theme.of(context).errorColor.withOpacity(.1),
+        body: Column(
+          mainAxisAlignment: mainCenter,
+          crossAxisAlignment: crossCenter,
+          children: [
+            Text('Error: ${state.error.toString()}'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => context.go("/"),
+              child: const Text("Go to home page"),
+            ),
+          ],
         ),
       );
 }
@@ -201,4 +222,16 @@ class SlideBottomToTopTransitionPage extends CustomTransitionPage {
           child:
               child, // Here you may also wrap this child with some common designed widget
         );
+}
+
+class MyNavigatorObserver extends NavigatorObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    log('---> did push route from ${previousRoute?.settings.name} to ${route.settings.name}');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    log('---> did pop route from ${previousRoute?.settings.name} to ${route.settings.name}');
+  }
 }

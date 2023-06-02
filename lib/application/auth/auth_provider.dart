@@ -9,6 +9,7 @@ import '../../domain/auth/model/user_model.dart';
 import '../../domain/auth/profile_update_body.dart';
 import '../../domain/auth/signup_body.dart';
 import '../../infrastructure/auth_repository.dart';
+import '../../presentation/auth/otp_screen.dart';
 import '../../route/go_router.dart';
 import '../../utils/utils.dart';
 import '../global.dart';
@@ -40,11 +41,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     final res = await repo.signUp(body);
 
-    showNotification(
-      title: res.match((l) {
-        return l.error;
-      }, (r) => r.message),
-    );
+    res.match((l) => showErrorToast(l.error), (r) => showToast(r.message));
 
     state = res.fold(
       (l) {
@@ -68,12 +65,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     state = result.fold(
       (l) {
-        showToast(l.error);
+        showErrorToast(l.error);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
         success = r.success;
         showToast(r.message);
+        Logger.i(r.data);
+        ref
+            .read(routerProvider)
+            .push("${OTPScreen.route}/Login?number=${body.phone}");
+
         return state.copyWith(loading: false);
       },
     );
@@ -88,7 +90,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     state = result.fold(
       (l) {
-        BotToast.showText(text: l.error, contentColor: ColorPalate.error);
+        showErrorToast(l.error);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
@@ -99,11 +101,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
         // ref.read(loggedInProvider.notifier).isLoggedIn();
         success = r.success;
 
-        final String deviceToken = ref
-            .read(hiveProvider)
-            .get(KStrings.firebaseToken, defaultValue: '');
+        // final String deviceToken = ref
+        //     .read(hiveProvider)
+        //     .get(KStrings.firebaseToken, defaultValue: '');
 
-        Logger.d("deviceToken: $deviceToken");
+        // Logger.d("deviceToken: $deviceToken");
 
         // if (deviceToken.isNotEmpty) repo.setDeviceToken(deviceToken);
 

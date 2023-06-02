@@ -80,7 +80,7 @@ class UserModel extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      '_id': id,
       'firstName': firstName,
       'lastName': lastName,
       'name': name,
@@ -97,7 +97,7 @@ class UserModel extends Equatable {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] ?? '',
+      id: map['_id'] ?? '',
       firstName: map['firstName'] ?? '',
       lastName: map['lastName'] ?? '',
       name: map['name'] ?? '',
@@ -107,7 +107,9 @@ class UserModel extends Equatable {
       myReferralCode: map['myReferralCode'] ?? '',
       language: map['language'] ?? '',
       nameInArabic: map['nameInArabic'] ?? '',
-      addressInfo: AddressInfo.fromMap(map['addressInfo']),
+      addressInfo: map['addressInfo'] == null
+          ? AddressInfo.init()
+          : AddressInfo.fromMap(map['addressInfo']),
       token: map['token'] ?? '',
     );
   }

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/auth/loggedin_provider.dart';
 import '../../../utils/utils.dart';
 import '../../auth/login/login.dart';
-import '../../auth/otp_screen.dart';
-import '../../auth/signup/signup.dart';
 import '../../widgets/widgets.dart';
 import 'add_familuy_member.dart';
 
@@ -32,15 +29,7 @@ class RideOptions extends HookConsumerWidget {
                   builder: (context) {
                     return ref.watch(loggedInProvider).loggedIn
                         ? const AddFamilyMember()
-                        : LoginScreen(
-                            onPressedSend: (number) {
-                              Navigator.pop(context);
-                              context.push(
-                                  "${OTPScreen.route}/Login?number=$number");
-                            },
-                            onPressedSignUp: () =>
-                                context.pushReplacement(SignupScreen.route),
-                          );
+                        : const LoginScreen();
                   },
                 );
               },

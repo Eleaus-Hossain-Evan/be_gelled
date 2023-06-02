@@ -1,6 +1,8 @@
+import 'package:be_gelled/domain/auth/signup_body.dart';
 import 'package:be_gelled/presentation/auth/login/login.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +43,12 @@ class SignupScreen extends HookConsumerWidget {
     // }, const []);
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        automaticallyImplyLeading: false,
+      ),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
@@ -90,9 +98,16 @@ class SignupScreen extends HookConsumerWidget {
               ),
               gap24,
               KFilledButton(
-                onPressed: () {
-                  context.push(
-                      "${OTPScreen.route}/signup?number=${selectedPhoneDirectory.value.dialCode + phoneController.text}");
+                onPressed: () async {
+                  final success = await ref.read(authProvider.notifier).signUp(
+                        SignupBody(
+                            phone: selectedPhoneDirectory.value.dialCode +
+                                phoneController.text),
+                      );
+                  if (success) {
+                    context.push(
+                        "${OTPScreen.route}/signup?number=${selectedPhoneDirectory.value.dialCode + phoneController.text}");
+                  }
                 },
                 text: context.local.sendCode,
               ),
