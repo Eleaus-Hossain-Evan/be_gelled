@@ -1,3 +1,4 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/order/model/food_item_mode.dart';
@@ -18,7 +19,7 @@ class PackageTile extends StatelessWidget {
 
   final String title;
   final String titleCalorie;
-  final List<FoodItemModel> items;
+  final IList<FoodItemModel> items;
   final VoidCallback? onTap;
   final BoxBorder? border;
   final Color? backgroundColor;

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/cart/cart_provider.dart';
 import '../../../domain/order/all_products_response.dart';
+import '../../../domain/order/model/food_item_mode.dart';
 import '../../../utils/utils.dart';
 
 final combinedList = ValueNotifier(all_products);
@@ -11,7 +12,10 @@ final combinedList = ValueNotifier(all_products);
 class IndividualFoodTypeList extends HookConsumerWidget {
   const IndividualFoodTypeList({
     super.key,
+    required this.typedFoodList,
   });
+
+  final List<FoodItemModel> typedFoodList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,9 +24,9 @@ class IndividualFoodTypeList extends HookConsumerWidget {
     return SizedBox(
       height: .8.sh,
       child: ListView.builder(
-        itemCount: cart.allTypedFoods.dairy.length,
+        itemCount: typedFoodList.length,
         itemBuilder: (context, index) {
-          final item = all_products.dairy[index];
+          final item = typedFoodList[index];
           final isSelected = cart.selectedFoodItems
               .map((element) => element.id)
               .contains(item.id);

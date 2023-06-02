@@ -77,37 +77,46 @@ class HomeScreen extends HookConsumerWidget {
                         gap16,
                         const RideOptions(),
                         gap24,
-                        ContentOptions(
-                          header: context.local.waysToPlanWithBegelled,
-                          imagePath: Images.healthyFood,
-                          title: context.local.healthyFood,
-                          onTap: () {
-                            showCustomSheet(
-                              context: context,
-                              builder: (context) {
-                                return ref.watch(loggedInProvider).loggedIn
-                                    ? const AddFamilyMember()
-                                    : LoginScreen(
-                                        onPressedSend: (number) {
-                                          Navigator.pop(context);
-                                          context.push(
-                                              "${OTPScreen.route}/Login?number=$number");
-                                        },
-                                        onPressedSignUp: () =>
-                                            context.pushReplacement(
-                                                SignupScreen.route),
-                                      );
-                              },
-                            );
-                          },
-                        ),
-                        gap24,
+                        // ContentOptions(
+                        //   header: context.local.waysToPlanWithBegelled,
+                        //   imagePath: Images.healthyFood,
+                        //   title: context.local.healthyFood,
+                        //   onTap: () {
+                        //     showCustomSheet(
+                        //       context: context,
+                        //       builder: (context) {
+                        //         return ref.watch(loggedInProvider).loggedIn
+                        //             ? const AddFamilyMember()
+                        //             : LoginScreen(
+                        //                 onPressedSend: (number) {
+                        //                   Navigator.pop(context);
+                        //                   context.push(
+                        //                       "${OTPScreen.route}/Login?number=$number");
+                        //                 },
+                        //                 onPressedSignUp: () =>
+                        //                     context.pushReplacement(
+                        //                         SignupScreen.route),
+                        //               );
+                        //       },
+                        //     );
+                        //   },
+                        // ),
+                        // gap24,
                         ContentOptions(
                           header: context.local.getDiscount,
                           imagePath: Images.inviteFriends,
                           title: context.local.inviteFriends,
                           titleTextStyle: CustomTextStyle.textStyle16w600HG1000,
                           subtitle: context.local.get50Discount,
+                          onTap: () {},
+                        ),
+                        gap24,
+                        ContentOptions(
+                          header: 'First 10 free registration!',
+                          imagePath: Images.inviteFriends,
+                          title: "Want to become a Vendor?",
+                          titleTextStyle: CustomTextStyle.textStyle16w600HG1000,
+                          subtitle: "First 10 free registration!",
                           onTap: () {},
                         ),
                       ],
