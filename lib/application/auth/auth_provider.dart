@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,9 +10,7 @@ import '../../domain/auth/signup_body.dart';
 import '../../infrastructure/auth_repository.dart';
 import '../../presentation/auth/otp_screen.dart';
 import '../../route/go_router.dart';
-import '../../utils/utils.dart';
 import '../global.dart';
-import '../local_storage/storage_handler.dart';
 import 'auth_state.dart';
 import 'loggedin_provider.dart';
 
@@ -41,7 +38,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     final res = await repo.signUp(body);
 
-    res.match((l) => showErrorToast(l.error), (r) => showToast(r.message));
+    res.match(
+        (l) => showErrorToast(l.error.message), (r) => showToast(r.message));
 
     state = res.fold(
       (l) {
@@ -65,7 +63,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     state = result.fold(
       (l) {
-        showErrorToast(l.error);
+        showErrorToast(l.error.message);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
@@ -90,7 +88,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
     state = result.fold(
       (l) {
-        showErrorToast(l.error);
+        showErrorToast(l.error.message);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {

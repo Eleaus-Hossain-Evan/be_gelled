@@ -1,7 +1,7 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/order/model/food_item_mode.dart';
+import '../../../domain/cart/model/food_item_mode.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 

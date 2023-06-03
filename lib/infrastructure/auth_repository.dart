@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../../domain/auth/login_send_otp_response.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,14 +23,7 @@ class AuthRepo {
       withToken: false,
     );
 
-    return data.fold((l) {
-      final error = jsonDecode(l.error);
-      final failure = l.copyWith(error: error['error']["message"]);
-      return left(failure);
-    }, (r) {
-      Logger.v("data: $data");
-      return right(r);
-    });
+    return data;
   }
 
   Future<Either<CleanFailure, AuthResponse>> loginCheckOtp(
@@ -45,9 +36,7 @@ class AuthRepo {
     );
 
     return data.fold((l) {
-      final error = jsonDecode(l.error);
-      final failure = l.copyWith(error: error['error']["message"]);
-      return left(failure);
+      return left(l);
     }, (r) {
       Logger.v("data: $data");
       final box = Hive.box(KStrings.cacheBox);
@@ -65,12 +54,6 @@ class AuthRepo {
       withToken: false,
     );
 
-    return data.fold((l) {
-      final error = jsonDecode(l.error);
-      final failure = l.copyWith(error: error['error']['message']);
-      return left(failure);
-    }, (r) {
-      return right(r);
-    });
+    return data;
   }
 }

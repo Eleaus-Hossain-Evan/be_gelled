@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../utils/utils.dart';
 import '../order_details_screen.dart';
-import '../../../domain/order/model/package_model.dart';
+import '../../../domain/cart/model/package_model.dart';
 import 'food_item_tile.dart';
 
 class PackageCustomization extends HookConsumerWidget {

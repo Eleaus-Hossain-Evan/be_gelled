@@ -1,4 +1,4 @@
-import 'package:be_gelled/domain/order/model/food_item_mode.dart';
+import 'package:be_gelled/domain/cart/model/food_item_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

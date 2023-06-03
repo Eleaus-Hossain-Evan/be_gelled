@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-
-import '../../domain/cart/model/address_model.dart';
-import '../../domain/order/all_products_response.dart';
-import '../../domain/order/model/food_item_mode.dart';
+import '../../domain/cart/all_products_response.dart';
+import '../../domain/cart/model/food_item_mode.dart';
 import '../../utils/network_util/network_failure.dart';
 
 class CartState extends Equatable {

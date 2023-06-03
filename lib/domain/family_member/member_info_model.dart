@@ -4,77 +4,117 @@ enum Gender { male, female, other }
 
 enum PhysicalActivity { hard, moderate, low }
 
-class MemberInfo extends Equatable {
+class MemberInfoModel extends Equatable {
   final String name;
   final String nameBengali;
   final String phone;
   final int height;
   final int? weight;
-  final PhysicalActivity? physicalActivity;
   final Gender? gender;
+  final PhysicalActivity? physicalActivity;
+  final int age;
   final String dateOfBirth;
-  final double diabetic;
-  final double kidney;
+  final bool diabeticPatient;
+  final double diabeticLevel;
+  final bool kidneyPatient;
+  final double kidneyLevel;
   final bool allergy;
-  final String otherPhysicalProblem;
+  final String othersProblem;
+  final String profilePicture;
+  final bool isActive;
+  final String parentAccount;
+  final bool isDeleted;
+  final String id;
 
-  const MemberInfo({
+  const MemberInfoModel({
     required this.name,
     required this.nameBengali,
     required this.phone,
     required this.height,
     required this.weight,
-    required this.physicalActivity,
     required this.gender,
+    required this.physicalActivity,
+    required this.age,
     required this.dateOfBirth,
-    required this.diabetic,
-    required this.kidney,
+    required this.diabeticPatient,
+    required this.diabeticLevel,
+    required this.kidneyPatient,
+    required this.kidneyLevel,
     required this.allergy,
-    required this.otherPhysicalProblem,
+    required this.othersProblem,
+    required this.profilePicture,
+    required this.isActive,
+    required this.parentAccount,
+    required this.isDeleted,
+    required this.id,
   });
 
-  factory MemberInfo.init() => const MemberInfo(
+  factory MemberInfoModel.init() => const MemberInfoModel(
         name: "",
-        height: 0,
-        phone: "",
         nameBengali: '',
-        physicalActivity: null,
+        phone: "",
+        height: 0,
         weight: null,
         gender: null,
+        physicalActivity: null,
+        age: 0,
         dateOfBirth: "",
-        diabetic: 0,
-        kidney: 0,
+        diabeticPatient: false,
+        diabeticLevel: 0,
+        kidneyPatient: false,
+        kidneyLevel: 0,
         allergy: false,
-        otherPhysicalProblem: "",
+        othersProblem: "",
+        isActive: false,
+        isDeleted: false,
+        parentAccount: "",
+        profilePicture: "",
+        id: '',
       );
 
-  MemberInfo copyWith({
+  MemberInfoModel copyWith({
     String? name,
     String? nameBengali,
     String? phone,
     int? height,
     int? weight,
-    PhysicalActivity? physicalActivity,
     Gender? gender,
+    PhysicalActivity? physicalActivity,
+    int? age,
     String? dateOfBirth,
-    double? diabetic,
-    double? kidney,
+    bool? diabeticPatient,
+    double? diabeticLevel,
+    bool? kidneyPatient,
+    double? kidneyLevel,
     bool? allergy,
-    String? otherPhysicalProblem,
+    String? othersProblem,
+    String? profilePicture,
+    bool? isActive,
+    String? parentAccount,
+    bool? isDeleted,
+    String? id,
   }) {
-    return MemberInfo(
+    return MemberInfoModel(
       name: name ?? this.name,
       nameBengali: nameBengali ?? this.nameBengali,
       phone: phone ?? this.phone,
       height: height ?? this.height,
       weight: weight ?? this.weight,
-      physicalActivity: physicalActivity ?? this.physicalActivity,
       gender: gender ?? this.gender,
+      physicalActivity: physicalActivity ?? this.physicalActivity,
+      age: age ?? this.age,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-      diabetic: diabetic ?? this.diabetic,
-      kidney: kidney ?? this.kidney,
+      diabeticPatient: diabeticPatient ?? this.diabeticPatient,
+      diabeticLevel: diabeticLevel ?? this.diabeticLevel,
+      kidneyPatient: kidneyPatient ?? this.kidneyPatient,
+      kidneyLevel: kidneyLevel ?? this.kidneyLevel,
       allergy: allergy ?? this.allergy,
-      otherPhysicalProblem: otherPhysicalProblem ?? this.otherPhysicalProblem,
+      othersProblem: othersProblem ?? this.othersProblem,
+      profilePicture: profilePicture ?? this.profilePicture,
+      isActive: isActive ?? this.isActive,
+      parentAccount: parentAccount ?? this.parentAccount,
+      isDeleted: isDeleted ?? this.isDeleted,
+      id: id ?? this.id,
     );
   }
 
@@ -84,40 +124,56 @@ class MemberInfo extends Equatable {
       'nameBengali': nameBengali,
       'phone': phone,
       'height': height,
-      'weight': weight ?? 0,
-      'physicalActivity': physicalActivity?.name,
+      'weight': weight,
       'gender': gender?.name,
+      'physicalActivity': physicalActivity?.name,
+      'age': age,
       'dateOfBirth': dateOfBirth,
-      'diabetic': diabetic,
-      'kidney': kidney,
+      'diabeticPatient': diabeticPatient,
+      'diabeticLevel': diabeticLevel,
+      'kidneyPatient': kidneyPatient,
+      'kidneyLevel': kidneyLevel,
       'allergy': allergy,
-      'otherPhysicalProblem': otherPhysicalProblem,
+      'othersProblem': othersProblem,
+      'profilePicture': profilePicture,
+      'isActive': isActive,
+      'parentAccount': parentAccount,
+      'isDeleted': isDeleted,
+      'id': id,
     };
   }
 
-  factory MemberInfo.fromMap(Map<String, dynamic> map) {
-    return MemberInfo(
+  factory MemberInfoModel.fromMap(Map<String, dynamic> map) {
+    return MemberInfoModel(
       name: map['name'] ?? '',
       nameBengali: map['nameBengali'] ?? '',
       phone: map['phone'] ?? '',
       height: map['height']?.toInt() ?? 0,
-      weight: map['weight']?.toInt() ?? 0,
+      weight: map['weight']?.toInt(),
+      gender:
+          map['gender'] != null ? Gender.values.byName(map['gender']) : null,
       physicalActivity: map['physicalActivity'] != null
           ? PhysicalActivity.values.byName(map['physicalActivity'])
           : null,
-      gender:
-          map['gender'] != null ? Gender.values.byName(map['gender']) : null,
+      age: map['age']?.toInt() ?? 0,
       dateOfBirth: map['dateOfBirth'] ?? '',
-      diabetic: map['diabetic']?.toDouble() ?? 0.0,
-      kidney: map['kidney']?.toDouble() ?? 0.0,
+      diabeticPatient: map['diabeticPatient'] ?? false,
+      diabeticLevel: map['diabeticLevel']?.toDouble() ?? 0.0,
+      kidneyPatient: map['kidneyPatient'] ?? false,
+      kidneyLevel: map['kidneyLevel']?.toDouble() ?? 0.0,
       allergy: map['allergy'] ?? false,
-      otherPhysicalProblem: map['otherPhysicalProblem'] ?? '',
+      othersProblem: map['othersProblem'] ?? '',
+      profilePicture: map['profilePicture'] ?? '',
+      isActive: map['isActive'] ?? false,
+      parentAccount: map['parentAccount'] ?? '',
+      isDeleted: map['isDeleted'] ?? false,
+      id: map['id'],
     );
   }
 
   @override
   String toString() {
-    return 'MemberInfo(name: $name, nameBengali: $nameBengali, phone: $phone, height: $height, weight: $weight, physicalActivity: $physicalActivity, gender: $gender, dateOfBirth: $dateOfBirth, diabetic: $diabetic, kidney: $kidney, allergy: $allergy, otherPhysicalProblem: $otherPhysicalProblem)';
+    return 'MemberInfo(name: $name, nameBengali: $nameBengali, phone: $phone, height: $height, weight: $weight, gender: $gender, physicalActivity: $physicalActivity, age: $age, dateOfBirth: $dateOfBirth, diabeticPatient: $diabeticPatient, diabeticLevel: $diabeticLevel, kidneyPatient: $kidneyPatient, kidneyLevel: $kidneyLevel, allergy: $allergy, othersProblem: $othersProblem, profilePicture: $profilePicture, isActive: $isActive, parentAccount: $parentAccount, isDeleted: $isDeleted, id: $id)';
   }
 
   @override
@@ -128,13 +184,21 @@ class MemberInfo extends Equatable {
       phone,
       height,
       weight ?? 0,
-      physicalActivity?.name ?? '',
       gender?.name ?? '',
+      physicalActivity?.name ?? '',
+      age,
       dateOfBirth,
-      diabetic,
-      kidney,
+      diabeticPatient,
+      diabeticLevel,
+      kidneyPatient,
+      kidneyLevel,
       allergy,
-      otherPhysicalProblem,
+      othersProblem,
+      profilePicture,
+      isActive,
+      parentAccount,
+      isDeleted,
+      id,
     ];
   }
 }

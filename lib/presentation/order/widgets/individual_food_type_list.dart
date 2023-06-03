@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/cart/cart_provider.dart';
-import '../../../domain/order/all_products_response.dart';
-import '../../../domain/order/model/food_item_mode.dart';
+import '../../../domain/cart/all_products_response.dart';
+import '../../../domain/cart/model/food_item_mode.dart';
 import '../../../utils/utils.dart';
 
 final combinedList = ValueNotifier(all_products);

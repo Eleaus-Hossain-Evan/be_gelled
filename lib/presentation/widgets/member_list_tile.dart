@@ -18,7 +18,7 @@ class MemberListTile extends HookConsumerWidget {
   });
 
   final int index;
-  final MemberInfo memberInfo;
+  final MemberInfoModel memberInfo;
 
   @override
   Widget build(BuildContext context, ref) {

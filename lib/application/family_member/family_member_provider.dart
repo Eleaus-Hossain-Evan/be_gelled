@@ -15,8 +15,8 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
 
   void setMember(int parse) {
     final newList =
-        List.generate(parse, (index) => MemberInfo.init()).toIList();
-    newList.replace(0, MemberInfo.init().copyWith(name: "Rabbani"));
+        List.generate(parse, (index) => MemberInfoModel.init()).toIList();
+    newList.replace(0, MemberInfoModel.init().copyWith(name: "Rabbani"));
     state = state.copyWith(
       member: parse,
       members: newList,
@@ -26,13 +26,17 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
   void addMember() {
     state = state.copyWith(
       member: state.member + 1,
-      members: state.members.add(MemberInfo.init()),
+      members: state.members.add(MemberInfoModel.init()),
     );
   }
 
-  void setMemberInfo(MemberInfo memberInfo, int index) {
+  void setMemberInfo(MemberInfoModel memberInfo, int index) {
     state = state.copyWith(
       members: state.members.replace(index, memberInfo),
     );
+  }
+
+  void saveMemberInfo() {
+    state = state.copyWith(loading: true);
   }
 }

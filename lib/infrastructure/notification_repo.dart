@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 import '../domain/profile/accept_other_problem_body.dart';
 import '../domain/simple_response.dart';
@@ -17,9 +17,9 @@ class NotificationRepo {
     );
 
     return data.fold((l) {
-      final error = jsonDecode(l.error);
-      final failure = l.copyWith(error: error['error']["message"]);
-      return left(failure);
+      // final error = jsonDecode(l.error);
+      // final failure = l.copyWith(error: error['error']["message"]);
+      return left(l);
     }, (r) {
       return right(r);
     });

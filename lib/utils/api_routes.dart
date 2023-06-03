@@ -21,11 +21,12 @@ class APIRoute {
 
   //'<<---------------- Family Member ------------------>>
 
-  static const String PRODUCT_BY_CATEGORY = "${API_V1}products/by-category";
+  static const String ADD_FAMILY_MEMBER = "${API_V1}customer/add-family-member";
 
   //'<<---------------- Product ------------------>>
 
-  static const String ADD_FAMILY_MEMBER = "${API_V1}customer/add-family-member";
+  static const String SUGGESTION = "${API_V1}products/order/get-suggestions";
+  static const String PRODUCT_BY_CATEGORY = "${API_V1}products/by-category";
 
   //'<<----------------Notification------------------>>
 

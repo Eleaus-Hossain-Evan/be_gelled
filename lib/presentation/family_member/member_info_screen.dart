@@ -36,9 +36,9 @@ class MemberInfoScreen extends HookConsumerWidget {
     final dobController =
         useTextEditingController(text: memberInfo.dateOfBirth);
     final otherController = useTextEditingController(
-        text: memberInfo.otherPhysicalProblem.isEmpty
+        text: memberInfo.othersProblem.isEmpty
             ? context.local.aA
-            : memberInfo.otherPhysicalProblem);
+            : memberInfo.othersProblem);
 
     //: Focus nodes
     final fullNameNode = useFocusNode();
@@ -52,16 +52,18 @@ class MemberInfoScreen extends HookConsumerWidget {
 
     final height = useState(memberInfo.height.toDouble());
 
+    final gender = useState<Gender?>(null);
+    final physical = useState<PhysicalActivity?>(null);
+
     final isDiabetic = useState<DiseaseCondition?>(
-        memberInfo.diabetic == 0 ? null : DiseaseCondition.yes);
-    final diabetic = useState(memberInfo.diabetic);
+        memberInfo.diabeticPatient ? DiseaseCondition.yes : null);
+    final diabetic = useState(memberInfo.diabeticLevel);
 
     final isKidney = useState<DiseaseCondition?>(
-        memberInfo.kidney == 0 ? null : DiseaseCondition.yes);
-    final kidney = useState(memberInfo.kidney);
+        memberInfo.kidneyPatient ? DiseaseCondition.yes : null);
+    final kidney = useState(memberInfo.kidneyLevel);
 
-    final isAllergy =
-        useState<Allergy?>(memberInfo.allergy ? Allergy.yes : null);
+    final isAllergy = useState<bool>(memberInfo.allergy);
 
     final otherTextFieldKey = useMemoized(GlobalKey.new);
     final weightTextFieldKey = useMemoized(GlobalKey.new);
@@ -73,14 +75,18 @@ class MemberInfoScreen extends HookConsumerWidget {
               nameBengali: banglaNameController.text,
               phone: phoneController.text,
               weight: int.parse(weightController.text),
+              physicalActivity: PhysicalActivity.moderate,
+              age: DateTime.now().year - birthDate.value!.year,
               dateOfBirth: dobController.text,
-              diabetic: isDiabetic.value == DiseaseCondition.yes
+              diabeticPatient: isDiabetic.value == DiseaseCondition.yes,
+              diabeticLevel: isDiabetic.value == DiseaseCondition.yes
                   ? diabetic.value
                   : null,
-              kidney:
+              kidneyPatient: isKidney.value == DiseaseCondition.yes,
+              kidneyLevel:
                   isKidney.value == DiseaseCondition.yes ? kidney.value : null,
-              allergy: isAllergy.value?.index == 0 ? true : false,
-              otherPhysicalProblem: otherController.text == context.local.aA
+              allergy: isAllergy.value,
+              othersProblem: otherController.text == context.local.aA
                   ? ""
                   : otherController.text,
             ),
@@ -144,8 +150,14 @@ class MemberInfoScreen extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        ...List.generate(Gender.values.length,
-                            (index) => _genderRadioTile(index, ref))
+                        ...List.generate(
+                          Gender.values.length,
+                          (index) => GenderRadioTile(
+                            index: index,
+                            gender: gender,
+                            onChanged: (value) => gender.value = value,
+                          ),
+                        )
                       ],
                     ),
                     gap24,
@@ -219,8 +231,14 @@ class MemberInfoScreen extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        ...List.generate(PhysicalActivity.values.length,
-                            (index) => _physicalRadioTile(index, ref))
+                        ...List.generate(
+                          PhysicalActivity.values.length,
+                          (index) => PhysicalRadioTile(
+                            index: index,
+                            physical: physical,
+                            onChanged: (value) => physical.value = value,
+                          ),
+                        )
                       ],
                     ),
                   ],
@@ -253,23 +271,31 @@ class MemberInfoScreen extends HookConsumerWidget {
                       style: CustomTextStyle.textStyle16w500HG1000,
                     ),
                     Row(
+                      mainAxisAlignment: mainSpaceAround,
                       children: [
-                        ...List.generate(
-                          Allergy.values.length,
-                          (index) => Row(
-                            children: [
-                              Radio(
-                                value: Allergy.values[index],
-                                groupValue: isAllergy.value,
-                                onChanged: (value) {
-                                  isAllergy.value = value;
-                                },
-                              ),
-                              Text(Allergy.values[index].name
-                                  .toString()
-                                  .toWordTitleCase()),
-                            ],
-                          ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: true,
+                              groupValue: isAllergy.value,
+                              onChanged: (value) {
+                                isAllergy.value = value!;
+                              },
+                            ),
+                            Text('yes'.toWordTitleCase()),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                              value: false,
+                              groupValue: isAllergy.value,
+                              onChanged: (value) {
+                                isAllergy.value = value!;
+                              },
+                            ),
+                            Text("no".toWordTitleCase()),
+                          ],
                         ),
                       ],
                     ),
@@ -353,51 +379,55 @@ class MemberInfoScreen extends HookConsumerWidget {
       ],
     );
   }
+}
 
-  Row _genderRadioTile(int index, WidgetRef ref) {
-    final member = ref.watch(familyMemberProvider).members[memberIndex];
+class GenderRadioTile extends HookConsumerWidget {
+  const GenderRadioTile({
+    super.key,
+    required this.index,
+    required this.gender,
+    required this.onChanged,
+  });
+
+  final int index;
+  final ValueNotifier<Gender?> gender;
+  final void Function(Gender?)? onChanged;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
         Radio(
           value: Gender.values[index],
-          groupValue: member.gender,
-          onChanged: (value) {
-            ref
-                .read(familyMemberProvider.notifier)
-                .setMemberInfo(member.copyWith(gender: value), memberIndex);
-          },
+          groupValue: gender.value,
+          onChanged: onChanged,
         ),
         Text(Gender.values[index].name.toString().toTitleCase()),
       ],
     );
   }
+}
 
-  Row _physicalRadioTile(int index, WidgetRef ref) {
-    final member = ref.watch(familyMemberProvider).members[memberIndex];
+class PhysicalRadioTile extends HookConsumerWidget {
+  const PhysicalRadioTile({
+    super.key,
+    required this.index,
+    required this.physical,
+    required this.onChanged,
+  });
+
+  final int index;
+  final ValueNotifier<PhysicalActivity?> physical;
+  final void Function(PhysicalActivity?)? onChanged;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
         Radio(
           value: PhysicalActivity.values[index],
-          groupValue: member.physicalActivity,
-          onChanged: (value) {
-            ref.read(familyMemberProvider.notifier).setMemberInfo(
-                member.copyWith(physicalActivity: value), memberIndex);
-          },
+          groupValue: physical.value,
+          onChanged: onChanged,
         ),
-        Text(PhysicalActivity.values[index].name.toString().toTitleCase()),
-      ],
-    );
-  }
-
-  Row _activationRadioTile(int index, WidgetRef ref) {
-    return Row(
-      children: [
-        Radio(
-          value: DiseaseCondition.values[index],
-          groupValue: DiseaseCondition,
-          onChanged: (value) {},
-        ),
-        Text(DiseaseCondition.values[index].name.toString().toTitleCase()),
+        Text(Gender.values[index].name.toString().toTitleCase()),
       ],
     );
   }

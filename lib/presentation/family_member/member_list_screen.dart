@@ -22,7 +22,7 @@ class MemberListScreen extends HookConsumerWidget {
     useEffect(() {
       Future.microtask(
         () => ref.read(familyMemberProvider.notifier).setMemberInfo(
-              MemberInfo.init().copyWith(name: "Rabbani"),
+              MemberInfoModel.init().copyWith(name: "Rabbani"),
               0,
             ),
       );

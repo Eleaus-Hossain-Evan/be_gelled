@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:be_gelled/domain/order/all_products_response.dart';
-import 'package:be_gelled/domain/order/model/food_item_mode.dart';
+import 'package:be_gelled/domain/cart/all_products_response.dart';
+import 'package:be_gelled/domain/cart/model/food_item_mode.dart';
 import 'package:be_gelled/utils/utils.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/cart/cart_provider.dart';
-import '../../domain/order/model/calorie_model.dart';
+import '../../domain/cart/model/calorie_model.dart';
 import '../widgets/widgets.dart';
 import 'order_details_screen.dart';
 import 'widgets/individual_food_type_list.dart';

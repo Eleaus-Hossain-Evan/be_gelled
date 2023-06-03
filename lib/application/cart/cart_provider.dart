@@ -1,8 +1,7 @@
-import 'package:be_gelled/domain/order/model/food_item_mode.dart';
+import 'package:be_gelled/domain/cart/model/food_item_mode.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../domain/cart/model/address_model.dart';
 import '../../domain/cart/order_body.dart';
 import '../../domain/cart/order_response.dart';
 import '../../infrastructure/cart_repo.dart';
@@ -70,7 +69,7 @@ class CartNotifier extends StateNotifier<CartState> {
 
     state = result.fold(
       (l) {
-        showErrorToast(l.error);
+        showErrorToast(l.error.message);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
