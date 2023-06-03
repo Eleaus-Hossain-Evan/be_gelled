@@ -1,4 +1,3 @@
-import 'package:be_gelled/presentation/auth/login/login.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,14 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../application/auth/loggedin_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
-import '../auth/otp_screen.dart';
-import '../auth/signup/signup.dart';
 import '../order/select_package_screen.dart';
-import '../widgets/widgets.dart';
-import 'widgets/add_familuy_member.dart';
 import 'widgets/content_options.dart';
 import 'widgets/family_member_list.dart';
 import 'widgets/home_app_bar.dart';
