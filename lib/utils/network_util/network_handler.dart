@@ -404,12 +404,14 @@ class NetworkHandler {
         Logger.i("parsed data: $_typedResponse");
         return right(_typedResponse);
       } catch (e) {
-        Logger.w("header: ${response.request?.headers}");
+        Logger.e(
+          "Method: ${response.request?.method}, URL: ${response.request?.url},\n Header: ${response.request?.headers},\n status code: ${response.statusCode},\n error: $e,\n body: ${response.body}",
+        );
         // Logger.w("request: ${response.request}");
 
-        Logger.w("body: ${response.body}");
-        Logger.w("status code: ${response.statusCode}");
-        Logger.w("error: $e");
+        // Logger.w("error: $e");
+        // Logger.w("body: ${response.body}");
+        // Logger.w("status code: ${response.statusCode}");
         return left(
           CleanFailure.withData(
             tag: endPoint,
@@ -423,11 +425,13 @@ class NetworkHandler {
         );
       }
     } else {
-      Logger.e("header: ${response.request?.headers}");
+      Logger.e(
+        "Method: ${response.request?.method}, URL: ${response.request?.url},\n Header: ${response.request?.headers}, \n status code: ${response.statusCode}, \n body: ${response.body}",
+      );
       // Logger.w("request: ${response.request}");
 
-      Logger.e("body: ${response.body}");
-      Logger.e("status code: ${response.statusCode}");
+      // Logger.e("body: ${response.body}");
+      // Logger.e("status code: ${response.statusCode}");
 
       return left(
         CleanFailure.withData(
@@ -438,7 +442,7 @@ class NetworkHandler {
           url: response.request?.url.toString() ?? '',
           header: response.request?.headers ?? {},
           body: const {},
-          error: CleanError(message: response.body),
+          error: CleanError(message: jsonDecode(response.body)["message"]),
         ),
       );
     }

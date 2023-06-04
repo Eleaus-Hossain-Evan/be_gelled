@@ -6,7 +6,7 @@ import '../../../application/auth/loggedin_provider.dart';
 import '../../../utils/utils.dart';
 import '../../auth/login/login.dart';
 import '../../widgets/widgets.dart';
-import 'add_familuy_member.dart';
+import 'add_family_member.dart';
 
 class RideOptions extends HookConsumerWidget {
   const RideOptions({super.key});

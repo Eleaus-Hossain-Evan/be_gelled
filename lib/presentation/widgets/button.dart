@@ -86,7 +86,7 @@ class KButton extends HookConsumerWidget {
       ),
       splashColor: splashColor,
       elevation: elevation,
-      onPressed: onPressed,
+      onPressed: (loading != null && loading!) ? null : onPressed,
       child: (loading != null && loading!)
           ? SizedBox(
               height: 30.h,

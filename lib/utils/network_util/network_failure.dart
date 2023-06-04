@@ -7,21 +7,26 @@ import 'package:flutter_easylogger/flutter_logger.dart';
 class CleanFailure extends Equatable {
   final String tag;
   final CleanError error;
-  final bool _enableDialogue;
+  final bool enableDialogue;
   final int statusCode;
 
-  const CleanFailure(
-      {required this.tag,
-      required this.error,
-      bool enableDialogue = true,
-      this.statusCode = -1})
-      : _enableDialogue = enableDialogue;
+  const CleanFailure({
+    required this.tag,
+    required this.error,
+    this.enableDialogue = true,
+    this.statusCode = -1,
+  });
 
-  CleanFailure copyWith({String? tag, CleanError? error, int? statusCode}) {
+  CleanFailure copyWith({
+    String? tag,
+    CleanError? error,
+    int? statusCode,
+  }) {
     return CleanFailure(
-        tag: tag ?? this.tag,
-        error: error ?? this.error,
-        statusCode: statusCode ?? this.statusCode);
+      tag: tag ?? this.tag,
+      error: error ?? this.error,
+      statusCode: statusCode ?? this.statusCode,
+    );
   }
 
   factory CleanFailure.withData(
@@ -51,14 +56,18 @@ class CleanFailure extends Equatable {
         enableDialogue: enableDialogue,
         statusCode: statusCode);
   }
-  factory CleanFailure.none() =>
-      CleanFailure(tag: '', error: CleanError.none());
+
+  factory CleanFailure.none() {
+    return CleanFailure(tag: '', error: CleanError.none());
+  }
 
   @override
-  String toString() => 'CleanFailure(type: $tag, error: $error)';
+  String toString() {
+    return 'CleanFailure(tag: $tag, error: $error, statusCode: $statusCode)';
+  }
 
   showDialogue(BuildContext context) {
-    if (_enableDialogue) {
+    if (enableDialogue) {
       CleanFailureDialogue.show(context, failure: this);
     } else {
       Logger.e(this);
@@ -66,11 +75,30 @@ class CleanFailure extends Equatable {
   }
 
   @override
-  List<Object> get props => [tag, error];
+  List<Object> get props => [tag, error, enableDialogue, statusCode];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'tag': tag,
+      'error': error.toMap(),
+      'enableDialogue': enableDialogue,
+      'statusCode': statusCode,
+    };
+  }
+
+  factory CleanFailure.fromMap(Map<String, dynamic> map) {
+    return CleanFailure(
+      tag: map['tag'] ?? '',
+      error: CleanError.fromMap(map['error']),
+      enableDialogue: map['enableDialogue'] ?? false,
+      statusCode: map['statusCode']?.toInt() ?? 0,
+    );
+  }
 }
 
 class CleanError extends Equatable {
   final String message;
+
   const CleanError({
     required this.message,
   });

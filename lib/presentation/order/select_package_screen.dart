@@ -1,30 +1,27 @@
-import 'dart:developer';
-
 import 'package:be_gelled/domain/cart/all_products_response.dart';
 import 'package:be_gelled/domain/cart/model/food_item_mode.dart';
 import 'package:be_gelled/utils/utils.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../application/cart/cart_provider.dart';
-import '../../domain/cart/model/calorie_model.dart';
 import '../widgets/widgets.dart';
 import 'order_details_screen.dart';
 import 'widgets/individual_food_type_list.dart';
 import 'widgets/package_tile.dart';
 
-final calorie = CalorieModel.fromMap(const {
-  "totalCalorie": 2027.7767599999997,
-  "totalDairy": 203,
-  "totalFruitsAndVegetables": 1014,
-  "totalGrains": 507,
-  "totalProteins": 305
-});
+// final calorie = CalorieModel.fromMap(const {
+//   "totalCalorie": 2027.7767599999997,
+//   "totalDairy": 203,
+//   "totalFruitsAndVegetables": 1014,
+//   "totalGrains": 507,
+//   "totalProteins": 305
+// });
 
 final class SelectPackageScreen extends HookConsumerWidget {
   static const String route = '/select-package';
@@ -32,16 +29,35 @@ final class SelectPackageScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartState = ref.watch(cartProvider);
+
+    final calorie = cartState.calorieModel;
     final selectedDairy = useState<List<FoodItemModel>>([]);
 
+    ref.listen(cartProvider, (previous, next) {
+      if (previous!.loading == false && next.loading) {
+        BotToast.showLoading();
+      }
+      if (previous.loading == true && next.loading == false) {
+        BotToast.closeAllLoading();
+      }
+    });
+
     useEffect(() {
-      // log(selectedDairy.value.toString());
-      Logger.d(calorie.toMap().values.toList());
-      Logger.d(calorie.toMap().keys.toList());
+      // // log(selectedDairy.value.toString());
+      // Logger.d(calorie.toMap().values.toList());
+      // Logger.d(calorie.toMap().keys.toList());
+
+      Future.wait([
+        Future.microtask(
+            () => ref.read(cartProvider.notifier).getCalorieSuggestion()),
+        Future.microtask(
+            () => ref.read(cartProvider.notifier).getProductGroupByCategory()),
+      ]);
       return null;
     }, [selectedDairy.value]);
 
-    return Scaffold(
+    return KLoadingScaffold(
+      loading: cartState.loading,
       appBar: const KAppBar(
         titleText: 'Select Package',
       ),

@@ -6,6 +6,7 @@ class CalorieModel extends Equatable {
   final double totalFruitsAndVegetables;
   final double totalGrains;
   final double totalProteins;
+
   const CalorieModel({
     required this.totalCalorie,
     required this.totalDairy,
@@ -13,6 +14,14 @@ class CalorieModel extends Equatable {
     required this.totalGrains,
     required this.totalProteins,
   });
+
+  factory CalorieModel.init() => const CalorieModel(
+        totalCalorie: 0,
+        totalDairy: 0,
+        totalFruitsAndVegetables: 0,
+        totalGrains: 0,
+        totalProteins: 0,
+      );
 
   CalorieModel copyWith({
     double? totalCalorie,

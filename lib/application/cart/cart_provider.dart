@@ -62,6 +62,44 @@ class CartNotifier extends StateNotifier<CartState> {
     // );
   }
 
+  void getCalorieSuggestion() async {
+    state = state.copyWith(loading: true);
+
+    final result = await repo.getCalorieSuggestion();
+
+    state = result.fold(
+      (l) {
+        showErrorToast(l.error.message);
+        return state = state.copyWith(failure: l, loading: false);
+      },
+      (r) {
+        return state.copyWith(
+          calorieModel: r.data,
+          loading: false,
+        );
+      },
+    );
+  }
+
+  void getProductGroupByCategory() async {
+    state = state.copyWith(loading: true);
+
+    final result = await repo.getProductGroupByCategory();
+
+    state = result.fold(
+      (l) {
+        showErrorToast(l.error.message);
+        return state = state.copyWith(failure: l, loading: false);
+      },
+      (r) {
+        return state.copyWith(
+          allTypedFoods: r,
+          loading: false,
+        );
+      },
+    );
+  }
+
   Future<Either<CleanFailure, OrderResponse>> placeOrder(OrderBody body) async {
     state = state.copyWith(loading: true);
 

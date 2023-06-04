@@ -24,10 +24,10 @@ class MemberListTile extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final isComplete = useState(false);
 
-    useMemoized(() {
-      isComplete.value = memberInfo.name.isNotEmpty &&
-          memberInfo.dateOfBirth.isNotEmpty &&
-          memberInfo.gender != null;
+    useEffect(() {
+      isComplete.value = memberInfo.id.isNotEmpty;
+
+      return null;
     }, [ref.watch(familyMemberProvider).members[index]]);
     return KContainer(
       backgroundColor:
@@ -40,6 +40,7 @@ class MemberListTile extends HookConsumerWidget {
           barrierColor: ColorPalate.primary.withOpacity(0.64),
           isDismissible: true,
           useRootNavigator: true,
+          expand: false,
           builder: (context) {
             return MemberInfoScreen(memberIndex: index);
           },

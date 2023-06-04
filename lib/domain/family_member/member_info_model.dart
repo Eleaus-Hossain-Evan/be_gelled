@@ -1,3 +1,4 @@
+import 'package:be_gelled/utils/utils.dart';
 import 'package:equatable/equatable.dart';
 
 enum Gender { male, female, other }
@@ -8,7 +9,7 @@ class MemberInfoModel extends Equatable {
   final String name;
   final String nameBengali;
   final String phone;
-  final int height;
+  final double height;
   final int? weight;
   final Gender? gender;
   final PhysicalActivity? physicalActivity;
@@ -76,7 +77,7 @@ class MemberInfoModel extends Equatable {
     String? name,
     String? nameBengali,
     String? phone,
-    int? height,
+    double? height,
     int? weight,
     Gender? gender,
     PhysicalActivity? physicalActivity,
@@ -139,7 +140,27 @@ class MemberInfoModel extends Equatable {
       'isActive': isActive,
       'parentAccount': parentAccount,
       'isDeleted': isDeleted,
-      'id': id,
+      '_id': id,
+    };
+  }
+
+  Map<String, dynamic> toMapAdd() {
+    return {
+      'name': name,
+      'nameBengali': nameBengali,
+      'phone': phone,
+      'height': height,
+      'weight': weight,
+      'gender': gender?.name.toCapitalize(),
+      'physicalActivity': physicalActivity?.index,
+      'age': age,
+      'dateOfBirth': dateOfBirth,
+      'diabeticPatient': diabeticPatient,
+      'diabeticLevel': diabeticLevel,
+      'kidneyPatient': kidneyPatient,
+      'kidneyLevel': kidneyLevel,
+      'allergy': allergy,
+      'othersProblem': othersProblem,
     };
   }
 
@@ -148,12 +169,13 @@ class MemberInfoModel extends Equatable {
       name: map['name'] ?? '',
       nameBengali: map['nameBengali'] ?? '',
       phone: map['phone'] ?? '',
-      height: map['height']?.toInt() ?? 0,
+      height: map['height']?.toDouble() ?? 0,
       weight: map['weight']?.toInt(),
-      gender:
-          map['gender'] != null ? Gender.values.byName(map['gender']) : null,
+      gender: map['gender'] != null
+          ? Gender.values.byName(map['gender'].toLowerCase())
+          : null,
       physicalActivity: map['physicalActivity'] != null
-          ? PhysicalActivity.values.byName(map['physicalActivity'])
+          ? PhysicalActivity.values[(map['physicalActivity']).toInt()]
           : null,
       age: map['age']?.toInt() ?? 0,
       dateOfBirth: map['dateOfBirth'] ?? '',
@@ -167,7 +189,7 @@ class MemberInfoModel extends Equatable {
       isActive: map['isActive'] ?? false,
       parentAccount: map['parentAccount'] ?? '',
       isDeleted: map['isDeleted'] ?? false,
-      id: map['id'],
+      id: map['_id'],
     );
   }
 
