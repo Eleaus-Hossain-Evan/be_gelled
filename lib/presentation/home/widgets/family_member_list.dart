@@ -10,7 +10,7 @@ class FamilyMemberListWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final member = ref.watch(familyMemberProvider).member;
+    final state = ref.watch(familyMemberProvider);
     return Column(
       children: [
         Row(
@@ -31,9 +31,9 @@ class FamilyMemberListWidget extends HookConsumerWidget {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) => MemberListTile(
             index: index,
-            memberInfo: ref.watch(familyMemberProvider).members[index],
+            memberInfo: state.members[index],
           ),
-          itemCount: member,
+          itemCount: state.members.length,
           separator: gap16,
         ),
         gap32,

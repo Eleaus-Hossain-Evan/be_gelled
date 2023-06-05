@@ -22,6 +22,8 @@ class APIRoute {
   //'<<---------------- Family Member ------------------>>
 
   static const String ADD_FAMILY_MEMBER = "${API_V1}customer/add-family-member";
+  static const String GET_FAMILY_MEMBER =
+      "${API_V1}customer/get-family-members";
 
   //'<<---------------- Product ------------------>>
 

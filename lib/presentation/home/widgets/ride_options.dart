@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../application/auth/loggedin_provider.dart';
+import '../../../application/family_member/family_member_provider.dart';
 import '../../../utils/utils.dart';
 import '../../auth/login/login.dart';
+import '../../family_member/member_list_screen.dart';
 import '../../widgets/widgets.dart';
 import 'add_family_member.dart';
 
@@ -24,14 +27,16 @@ class RideOptions extends HookConsumerWidget {
               imagePath: Images.healthyFood,
               title: context.local.healthyFood,
               onTap: () {
-                showCustomSheet(
-                  context: context,
-                  builder: (context) {
-                    return ref.watch(loggedInProvider).loggedIn
-                        ? const AddFamilyMember()
-                        : const LoginScreen();
-                  },
-                );
+                ref.watch(familyMemberProvider).members.isNotEmpty
+                    ? context.push(MemberListScreen.route)
+                    : showCustomSheet(
+                        context: context,
+                        builder: (context) {
+                          return ref.watch(loggedInProvider).loggedIn
+                              ? const AddFamilyMember()
+                              : const LoginScreen();
+                        },
+                      );
               },
             ),
             gap16,

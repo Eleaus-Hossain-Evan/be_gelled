@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:be_gelled/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -69,90 +71,99 @@ class VendorTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KContainer(
-      onTap: onTap,
-      backgroundColor: isSelected
-          ? ColorPalate.secondary.withOpacity(.06)
-          : ColorPalate.white,
-      border: Border.all(
-        color: isSelected ? ColorPalate.secondary : Colors.transparent,
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            Images.aciLogo,
-            height: 48.w,
-            width: 48.w,
-            fit: BoxFit.cover,
-          ),
-          gap12,
-          Flexible(
-            child: Column(
-              crossAxisAlignment: crossStart,
-              children: [
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        "Rabbani General Store",
+    return GestureDetector(
+      onLongPress: () {
+        log("long press");
+        showAppModal(
+          context: context,
+          builder: (context) => Container(),
+        );
+      },
+      child: KContainer(
+        onTap: onTap,
+        backgroundColor: isSelected
+            ? ColorPalate.secondary.withOpacity(.06)
+            : ColorPalate.white,
+        border: Border.all(
+          color: isSelected ? ColorPalate.secondary : Colors.transparent,
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              Images.aciLogo,
+              height: 48.w,
+              width: 48.w,
+              fit: BoxFit.cover,
+            ),
+            gap12,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: crossStart,
+                children: [
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Rabbani General Store",
+                          style: CustomTextStyle.textStyle14w600,
+                        ),
+                      ),
+                      Image.asset(
+                        Images.iconUsers,
+                        height: 20.w,
+                        width: 20.w,
+                        fit: BoxFit.cover,
+                      ),
+                      gap4,
+                      Text(
+                        "999",
+                        style: CustomTextStyle.textStyle14w600Orange,
+                      ),
+                    ],
+                  ),
+                  gap6,
+                  Row(
+                    children: [
+                      Image.asset(
+                        Images.iconStar,
+                        height: 16.w,
+                        width: 16.w,
+                        fit: BoxFit.cover,
+                      ),
+                      gap6,
+                      Text(
+                        "4.1",
                         style: CustomTextStyle.textStyle14w600,
                       ),
-                    ),
-                    Image.asset(
-                      Images.iconUsers,
-                      height: 20.w,
-                      width: 20.w,
-                      fit: BoxFit.cover,
-                    ),
-                    gap4,
-                    Text(
-                      "999",
-                      style: CustomTextStyle.textStyle14w600Orange,
-                    ),
-                  ],
-                ),
-                gap6,
-                Row(
-                  children: [
-                    Image.asset(
-                      Images.iconStar,
-                      height: 16.w,
-                      width: 16.w,
-                      fit: BoxFit.cover,
-                    ),
-                    gap6,
-                    Text(
-                      "4.1",
-                      style: CustomTextStyle.textStyle14w600,
-                    ),
-                    gap6,
-                    Text(
-                      "(750)",
-                      style: CustomTextStyle.textStyle14w400,
-                    ),
-                  ],
-                ),
-                gap6,
-                Row(
-                  children: [
-                    Image.asset(
-                      Images.iconLocation,
-                      height: 16.w,
-                      width: 16.w,
-                      fit: BoxFit.cover,
-                    ),
-                    gap10,
-                    Text(
-                      "H 90, Rd 12, Sector 16, Utta...",
-                      style: CustomTextStyle.textStyle14w500HG800,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+                      gap6,
+                      Text(
+                        "(750)",
+                        style: CustomTextStyle.textStyle14w400,
+                      ),
+                    ],
+                  ),
+                  gap6,
+                  Row(
+                    children: [
+                      Image.asset(
+                        Images.iconLocation,
+                        height: 16.w,
+                        width: 16.w,
+                        fit: BoxFit.cover,
+                      ),
+                      gap10,
+                      Text(
+                        "H 90, Rd 12, Sector 16, Utta...",
+                        style: CustomTextStyle.textStyle14w500HG800,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -23,7 +23,6 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
         List.generate(parse, (index) => MemberInfoModel.init()).toIList();
 
     state = state.copyWith(
-      member: parse,
       members: newList.replace(
         0,
         MemberInfoModel.init().copyWith(
@@ -38,7 +37,6 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
 
   void addMember() {
     state = state.copyWith(
-      member: state.member + 1,
       members: state.members.add(MemberInfoModel.init()),
     );
   }
@@ -73,5 +71,27 @@ class FamilyMemberNotifier extends StateNotifier<FamilyMemberState> {
     );
 
     return success;
+  }
+
+  void getAllMembers() async {
+    state = state.copyWith(loading: true);
+
+    final result = await repo.getFamilyMember();
+
+    result.fold(
+      (l) {
+        showErrorToast(l.error.message);
+        return state = state.copyWith(
+          loading: false,
+          failure: l,
+        );
+      },
+      (r) {
+        return state = state.copyWith(
+          loading: false,
+          members: r.data.lock,
+        );
+      },
+    );
   }
 }

@@ -16,7 +16,7 @@ class MemberListScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final member = ref.watch(familyMemberProvider).member;
+    final state = ref.watch(familyMemberProvider);
     final isBack = useState(false);
     useEffect(() {
       // Future.microtask(
@@ -55,9 +55,9 @@ class MemberListScreen extends HookConsumerWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => MemberListTile(
                   index: index,
-                  memberInfo: ref.watch(familyMemberProvider).members[index],
+                  memberInfo: state.members[index],
                 ),
-                itemCount: member,
+                itemCount: state.members.length,
                 separator: gap16,
               ),
               gap32,
