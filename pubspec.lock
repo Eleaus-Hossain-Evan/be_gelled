@@ -613,6 +613,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  perfect_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: perfect_bottom_sheet
+      sha256: b34efe8516d58b6b0049a9ea6ab7c58eba1b316464329a4520a4bc347855b0f4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   petitparser:
     dependency: transitive
     description:

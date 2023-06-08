@@ -4,10 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../application/family_member/family_member_provider.dart';
 import '../../utils/utils.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/global.dart';
-import '../auth/login/login.dart';
 import '../widgets/widgets.dart';
 import 'pages/change_password_screen.dart';
 import 'pages/edit_profile/edit_profile_screen.dart';
@@ -77,7 +77,8 @@ class ProfileScreen extends HookConsumerWidget {
                       return LogoutDialog(
                         onYesPressed: () {
                           ref.read(authProvider.notifier).logout();
-                          context.go(LoginScreen.route);
+                          ref.invalidate(familyMemberProvider);
+                          // context.go(LoginScreen.route);
                         },
                         onNoPressed: () {},
                       );

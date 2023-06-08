@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:be_gelled/presentation/auth/login/login.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -65,12 +64,9 @@ class OTPScreen extends HookConsumerWidget {
     );
 
     useEffect(() {
-      log("OTP Screen $phone");
-
       startTimer();
 
       return () {
-        start.dispose();
         timer.cancel();
       };
     }, const []);

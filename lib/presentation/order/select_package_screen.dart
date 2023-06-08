@@ -1,8 +1,5 @@
-import 'package:be_gelled/domain/cart/all_products_response.dart';
 import 'package:be_gelled/domain/cart/model/food_item_mode.dart';
 import 'package:be_gelled/utils/utils.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../application/cart/cart_provider.dart';
 import '../widgets/widgets.dart';
 import 'order_details_screen.dart';
-import 'widgets/individual_food_type_list.dart';
 import 'widgets/package_tile.dart';
 
 // final calorie = CalorieModel.fromMap(const {
@@ -28,36 +24,39 @@ final class SelectPackageScreen extends HookConsumerWidget {
   const SelectPackageScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loading = useState<bool>(false);
     final cartState = ref.watch(cartProvider);
 
     final calorie = cartState.calorieModel;
     final selectedDairy = useState<List<FoodItemModel>>([]);
 
-    ref.listen(cartProvider, (previous, next) {
-      if (previous!.loading == false && next.loading) {
-        BotToast.showLoading();
-      }
-      if (previous.loading == true && next.loading == false) {
-        BotToast.closeAllLoading();
-      }
-    });
+    // ref.listen(cartProvider, (previous, next) {
+    //   if (previous!.loading == false && next.loading) {
+    //     BotToast.showLoading();
+    //   }
+    //   if (previous.loading == true && next.loading == false) {
+    //     BotToast.closeAllLoading();
+    //   }
+    // });
 
     useEffect(() {
       // // log(selectedDairy.value.toString());
       // Logger.d(calorie.toMap().values.toList());
       // Logger.d(calorie.toMap().keys.toList());
+      loading.value = true;
 
       Future.wait([
         Future.microtask(
             () => ref.read(cartProvider.notifier).getCalorieSuggestion()),
         Future.microtask(
             () => ref.read(cartProvider.notifier).getProductGroupByCategory()),
-      ]);
+      ]).then((value) => loading.value = false);
       return null;
     }, [selectedDairy.value]);
 
     return KLoadingScaffold(
-      loading: cartState.loading,
+      loading: loading.value,
+      loader: true,
       appBar: const KAppBar(
         titleText: 'Select Package',
       ),
@@ -100,79 +99,31 @@ final class SelectPackageScreen extends HookConsumerWidget {
             gap12,
             PackageTile(
               title: "Dairy",
-              titleCalorie: "${calorie.totalDairy} cal",
-              items: cartState.selectedFoodItems
-                  .filter(
-                      (t) => t.category == all_products.dairy.first.category)
-                  .toIList(),
-              onTap: () {
-                showCustomSheet(
-                  context: context,
-                  builder: (context) {
-                    return IndividualFoodTypeList(
-                      typedFoodList: all_products.dairy,
-                    );
-                  },
-                );
-              },
+              titleCalorie: calorie.totalDairy,
+              categoryId: cartState.allTypedFoods.dairy.first.category,
+              items: cartState.allTypedFoods.dairy,
             ),
             gap12,
             PackageTile(
               title: "FruitsAndVegetables",
-              titleCalorie: "${calorie.totalFruitsAndVegetables} cal",
-              items: cartState.selectedFoodItems
-                  .filter((t) =>
-                      t.category ==
-                      all_products.fruitsAndVegetables.first.category)
-                  .toIList(),
-              onTap: () {
-                showCustomSheet(
-                  context: context,
-                  builder: (context) {
-                    return IndividualFoodTypeList(
-                      typedFoodList: all_products.fruitsAndVegetables,
-                    );
-                  },
-                );
-              },
+              titleCalorie: calorie.totalFruitsAndVegetables,
+              categoryId:
+                  cartState.allTypedFoods.fruitsAndVegetables.first.category,
+              items: cartState.allTypedFoods.fruitsAndVegetables,
             ),
             gap12,
             PackageTile(
               title: "Grains",
-              titleCalorie: "${calorie.totalGrains} cal",
-              items: cartState.selectedFoodItems
-                  .filter(
-                      (t) => t.category == all_products.grains.first.category)
-                  .toIList(),
-              onTap: () {
-                showCustomSheet(
-                  context: context,
-                  builder: (context) {
-                    return IndividualFoodTypeList(
-                      typedFoodList: all_products.grains,
-                    );
-                  },
-                );
-              },
+              titleCalorie: calorie.totalGrains,
+              categoryId: cartState.allTypedFoods.grains.first.category,
+              items: cartState.allTypedFoods.grains,
             ),
             gap12,
             PackageTile(
               title: "Proteins",
-              titleCalorie: "${calorie.totalProteins} cal",
-              items: cartState.selectedFoodItems
-                  .filter(
-                      (t) => t.category == all_products.protein.first.category)
-                  .toIList(),
-              onTap: () {
-                showCustomSheet(
-                  context: context,
-                  builder: (context) {
-                    return IndividualFoodTypeList(
-                      typedFoodList: all_products.protein,
-                    );
-                  },
-                );
-              },
+              titleCalorie: calorie.totalProteins,
+              categoryId: cartState.allTypedFoods.protein.first.category,
+              items: cartState.allTypedFoods.protein,
             ),
 
 //' Previous code commented

@@ -227,7 +227,7 @@ class SlideBottomToTopTransitionPage extends CustomTransitionPage {
 class MyNavigatorObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    log('---> did push route from ${previousRoute?.settings.name} to ${route.settings.name}');
+    log('---> did push route from ${previousRoute?.navigator?.bucket} to ${route.settings.name}');
   }
 
   @override

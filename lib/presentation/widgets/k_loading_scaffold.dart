@@ -8,17 +8,22 @@ class KLoadingScaffold extends HookConsumerWidget {
     this.body,
     this.bottomNavigationBar,
     required this.loading,
+    required this.loader,
   }) : super(key: key);
 
   final PreferredSizeWidget? appBar;
   final Widget? body;
   final Widget? bottomNavigationBar;
-  final bool loading;
+  final bool loading, loader;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: loading ? null : appBar,
-      body: loading ? const SizedBox.expand() : body,
+      body: loading
+          ? loader
+              ? const Center(child: CircularProgressIndicator())
+              : const SizedBox.expand()
+          : body,
       bottomNavigationBar: loading ? null : bottomNavigationBar,
     );
   }

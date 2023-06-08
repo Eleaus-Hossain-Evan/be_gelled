@@ -1,53 +1,87 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../application/cart/cart_provider.dart';
 import '../../../domain/cart/model/food_item_mode.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
+import 'individual_food_type_list.dart';
 
-class PackageTile extends StatelessWidget {
+class PackageTile extends HookConsumerWidget {
   const PackageTile({
-    super.key,
+    Key? key,
     required this.title,
+    required this.categoryId,
     required this.titleCalorie,
     required this.items,
-    this.onTap,
     this.border,
     this.backgroundColor,
     this.headTextStyle,
-  });
+  }) : super(key: key);
 
   final String title;
-  final String titleCalorie;
-  final IList<FoodItemModel> items;
-  final VoidCallback? onTap;
+  final String categoryId;
+  final double titleCalorie;
+  final List<FoodItemModel> items;
+  // final double totalSelectedCalorie;
+  // final IList<FoodItemModel> items;
+
   final BoxBorder? border;
   final Color? backgroundColor;
   final TextStyle? headTextStyle;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final cartState = ref.watch(cartProvider);
+
+    final filteredSelectedItems = cartState.selectedFoodItems
+        .filter((t) => t.category == categoryId)
+        .toIList();
+
+    final totalSelectedCalorie = useMemoized(
+      () => filteredSelectedItems.isNotEmpty
+          ? filteredSelectedItems
+              .map((e) =>
+                  e.caloriesPerHundredGram.toDouble() * (e.quantity / 100))
+              .reduce((value, element) => value + element)
+          : 0.0,
+      [cartState.selectedFoodItems],
+    );
+
+    final isOverCalorie = useMemoized<bool>(() {
+      Logger.d(
+          "$totalSelectedCalorie $titleCalorie ${totalSelectedCalorie > titleCalorie}");
+      return totalSelectedCalorie > titleCalorie;
+    }, [cartState.selectedFoodItems]);
+
     return KContainer(
-      onTap: onTap,
-      border: items.isEmpty ? Border() : border,
+      border: filteredSelectedItems.isEmpty ? Border() : border,
       backgroundColor: backgroundColor,
-      padding: items.isEmpty ? padding0 : null,
+      padding: filteredSelectedItems.isEmpty ? padding0 : null,
       child: Column(
         children: [
           _tile(
             title: title,
-            amount: titleCalorie,
+            amount: titleCalorie.toStringAsFixed(1),
             isHead: true,
-            headTextStyle: headTextStyle,
-            haveListItems: items.isEmpty,
+            headTextStyle: CustomTextStyle.textStyle14w600Orange.copyWith(
+                color: filteredSelectedItems.isEmpty
+                    ? ColorPalate.primary
+                    : isOverCalorie
+                        ? ColorPalate.error
+                        : ColorPalate.secondary,
+                decoration: isOverCalorie ? TextDecoration.underline : null),
           ),
 
-          ...List.generate(items.length, (index) {
-            final item = items[index];
+          ...List.generate(filteredSelectedItems.length, (index) {
+            final item = filteredSelectedItems[index];
             return _tile(
               title: item.name,
-              amount: (item.caloriesPerHundredGram * item.quantity)
-                  .toStringAsFixed(2),
+              amount: (item.caloriesPerHundredGram * (item.quantity / 100))
+                  .toStringAsFixed(1),
             );
           }),
           // _tile(
@@ -70,6 +104,17 @@ class PackageTile extends StatelessWidget {
           //   price: "1 kg",
           // ),
         ],
+      ),
+      onTap: () => showCustomSheet(
+        context: context,
+        builder: (context) {
+          return IndividualFoodTypeList(
+            typedFoodList: items,
+            totalSelectedCalorie: totalSelectedCalorie,
+            titleCalorie: titleCalorie,
+            categoryId: categoryId,
+          );
+        },
       ),
     );
   }
@@ -98,14 +143,8 @@ class PackageTile extends StatelessWidget {
           ),
           Text(
             amount,
-            style: isHead
-                ? headTextStyle ??
-                    CustomTextStyle.textStyle14w600Orange.copyWith(
-                      color: haveListItems
-                          ? ColorPalate.primary
-                          : ColorPalate.secondary,
-                    )
-                : CustomTextStyle.textStyle12w500HG800,
+            style:
+                isHead ? headTextStyle : CustomTextStyle.textStyle12w500HG800,
           ),
         ],
       ),

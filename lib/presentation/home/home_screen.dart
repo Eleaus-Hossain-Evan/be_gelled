@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../application/auth/loggedin_provider.dart';
 import '../../application/family_member/family_member_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
@@ -39,8 +40,10 @@ class HomeScreen extends HookConsumerWidget {
 
     useEffect(() {
       Future.wait([
-        Future.microtask(
-            () => ref.read(familyMemberProvider.notifier).getAllMembers()),
+        ref.watch(loggedInProvider).loggedIn
+            ? Future.microtask(
+                () => ref.read(familyMemberProvider.notifier).getAllMembers())
+            : Future.microtask(() => null),
       ]);
       return null;
     }, []);

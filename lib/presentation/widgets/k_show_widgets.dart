@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:perfect_bottom_sheet/perfect_bottom_sheet.dart';
 
 import '../../utils/utils.dart';
 
@@ -56,6 +57,24 @@ Future<T?> showAppModal<T>({
     duration: duration,
   );
 }
+
+showPerfectSheet({
+  required BuildContext context,
+  required Widget Function(BuildContext, ScrollController) builder,
+  bool expandable = true,
+  double openPercentage = 0.4,
+  Color backgroundColor = ColorPalate.white,
+  int borderRadius = 24,
+}) =>
+    Navigator.of(context).push(
+      PerfectBottomSheetRoute(
+        builder: builder,
+        expandable: expandable,
+        openPercentage: openPercentage,
+        backgroundColor: backgroundColor,
+        borderRadius: borderRadius,
+      ),
+    );
 
 Future<void> ensureVisibleOnTextArea({required GlobalKey textfieldKey}) async {
   final keyContext = textfieldKey.currentContext;

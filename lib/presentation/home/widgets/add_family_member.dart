@@ -65,6 +65,7 @@ class AddFamilyMember extends HookConsumerWidget {
                           ref.read(familyMemberProvider.notifier).setMember(
                                 int.parse(value.text),
                               );
+                          Navigator.pop(context);
                           context.push(MemberListScreen.route);
                         },
                   text: context.local.continueText,

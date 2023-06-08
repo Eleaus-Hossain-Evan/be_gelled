@@ -9,23 +9,23 @@ class CartRepo {
   final api = NetworkHandler.instance;
 
   Future<Either<CleanFailure, CalorieSuggestionResponse>>
-      getCalorieSuggestion() async {
-    return await api.get(
+      getCalorieSuggestion() {
+    return api.get(
       endPoint: APIRoute.SUGGESTION,
       fromData: (json) => CalorieSuggestionResponse.fromMap(json),
     );
   }
 
   Future<Either<CleanFailure, AllProductsResponse>>
-      getProductGroupByCategory() async {
-    return await api.get(
+      getProductGroupByCategory() {
+    return api.get(
       endPoint: APIRoute.PRODUCT_BY_CATEGORY,
       fromData: (json) => AllProductsResponse.fromMap(json),
     );
   }
 
-  Future<Either<CleanFailure, OrderResponse>> placeOrder(OrderBody body) async {
-    return await api.post(
+  Future<Either<CleanFailure, OrderResponse>> placeOrder(OrderBody body) {
+    return api.post(
       endPoint: APIRoute.ORDER_CREATE,
       body: body.toMap(),
       fromData: (json) => OrderResponse.fromMap(json),

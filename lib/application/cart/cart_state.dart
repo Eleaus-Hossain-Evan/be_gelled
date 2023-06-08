@@ -49,7 +49,7 @@ class CartState extends Equatable {
 
   @override
   String toString() {
-    return 'CartState(loading: $loading, failure: $failure, selectedFoodItems: $selectedFoodItems, allTypedFoods: $allTypedFoods, calorieModel: $calorieModel)';
+    return 'CartState(loading: $loading, failure: $failure, selectedFoodItems: $selectedFoodItems, )';
   }
 
   @override

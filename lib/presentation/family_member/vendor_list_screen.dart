@@ -48,7 +48,9 @@ class VendorListScreen extends HookConsumerWidget {
               ? () {
                   context.pop();
                   context.pop();
-                  Navigator.pop(context);
+                  // if (ref.watch(familyMemberProvider).members.isNotEmpty) {
+                  //   Navigator.pop(context);
+                  // }
                   ref.read(familyProvider.notifier).update((state) => true);
                 }
               : null,
@@ -76,7 +78,81 @@ class VendorTile extends StatelessWidget {
         log("long press");
         showAppModal(
           context: context,
-          builder: (context) => Container(),
+          builder: (context) => Material(
+            child: SizedBox(
+              height: .5.sh,
+              child: SingleChildScrollView(
+                // controller: controller,
+                child: Column(
+                  mainAxisAlignment: mainStart,
+                  crossAxisAlignment: crossStart,
+                  children: [
+                    Image.asset(
+                      Images.map,
+                      height: .2.sh,
+                      fit: BoxFit.cover,
+                    ),
+                    const KDivider(),
+                    Padding(
+                      padding: padding16,
+                      child: Column(
+                        mainAxisAlignment: mainStart,
+                        crossAxisAlignment: crossStart,
+                        children: [
+                          Text(
+                            "Rabbani General Store",
+                            style: CustomTextStyle.textStyle16w600,
+                          ),
+                          gap12,
+                          Text(
+                            "Location: H 90, Rd 12, Sector 16, Utta...",
+                            style: CustomTextStyle.textStyle14w500HG800,
+                          ),
+                          gap6,
+                          Row(
+                            children: [
+                              Image.asset(
+                                Images.iconStar,
+                                height: 16.w,
+                                width: 16.w,
+                                fit: BoxFit.cover,
+                              ),
+                              gap6,
+                              Text(
+                                "4.1",
+                                style: CustomTextStyle.textStyle14w600,
+                              ),
+                              gap6,
+                              Text(
+                                "(750)",
+                                style: CustomTextStyle.textStyle14w400,
+                              ),
+                            ],
+                          ),
+                          gap6,
+                          Row(
+                            children: [
+                              Image.asset(
+                                Images.iconUsers,
+                                height: 20.w,
+                                width: 20.w,
+                                fit: BoxFit.cover,
+                              ),
+                              gap4,
+                              Text(
+                                "999",
+                                style: CustomTextStyle.textStyle14w600Orange,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         );
       },
       child: KContainer(

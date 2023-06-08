@@ -11,7 +11,6 @@ import '../../../application/auth/auth_provider.dart';
 import '../../../domain/auth/login_body.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
-import '../otp_screen.dart';
 import '../signup/signup.dart';
 import '../widgets/phone_search_widget.dart';
 

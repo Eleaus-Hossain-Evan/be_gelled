@@ -27,7 +27,8 @@ class RideOptions extends HookConsumerWidget {
               imagePath: Images.healthyFood,
               title: context.local.healthyFood,
               onTap: () {
-                ref.watch(familyMemberProvider).members.isNotEmpty
+                ref.watch(familyMemberProvider).members.isNotEmpty &&
+                        ref.watch(loggedInProvider).loggedIn
                     ? context.push(MemberListScreen.route)
                     : showCustomSheet(
                         context: context,

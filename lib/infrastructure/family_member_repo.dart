@@ -7,16 +7,16 @@ class FamilyMemberRepo {
   final api = NetworkHandler.instance;
 
   Future<Either<CleanFailure, MemberInfoModel>> addFamilyMember(
-      MemberInfoModel body) async {
-    return await api.post(
+      MemberInfoModel body) {
+    return api.post(
       body: body.toMapAdd(),
       fromData: (json) => MemberInfoModel.fromMap(json),
       endPoint: APIRoute.ADD_FAMILY_MEMBER,
     );
   }
 
-  Future<Either<CleanFailure, FamilyMembersResponse>> getFamilyMember() async {
-    return await api.get(
+  Future<Either<CleanFailure, FamilyMembersResponse>> getFamilyMember() {
+    return api.get(
       fromData: (json) => FamilyMembersResponse.fromMap(json),
       endPoint: APIRoute.GET_FAMILY_MEMBER,
     );
