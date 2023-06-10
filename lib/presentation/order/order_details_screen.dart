@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../utils/utils.dart';
 import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
+import 'widgets/edit_address.dart';
+import 'widgets/google_map_widget.dart';
 
 enum DayChoice { days2, days3 }
 
@@ -29,34 +32,51 @@ class OrderDetailsScreen extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: crossStart,
           children: [
-            Text(
-              "Delivery Address",
-              style: CustomTextStyle.textStyle16w600HG1000,
+            Padding(
+              padding: paddingRight6,
+              child: Row(
+                mainAxisAlignment: mainSpaceBetween,
+                children: [
+                  Text(
+                    "Delivery Address",
+                    style: CustomTextStyle.textStyle16w600HG1000,
+                  ),
+                  KInkWell(
+                    onTap: () => showAppModal(
+                      context: context,
+                      builder: (_) => const EditAddress(),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.w,
+                      vertical: 4.h,
+                    ),
+                    borderRadius: radius6,
+                    child: Icon(
+                      Icons.edit,
+                      color: ColorPalate.harrisonGrey600,
+                      size: 16.sp,
+                    ),
+                  ),
+                ],
+              ),
             ),
             gap16,
-            Image.asset(
-              Images.map,
+            SizedBox(
               height: 98.h,
               width: 1.sw,
+              child: const GoogleMapWidget(
+                location: LatLng(23.8103, 90.4125),
+              ),
             ),
             gap8,
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: crossStart,
-                  children: [
-                    Text(
-                      "Home",
-                      style: CustomTextStyle.textStyle14w600,
-                    ),
-                    gap4,
-                    Text(
-                      "House 15, Road 11, Nikunja 2 | 5th Floor (5B)",
-                      style: CustomTextStyle.textStyle12w400HG800,
-                    ),
-                  ],
-                ),
-              ],
+            Text(
+              "Home",
+              style: CustomTextStyle.textStyle14w600,
+            ),
+            gap4,
+            Text(
+              "House 15, Road 11, Nikunja 2 | 5th Floor (5B)",
+              style: CustomTextStyle.textStyle12w400HG800,
             ),
             gap24,
             KContainer(
@@ -81,9 +101,12 @@ class OrderDetailsScreen extends HookConsumerWidget {
                     "Delivery Time",
                     style: CustomTextStyle.textStyle16w600HG1000,
                   ),
-                  Text(
-                    "ASAP (40 Min)",
-                    style: CustomTextStyle.textStyle14w500Primary,
+                  Flexible(
+                    child: Text(
+                      "Delivery will be in 7-9am in specific day",
+                      style: CustomTextStyle.textStyle12w500HG800,
+                      textAlign: TextAlign.center,
+                    ),
                   )
                 ],
               ),
@@ -153,11 +176,11 @@ class OrderDetailsScreen extends HookConsumerWidget {
               ],
             ),
             gap18,
-            Text(
-              "Delivery will be in 7-9am in specific day",
-              style: CustomTextStyle.textStyle16w500HG1000,
-            ),
-            gap6,
+            // Text(
+            //   "Delivery will be in 7-9am in specific day",
+            //   style: CustomTextStyle.textStyle16w500HG1000,
+            // ),
+            // gap6,
             Row(
               children: List.generate(
                 DayChoice.values.length,

@@ -244,9 +244,11 @@ final class SelectPackageScreen extends HookConsumerWidget {
       bottomNavigationBar: Padding(
         padding: paddingTop16.add(paddingH16),
         child: FilledButton(
-          onPressed: () {
-            context.push(OrderDetailsScreen.route);
-          },
+          onPressed: cartState.selectedFoodItems.isEmpty
+              ? null
+              : () {
+                  context.push(OrderDetailsScreen.route);
+                },
           child: Text(context.local.continueText),
         ),
       ),

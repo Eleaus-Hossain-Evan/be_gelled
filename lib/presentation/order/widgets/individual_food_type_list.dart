@@ -50,15 +50,15 @@ class IndividualFoodTypeList extends HookConsumerWidget {
         height: .8.sh,
         child: CustomScrollView(
           slivers: [
-            SliverAnimatedOpacity(
-              opacity: isOverCalorie ? 1 : 0,
-              duration: const Duration(milliseconds: 300),
-              sliver: SliverPersistentHeader(
-                delegate: _ShowNotification(isOverCalorie),
-                pinned: true,
-                floating: true,
-              ),
-            ),
+            // SliverAnimatedOpacity(
+            //   opacity: isOverCalorie ? 1 : 0,
+            //   duration: const Duration(milliseconds: 300),
+            //   sliver: SliverPersistentHeader(
+            //     delegate: _ShowNotification(isOverCalorie),
+            //     pinned: true,
+            //     floating: true,
+            //   ),
+            // ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 childCount: typedFoodList.length,
