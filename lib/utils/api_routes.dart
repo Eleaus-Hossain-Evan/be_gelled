@@ -30,30 +30,7 @@ class APIRoute {
   static const String SUGGESTION = "${API_V1}products/order/get-suggestions";
   static const String PRODUCT_BY_CATEGORY = "${API_V1}products/by-category";
 
-  //'<<----------------Notification------------------>>
-
-  static const String NOTIFICATION =
-      "${API_V1}car/vendor/submitted/others-problem/user/un-accepted/list/view";
-  static const String ACCEPTED_OTHER_PROBLEM =
-      "${API_V1}car/vendor/submitted/others-problem/amount-time/user/accept";
-  static const String ON_GOING_PACKAGE =
-      "${API_V1}car/user/submitted/problem/vendor-accepted/list/view-by/user";
-  static const String COMPLETED_PACKAGE =
-      "${API_V1}car/user/completed/all-problem/list";
-  static const String SUBMIT_REVIEW =
-      "${API_V1}car/service/rating-review/create";
-
-  //'<<----------------Profile------------------>>
-  static const String CAR_SERVICE_VIEW_ALL =
-      "${API_V1}car/customer/service/all";
-  static const String CAR_SERVICE_ADD = "${API_V1}car/customer/service/create";
-  static const String CAR_SERVICE_UPDATE =
-      "${API_V1}car/customer/service/update";
-
   //'<<----------------Order------------------>>
-  static const String BIDDING_CREATE =
-      "${API_V1}car-parts/biding/create/by-customer";
-  static const String MY_BIDS = "${API_V1}car-parts/biding/by-customer";
-  static const String ORDER_CREATE =
-      "${API_V1}car-parts/order/by-customer/create";
+
+  static const String ORDER_CREATE = "${API_V1}products/fixed-order/create";
 }

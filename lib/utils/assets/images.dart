@@ -25,6 +25,7 @@ class Images {
   static const String iconInfo = 'assets/icons/info.png';
   static const String iconLocation = 'assets/icons/location.png';
   static const String iconMinus = 'assets/icons/minus.png';
+  static const String iconMyLocation = 'assets/icons/my-location.png';
   static const String iconPlus = 'assets/icons/plus.png';
   static const String iconStar = 'assets/icons/star.png';
   static const String iconUserRectangle = 'assets/icons/user-rectangle.png';

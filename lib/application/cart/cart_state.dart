@@ -6,6 +6,8 @@ import '../../domain/cart/model/calorie_model.dart';
 import '../../domain/cart/model/food_item_mode.dart';
 import '../../utils/network_util/network_failure.dart';
 
+enum DayChoice { days2, days3 }
+
 class CartState extends Equatable {
   final bool loading;
   final CleanFailure failure;

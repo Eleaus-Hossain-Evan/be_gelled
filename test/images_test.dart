@@ -26,6 +26,7 @@ void main() {
     expect(File(Images.iconInfo).existsSync(), true);
     expect(File(Images.iconLocation).existsSync(), true);
     expect(File(Images.iconMinus).existsSync(), true);
+    expect(File(Images.iconMyLocation).existsSync(), true);
     expect(File(Images.iconPlus).existsSync(), true);
     expect(File(Images.iconStar).existsSync(), true);
     expect(File(Images.iconUserRectangle).existsSync(), true);

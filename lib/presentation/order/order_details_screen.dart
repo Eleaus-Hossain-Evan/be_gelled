@@ -1,26 +1,36 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../application/cart/cart_provider.dart';
+import '../../application/cart/cart_state.dart';
 import '../../utils/utils.dart';
-import '../home/home_screen.dart';
 import '../widgets/widgets.dart';
 import 'widgets/edit_address.dart';
 import 'widgets/google_map_widget.dart';
-
-enum DayChoice { days2, days3 }
 
 class OrderDetailsScreen extends HookConsumerWidget {
   static const String route = '/order-details';
   const OrderDetailsScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final state = ref.watch(cartProvider);
+
     final splitOrder = useState(true);
 
     final selectedDayChoice = useState(DayChoice.days2);
+
+    ref.listen(cartProvider, (previous, next) {
+      if (previous!.loading == false && next.loading) {
+        BotToast.showLoading();
+      }
+      if (previous.loading == true && next.loading == false) {
+        BotToast.closeAllLoading();
+      }
+    });
 
     return Scaffold(
       appBar: const KAppBar(
@@ -150,28 +160,33 @@ class OrderDetailsScreen extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      splitOrder.value ? "ON" : "OFF",
-                      style: CustomTextStyle.textStyle12w600HG1000,
-                    ),
-                    SizedBox(
-                      height: 13.h,
-                      width: 21.w,
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Switch(
-                          value: splitOrder.value,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          onChanged: (value) {
-                            splitOrder.value = value;
-                          },
+                GestureDetector(
+                  onTap: () {
+                    splitOrder.value = !splitOrder.value;
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        splitOrder.value ? "ON" : "OFF",
+                        style: CustomTextStyle.textStyle12w600HG1000,
+                      ),
+                      SizedBox(
+                        height: 13.h,
+                        width: 21.w,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Switch(
+                            value: splitOrder.value,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            onChanged: (value) {
+                              splitOrder.value = value;
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -190,9 +205,11 @@ class OrderDetailsScreen extends HookConsumerWidget {
                       value: DayChoice.values[index],
                       groupValue: selectedDayChoice.value,
                       visualDensity: VisualDensity.compact,
-                      onChanged: (value) {
-                        selectedDayChoice.value = value!;
-                      },
+                      onChanged: splitOrder.value
+                          ? (value) {
+                              selectedDayChoice.value = value!;
+                            }
+                          : null,
                     ),
                     AnimatedDefaultTextStyle(
                       style: selectedDayChoice.value == DayChoice.values[index]
@@ -270,14 +287,10 @@ class OrderDetailsScreen extends HookConsumerWidget {
             ),
             gap16,
             FilledButton(
-              onPressed: () {
-                ref
-                    .read(familyProvider.notifier)
-                    .update((state) => state = false);
-                context.pop();
-                Navigator.pop(context);
-                context.pop();
-              },
+              onPressed: () => ref.read(cartProvider.notifier).placeOrder(
+                    dayChoice:
+                        splitOrder.value ? selectedDayChoice.value : null,
+                  ),
               child: const Text("Place Order"),
             ),
           ],
