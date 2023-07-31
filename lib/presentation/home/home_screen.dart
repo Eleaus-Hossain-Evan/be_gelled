@@ -104,7 +104,7 @@ class HomeScreen extends HookConsumerWidget {
                           imagePath: Images.inviteFriends,
                           title: context.local.inviteFriends,
                           titleTextStyle: CustomTextStyle.textStyle16w600HG1000,
-                          subtitle: context.local.get50Discount,
+                          subtitle: context.local.getPercentDiscount(50),
                           onTap: () {},
                         ),
                         gap24,

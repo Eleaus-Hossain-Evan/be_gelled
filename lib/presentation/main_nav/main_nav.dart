@@ -23,8 +23,8 @@ class MainNav extends HookConsumerWidget {
       // const CartScreen(),//'Cart screen exists now...
       // const ProfileScreen(),
 
-      const Text("Wallet"),
-      const Text("History"),
+       Text(context.local.wallet.toCapitalize()),
+       Text(context.local.history.toCapitalize()),
       const ProfileScreen()
     ];
 

@@ -57,8 +57,8 @@ final class SelectPackageScreen extends HookConsumerWidget {
     return KLoadingScaffold(
       loading: loading.value,
       loader: true,
-      appBar: const KAppBar(
-        titleText: 'Select Package',
+      appBar: KAppBar(
+        titleText: context.local.selectPackage,
       ),
       body: SingleChildScrollView(
         padding: padding16,
@@ -66,12 +66,13 @@ final class SelectPackageScreen extends HookConsumerWidget {
           crossAxisAlignment: crossStart,
           children: [
             Text(
-              "Packages suggestion for you",
+              context.local.packagesSuggestionForYou,
               style: CustomTextStyle.textStyle16w600HG1000,
             ),
             gap8,
             Text(
-              "6 packages are suggested for you, you can also customised them as you need.",
+              context.local
+                  .packagesAreSuggestedForYouCanAlsoCustomizedThemAsYouNeed(6),
               style: CustomTextStyle.textStyle13w400HG800,
             ),
             gap16,
@@ -80,7 +81,7 @@ final class SelectPackageScreen extends HookConsumerWidget {
               mainAxisAlignment: mainSpaceBetween,
               children: [
                 Text(
-                  "Total Calorie:",
+                  context.local.totalCalorie,
                   style: CustomTextStyle.textStyle16w600HG1000,
                 ),
                 Container(
@@ -100,29 +101,32 @@ final class SelectPackageScreen extends HookConsumerWidget {
             PackageTile(
               title: "Dairy",
               titleCalorie: calorie.totalDairy,
-              categoryId: cartState.allTypedFoods.dairy.first.category,
+              // categoryId: cartState.allTypedFoods.dairy.first.category,
+              categoryId: "",
               items: cartState.allTypedFoods.dairy,
             ),
             gap12,
             PackageTile(
               title: "FruitsAndVegetables",
               titleCalorie: calorie.totalFruitsAndVegetables,
-              categoryId:
-                  cartState.allTypedFoods.fruitsAndVegetables.first.category,
+              // categoryId:
+              //     cartState.allTypedFoods.fruitsAndVegetables.first.category,
+              categoryId: "",
               items: cartState.allTypedFoods.fruitsAndVegetables,
             ),
             gap12,
             PackageTile(
               title: "Grains",
               titleCalorie: calorie.totalGrains,
-              categoryId: cartState.allTypedFoods.grains.first.category,
+              // categoryId: cartState.allTypedFoods.grains.first.category,
+              categoryId: "",
               items: cartState.allTypedFoods.grains,
             ),
             gap12,
             PackageTile(
               title: "Proteins",
               titleCalorie: calorie.totalProteins,
-              categoryId: cartState.allTypedFoods.protein.first.category,
+              categoryId: "6466bfe8e62de0ed60e53934",
               items: cartState.allTypedFoods.protein,
             ),
 

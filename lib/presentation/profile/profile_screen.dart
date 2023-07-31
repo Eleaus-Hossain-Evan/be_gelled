@@ -9,7 +9,6 @@ import '../../utils/utils.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/global.dart';
 import '../widgets/widgets.dart';
-import 'pages/change_password_screen.dart';
 import 'pages/edit_profile/edit_profile_screen.dart';
 import 'widgets/picture_widget.dart';
 
@@ -25,7 +24,7 @@ class ProfileScreen extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: ColorPalate.white,
-      appBar: const KAppBar(titleText: "context.local.profile"),
+      appBar: KAppBar(titleText: context.local.profile),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
@@ -51,19 +50,19 @@ class ProfileScreen extends HookConsumerWidget {
                   //   title: context.local.yourFavorites,
                   //   onTap: () => context.push(FavoritesScreen.route),
                   // ),
-                  KDivider(height: 36.h),
-                  _optionList(
-                    leading: Icons.remove_red_eye_outlined,
-                    title: "context.local.password",
-                    onTap: () => context.push(PasswordScreen.route),
-                  ),
+                  // KDivider(height: 36.h),
+                  // _optionList(
+                  //   leading: Icons.remove_red_eye_outlined,
+                  //   title: context.local.password,
+                  //   onTap: () => context.push(PasswordScreen.route),
+                  // ),
                   KDivider(height: 36.h),
                   _optionList(
                     leading: FontAwesomeIcons.globe,
-                    title: "context.local.language",
+                    title: context.local.language,
                     trailingText: localState.languageCode == 'en'
-                        ? "context.local.english"
-                        : "context.local.arabic",
+                        ? context.local.english
+                        : context.local.bangla,
                     onTap: () => ref.read(appLocalProvider.notifier).update(
                         (state) => localState.languageCode == 'en'
                             ? const Locale("ar", "AR")
@@ -72,7 +71,7 @@ class ProfileScreen extends HookConsumerWidget {
                   KDivider(height: 36.h),
                   _optionList(
                     leading: Icons.login_outlined,
-                    title: "context.local.logout",
+                    title: context.local.logout,
                     onTap: () => showFloatBottomSheet(context, builder: (_) {
                       return LogoutDialog(
                         onYesPressed: () {

@@ -120,7 +120,7 @@ class MemberInfoScreen extends HookConsumerWidget {
           children: [
             gap28,
             Text(
-              'Member 0$memberIndex',
+              context.local.member(memberIndex),
               style: CustomTextStyle.textStyle24w700,
             ),
             gap32,
@@ -129,31 +129,31 @@ class MemberInfoScreen extends HookConsumerWidget {
                 crossAxisAlignment: crossStart,
                 children: [
                   Text(
-                    "Personal Information",
+                    context.local.personalInformation,
                     style: CustomTextStyle.textStyle16w600HG1000,
                   ),
                   gap24,
                   KTextFormField2(
-                    labelText: "Full Name",
+                    labelText: context.local.fullName,
                     controller: nameController,
                     focusNode: fullNameNode,
                   ),
                   gap24,
                   KTextFormField2(
-                    labelText: "Name In Bangla",
+                    labelText: context.local.nameInBangla,
                     controller: banglaNameController,
                     focusNode: banglaNameNode,
                   ),
                   gap24,
                   KTextFormField2(
-                    labelText: "Phone",
+                    labelText: context.local.phone,
                     controller: phoneController,
                     focusNode: phoneNode,
                     keyboardType: TextInputType.phone,
                   ),
                   gap24,
                   Text(
-                    "Gender",
+                    context.local.gender,
                     style: CustomTextStyle.textStyle16w500HG1000,
                   ),
                   Row(
@@ -186,7 +186,7 @@ class MemberInfoScreen extends HookConsumerWidget {
                         }
                       });
                     },
-                    hintText: "Date of Birth",
+                    hintText: context.local.dateOfBirth,
                     focusNode: dobNode,
                     readOnly: true,
                     enabled: false,
@@ -207,7 +207,9 @@ class MemberInfoScreen extends HookConsumerWidget {
                   ),
                   gap24,
                   Text(
-                    "Height : ${(height.value * 0.0833333).toStringAsFixed(0)}ft : ${(height.value % 12).toStringAsFixed(0)}inch",
+                    context.local.heightFitInch(
+                        (height.value * 0.0833333).toStringAsFixed(0),
+                        (height.value % 12).toStringAsFixed(0)),
                     style: CustomTextStyle.textStyle16w500HG1000,
                   ),
                   gap16,
@@ -224,7 +226,7 @@ class MemberInfoScreen extends HookConsumerWidget {
                   gap24,
                   KTextFormField2(
                     key: weightTextFieldKey,
-                    labelText: "Weight (kg)",
+                    labelText: context.local.weightKg,
                     controller: weightController,
                     focusNode: weightNode,
                     keyboardType: TextInputType.number,
@@ -234,7 +236,7 @@ class MemberInfoScreen extends HookConsumerWidget {
                   ),
                   gap24,
                   Text(
-                    "Physical Activity Level",
+                    context.local.physicalActivityLevel,
                     style: CustomTextStyle.textStyle16w500HG1000,
                   ),
                   Row(
@@ -290,7 +292,7 @@ class MemberInfoScreen extends HookConsumerWidget {
                               isAllergy.value = value!;
                             },
                           ),
-                          Text('yes'.toWordTitleCase()),
+                          Text(context.local.yes.toWordTitleCase()),
                         ],
                       ),
                       Row(
@@ -302,7 +304,7 @@ class MemberInfoScreen extends HookConsumerWidget {
                               isAllergy.value = value!;
                             },
                           ),
-                          Text("no".toWordTitleCase()),
+                          Text(context.local.no.toWordTitleCase()),
                         ],
                       ),
                     ],

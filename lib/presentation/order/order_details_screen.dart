@@ -33,9 +33,9 @@ class OrderDetailsScreen extends HookConsumerWidget {
     });
 
     return Scaffold(
-      appBar: const KAppBar(
-        titleText: 'Order Details',
-        leading: BackButton(),
+      appBar: KAppBar(
+        titleText: context.local.orderDetails,
+        leading: const BackButton(),
       ),
       body: SingleChildScrollView(
         padding: padding16,
@@ -48,7 +48,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
                 mainAxisAlignment: mainSpaceBetween,
                 children: [
                   Text(
-                    "Delivery Address",
+                    context.local.deliveryAddress,
                     style: CustomTextStyle.textStyle16w600HG1000,
                   ),
                   KInkWell(
@@ -80,7 +80,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
             ),
             gap8,
             Text(
-              "Home",
+              context.local.home,
               style: CustomTextStyle.textStyle14w600,
             ),
             gap4,
@@ -108,12 +108,12 @@ class OrderDetailsScreen extends HookConsumerWidget {
                 mainAxisAlignment: mainSpaceBetween,
                 children: [
                   Text(
-                    "Delivery Time",
+                    context.local.deliveryTime,
                     style: CustomTextStyle.textStyle16w600HG1000,
                   ),
                   Flexible(
                     child: Text(
-                      "Delivery will be in 7-9am in specific day",
+                      context.local.deliveryWillBeIn79amInSpecificDay,
                       style: CustomTextStyle.textStyle12w500HG800,
                       textAlign: TextAlign.center,
                     ),
@@ -126,11 +126,11 @@ class OrderDetailsScreen extends HookConsumerWidget {
               mainAxisAlignment: mainSpaceBetween,
               children: [
                 Text(
-                  "Items List",
+                  context.local.itemsList,
                   style: CustomTextStyle.textStyle16w600HG1000,
                 ),
                 Text(
-                  "Update ",
+                  context.local.update,
                   style: CustomTextStyle.textStyle12w600Secondary,
                 )
               ],
@@ -149,7 +149,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
                 Row(
                   children: [
                     Text(
-                      "Split Order",
+                      context.local.splitOrder,
                       style: CustomTextStyle.textStyle16w600HG1000,
                     ),
                     gap8,
@@ -167,7 +167,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
                   child: Row(
                     children: [
                       Text(
-                        splitOrder.value ? "ON" : "OFF",
+                        splitOrder.value ? context.local.on : context.local.off,
                         style: CustomTextStyle.textStyle12w600HG1000,
                       ),
                       SizedBox(
@@ -217,7 +217,9 @@ class OrderDetailsScreen extends HookConsumerWidget {
                           : CustomTextStyle.textStyle14w500HG800,
                       duration: kThemeAnimationDuration,
                       child: Text(
-                        index == 0 ? "2 days (৳ 600)" : "3 days (৳ 400)",
+                        index == 0
+                            ? context.local.daysTaka(600, 2)
+                            : context.local.daysTaka(400, 3),
                       ),
                     ),
                   ],
@@ -235,13 +237,13 @@ class OrderDetailsScreen extends HookConsumerWidget {
                     mainAxisAlignment: mainSpaceBetween,
                     children: [
                       Text(
-                        "Subtotal:",
+                        context.local.subtotal,
                         style: CustomTextStyle.textStyle14w400.copyWith(
                           color: const Color(0xff40444E),
                         ),
                       ),
                       Text(
-                        "৳ 600",
+                        context.local.taka(600),
                         style: CustomTextStyle.textStyle14w400.copyWith(
                           color: const Color(0xff40444E),
                         ),
@@ -253,13 +255,13 @@ class OrderDetailsScreen extends HookConsumerWidget {
                     mainAxisAlignment: mainSpaceBetween,
                     children: [
                       Text(
-                        "Delivery Fee:",
+                        context.local.deliveryFee,
                         style: CustomTextStyle.textStyle14w400.copyWith(
                           color: const Color(0xff40444E),
                         ),
                       ),
                       Text(
-                        "৳ 0",
+                        context.local.taka(0),
                         style: CustomTextStyle.textStyle14w400.copyWith(
                           color: const Color(0xff40444E),
                         ),
@@ -276,11 +278,11 @@ class OrderDetailsScreen extends HookConsumerWidget {
               mainAxisAlignment: mainSpaceBetween,
               children: [
                 Text(
-                  "Total",
+                  context.local.total,
                   style: CustomTextStyle.textStyle14w600,
                 ),
                 Text(
-                  "৳ 600",
+                  context.local.taka(600),
                   style: CustomTextStyle.textStyle16w600Orange,
                 ),
               ],
@@ -291,7 +293,7 @@ class OrderDetailsScreen extends HookConsumerWidget {
                     dayChoice:
                         splitOrder.value ? selectedDayChoice.value : null,
                   ),
-              child: const Text("Place Order"),
+              child: Text(context.local.placeOrder),
             ),
           ],
         ),

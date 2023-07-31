@@ -67,7 +67,7 @@ class EditProfileScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: KAppBar(
-        titleText: "context.local.profile",
+        titleText: context.local.profile,
         actions: [
           SizedBox(
             width: 80.w,
@@ -83,8 +83,8 @@ class EditProfileScreen extends HookConsumerWidget {
                     ),
                     imageFile.value);
               },
-              child: const Text(
-                "context.local.save",
+              child:  Text(
+                context.local.save,
                 // style: CustomTextStyle.textStyle16w400secondary,
               ),
             ),

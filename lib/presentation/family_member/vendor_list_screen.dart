@@ -25,7 +25,7 @@ class VendorListScreen extends HookConsumerWidget {
         child: Column(
           children: [
             Text(
-              "4 vendors are available to help you",
+              context.local.vendorsAreAvailableToHelpYou(4),
               style: CustomTextStyle.textStyle16w600,
             ),
             KListViewSeparated(
