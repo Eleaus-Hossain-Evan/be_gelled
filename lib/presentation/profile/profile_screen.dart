@@ -65,7 +65,7 @@ class ProfileScreen extends HookConsumerWidget {
                         : context.local.bangla,
                     onTap: () => ref.read(appLocalProvider.notifier).update(
                         (state) => localState.languageCode == 'en'
-                            ? const Locale("ar", "AR")
+                            ? const Locale("bn", "BN")
                             : const Locale("en", "US")),
                   ),
                   KDivider(height: 36.h),
