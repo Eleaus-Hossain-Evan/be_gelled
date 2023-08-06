@@ -67,7 +67,7 @@ class IndividualFoodTypeList extends HookConsumerWidget {
                   child: Padding(
                     padding: paddingTop30,
                     child:
-                        const Text("No Item available to your chossen vendor!"),
+                        const Text("No Item available to your chosen vendor!"),
                   ),
                 ),
               ),
@@ -98,29 +98,6 @@ class IndividualFoodTypeList extends HookConsumerWidget {
   }
 }
 
-class _ShowNotification extends SliverPersistentHeaderDelegate {
-  const _ShowNotification(
-    this.isOverCalorie,
-  );
-
-  final bool isOverCalorie;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return const Placeholder();
-  }
-
-  @override
-  double get maxExtent => isOverCalorie ? 30.h : 0;
-
-  @override
-  double get minExtent => isOverCalorie ? 30.h : 0;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
-}
 
 class _FoodItemTile extends HookConsumerWidget {
   const _FoodItemTile({
