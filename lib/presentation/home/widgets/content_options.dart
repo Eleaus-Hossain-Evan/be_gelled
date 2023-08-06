@@ -35,7 +35,7 @@ class ContentOptions extends StatelessWidget {
         ),
         gap16,
         KContainer(
-          height: 80.h,
+          // height: 80.h,
           onTap: onTap,
           child: Row(
             children: [

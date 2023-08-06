@@ -1,3 +1,4 @@
+import 'package:be_gelled/presentation/order/select_package_screen.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
@@ -10,11 +11,10 @@ import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 import 'individual_food_type_list.dart';
 
-class PackageTile extends HookConsumerWidget {
+class PackageTile<T> extends HookConsumerWidget {
   const PackageTile({
     Key? key,
-    required this.title,
-    required this.categoryId,
+    required this.foodType,
     required this.titleCalorie,
     required this.items,
     this.border,
@@ -22,8 +22,7 @@ class PackageTile extends HookConsumerWidget {
     this.headTextStyle,
   }) : super(key: key);
 
-  final String title;
-  final String categoryId;
+  final FoodType foodType;
   final double titleCalorie;
   final List<FoodItemModel> items;
   // final double totalSelectedCalorie;
@@ -38,7 +37,7 @@ class PackageTile extends HookConsumerWidget {
     final cartState = ref.watch(cartProvider);
 
     final filteredSelectedItems = cartState.selectedFoodItems
-        .filter((t) => t.category == categoryId)
+        .filter((t) => t.category == foodType.categoryId)
         .toIList();
 
     final totalSelectedCalorie = useMemoized(
@@ -58,13 +57,13 @@ class PackageTile extends HookConsumerWidget {
     }, [cartState.selectedFoodItems]);
 
     return KContainer(
-      border: filteredSelectedItems.isEmpty ? Border() : border,
+      border: filteredSelectedItems.isEmpty ? const Border() : border,
       backgroundColor: backgroundColor,
       padding: filteredSelectedItems.isEmpty ? padding0 : null,
       child: Column(
         children: [
           _tile(
-            title: title,
+            title: foodType.name,
             amount: titleCalorie.toStringAsFixed(1),
             isHead: true,
             headTextStyle: CustomTextStyle.textStyle14w600Orange.copyWith(
@@ -112,7 +111,7 @@ class PackageTile extends HookConsumerWidget {
             typedFoodList: items,
             totalSelectedCalorie: totalSelectedCalorie,
             titleCalorie: titleCalorie,
-            categoryId: categoryId,
+            categoryId: foodType.categoryId,
           );
         },
       ),

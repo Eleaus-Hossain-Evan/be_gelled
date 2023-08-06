@@ -13,6 +13,7 @@ final combinedList = ValueNotifier(all_products);
 
 class IndividualFoodTypeList extends HookConsumerWidget {
   const IndividualFoodTypeList({
+    super.key,
     required this.typedFoodList,
     required this.totalSelectedCalorie,
     required this.titleCalorie,
@@ -59,25 +60,37 @@ class IndividualFoodTypeList extends HookConsumerWidget {
             //     floating: true,
             //   ),
             // ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                childCount: typedFoodList.length,
-                (context, index) {
-                  final item = typedFoodList[index];
-                  final isSelected = cartState.selectedFoodItems
-                      .map((element) => element.id)
-                      .contains(item.id);
-                  final selectedItem = cartState.selectedFoodItems
-                      .where((element) => element.id == item.id)
-                      .firstOrNull;
+            SliverVisibility(
+              visible: typedFoodList.isNotEmpty,
+              replacementSliver: SliverToBoxAdapter(
+                child: Center(
+                  child: Padding(
+                    padding: paddingTop30,
+                    child:
+                        const Text("No Item available to your chossen vendor!"),
+                  ),
+                ),
+              ),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: typedFoodList.length,
+                  (context, index) {
+                    final item = typedFoodList[index];
+                    final isSelected = cartState.selectedFoodItems
+                        .map((element) => element.id)
+                        .contains(item.id);
+                    final selectedItem = cartState.selectedFoodItems
+                        .where((element) => element.id == item.id)
+                        .firstOrNull;
 
-                  return _FoodItemTile(
-                    item: item,
-                    isOverCalorie: isOverCalorie,
-                    selectedItem: selectedItem,
-                    isSelected: isSelected,
-                  );
-                },
+                    return _FoodItemTile(
+                      item: item,
+                      isOverCalorie: isOverCalorie,
+                      selectedItem: selectedItem,
+                      isSelected: isSelected,
+                    );
+                  },
+                ),
               ),
             )
           ],

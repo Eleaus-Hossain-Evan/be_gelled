@@ -11,13 +11,17 @@ import '../widgets/widgets.dart';
 import 'order_details_screen.dart';
 import 'widgets/package_tile.dart';
 
-// final calorie = CalorieModel.fromMap(const {
-//   "totalCalorie": 2027.7767599999997,
-//   "totalDairy": 203,
-//   "totalFruitsAndVegetables": 1014,
-//   "totalGrains": 507,
-//   "totalProteins": 305
-// });
+enum FoodType {
+  fruitsAndVegetables('6466bfe8e62de0ed60e53933'),
+  grains('6466bfe8e62de0ed60e53937'),
+  protein('6466bfe8e62de0ed60e53934'),
+  dairy('6466bfe8e62de0ed60e53936'),
+  beverages(''),
+  oil('6466bfe8e62de0ed60e5393a');
+
+  final String categoryId;
+  const FoodType(this.categoryId);
+}
 
 final class SelectPackageScreen extends HookConsumerWidget {
   static const String route = '/select-package';
@@ -99,36 +103,64 @@ final class SelectPackageScreen extends HookConsumerWidget {
             ),
             gap12,
             PackageTile(
-              title: "Dairy",
-              titleCalorie: calorie.totalDairy,
-              // categoryId: cartState.allTypedFoods.dairy.first.category,
-              categoryId: "",
-              items: cartState.allTypedFoods.dairy,
-            ),
-            gap12,
-            PackageTile(
-              title: "FruitsAndVegetables",
+              foodType: FoodType.fruitsAndVegetables,
               titleCalorie: calorie.totalFruitsAndVegetables,
-              // categoryId:
-              //     cartState.allTypedFoods.fruitsAndVegetables.first.category,
-              categoryId: "",
               items: cartState.allTypedFoods.fruitsAndVegetables,
             ),
             gap12,
             PackageTile(
-              title: "Grains",
+              foodType: FoodType.grains,
               titleCalorie: calorie.totalGrains,
-              // categoryId: cartState.allTypedFoods.grains.first.category,
-              categoryId: "",
               items: cartState.allTypedFoods.grains,
             ),
             gap12,
             PackageTile(
-              title: "Proteins",
+              foodType: FoodType.protein,
               titleCalorie: calorie.totalProteins,
-              categoryId: "6466bfe8e62de0ed60e53934",
               items: cartState.allTypedFoods.protein,
             ),
+            gap12,
+            PackageTile(
+              foodType: FoodType.dairy,
+              titleCalorie: calorie.totalDairy,
+              items: cartState.allTypedFoods.dairy,
+            ),
+            gap12,
+            PackageTile(
+              foodType: FoodType.beverages,
+              titleCalorie: calorie.totalDairy,
+              items: cartState.allTypedFoods.beverages,
+            ),
+            gap12,
+            PackageTile(
+              foodType: FoodType.oil,
+              titleCalorie: calorie.totalDairy,
+              items: cartState.allTypedFoods.oil,
+            ),
+            // gap12,
+            // PackageTile(
+            //   title: "FruitsAndVegetables",
+            //   titleCalorie: calorie.totalFruitsAndVegetables,
+            //   // categoryId:
+            //   //     cartState.allTypedFoods.fruitsAndVegetables.first.category,
+            //   categoryId: "",
+            //   items: cartState.allTypedFoods.fruitsAndVegetables,
+            // ),
+            // gap12,
+            // PackageTile(
+            //   title: "Grains",
+            //   titleCalorie: calorie.totalGrains,
+            //   // categoryId: cartState.allTypedFoods.grains.first.category,
+            //   categoryId: "",
+            //   items: cartState.allTypedFoods.grains,
+            // ),
+            // gap12,
+            // PackageTile(
+            //   title: "Proteins",
+            //   titleCalorie: calorie.totalProteins,
+            //   categoryId: "6466bfe8e62de0ed60e53934",
+            //   items: cartState.allTypedFoods.protein,
+            // ),
 
 //' Previous code commented
 
